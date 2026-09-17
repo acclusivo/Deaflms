@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Sparkles, RotateCcw, CheckCircle2 } from 'lucide-react';
+import { SignHandshapeIcon } from './SignHandshapeIcon';
 
 interface FingerspellBuilderProps {
   targetWord: string;
@@ -47,7 +48,7 @@ export const FingerspellBuilder: React.FC<FingerspellBuilderProps> = ({
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-sm space-y-6 text-center">
+    <div className="w-full max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-sm space-y-6 text-center">
       {/* Header */}
       <div>
         <span className="text-xs font-black uppercase tracking-wider text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 inline-block mb-2">
@@ -66,7 +67,7 @@ export const FingerspellBuilder: React.FC<FingerspellBuilderProps> = ({
           return (
             <div
               key={idx}
-              className={`w-16 h-20 rounded-2xl border-4 flex flex-col items-center justify-center transition-all ${
+              className={`w-16 sm:w-20 h-24 sm:h-28 rounded-2xl border-4 flex flex-col items-center justify-between p-2 transition-all ${
                 filledChar
                   ? isSuccess
                     ? 'border-emerald-500 bg-emerald-50 text-emerald-900 correct-glow'
@@ -74,17 +75,31 @@ export const FingerspellBuilder: React.FC<FingerspellBuilderProps> = ({
                   : 'border-dashed border-slate-300 bg-slate-50 text-slate-400'
               }`}
             >
-              <span className="text-2xl font-black">{filledChar || '?'}</span>
-              <span className="text-[9px] font-bold text-slate-400 uppercase">Slot {idx + 1}</span>
+              {filledChar ? (
+                <>
+                  <div className="w-10 h-10 flex items-center justify-center">
+                    <SignHandshapeIcon letter={filledChar} size="sm" />
+                  </div>
+                  <span className="text-lg font-black">{filledChar}</span>
+                  <span className="text-[8px] font-bold text-slate-400 uppercase">Slot {idx + 1}</span>
+                </>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center">
+                  <span className="text-2xl font-black text-slate-300">?</span>
+                  <span className="text-[8px] font-bold text-slate-400 uppercase mt-1">Slot {idx + 1}</span>
+                </div>
+              )}
             </div>
           );
         })}
       </div>
 
-      {/* Available Letter Tiles */}
+      {/* Available Letter Tiles with Sign Handshapes */}
       <div className="pt-2">
-        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Available Sign Tiles:</div>
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+          Available Sign Handshape Tiles:
+        </div>
+        <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
           {availableTiles.map((letter, idx) => {
             const isUsed = usedTileIndices.includes(idx);
             return (
@@ -92,14 +107,17 @@ export const FingerspellBuilder: React.FC<FingerspellBuilderProps> = ({
                 key={idx}
                 onClick={() => handleTileClick(letter, idx)}
                 disabled={isUsed || isSuccess}
-                className={`w-14 h-16 rounded-2xl border-2 font-black text-xl flex flex-col items-center justify-center transition-all shadow-sm interactive-target ${
+                className={`w-14 sm:w-16 h-20 sm:h-22 rounded-2xl border-2 font-black transition-all shadow-sm interactive-target p-1.5 flex flex-col items-center justify-between ${
                   isUsed
                     ? 'opacity-20 border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed'
-                    : 'border-slate-300 bg-white hover:border-indigo-600 hover:scale-110 active:scale-95 text-slate-800 cursor-pointer hover:shadow-md'
+                    : 'border-slate-300 bg-white hover:border-indigo-600 hover:scale-105 active:scale-95 text-slate-800 cursor-pointer hover:shadow-md'
                 }`}
               >
-                <span>{letter}</span>
-                <span className="text-[8px] font-extrabold text-indigo-600 uppercase">Sign</span>
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <SignHandshapeIcon letter={letter} size="sm" />
+                </div>
+                <span className="text-sm font-black">{letter}</span>
+                <span className="text-[7px] font-extrabold text-indigo-600 uppercase">Sign</span>
               </button>
             );
           })}
