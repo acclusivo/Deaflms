@@ -73,14 +73,14 @@ export default function AdminDashboardPage() {
               </div>
             </div>
             <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-              ● 2 Priority Tracks Active (Nigeria 🇳🇬 &amp; S. Korea 🇰🇷)
+              ● 1 Priority Track Active (Nigeria 🇳🇬 NSL)
             </span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
             {[
-              { flag: '🇳🇬', code: 'NSL', name: 'Nigeria', status: 'Priority 1 (Active)', share: '64%', active: true },
-              { flag: '🇰🇷', code: 'KRSL', name: 'South Korea', status: 'Priority 2 (Active)', share: '36%', active: true },
+              { flag: '🇳🇬', code: 'NSL', name: 'Nigeria', status: 'Priority 1 (Active)', share: '100%', active: true },
+              { flag: '🇰🇷', code: 'KRSL', name: 'South Korea', status: '🔒 Phase 2 Rollout', share: 'Pipeline', active: false },
               { flag: '🇰🇪', code: 'KSL', name: 'Kenya', status: '🔒 Q2 Expansion', share: 'Pipeline', active: false },
               { flag: '🇿🇦', code: 'SASL', name: 'South Africa', status: '🔒 Q2 Expansion', share: 'Pipeline', active: false },
               { flag: '🇬🇭', code: 'GSL', name: 'Ghana', status: '🔒 Q3 Expansion', share: 'Pipeline', active: false },
