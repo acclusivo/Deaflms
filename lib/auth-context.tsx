@@ -47,8 +47,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       if (newUser) {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newUser));
+        if (typeof document !== 'undefined') {
+          document.cookie = `deaflms_role=${newUser.role}; path=/; max-age=604800; SameSite=Lax`;
+          document.cookie = `deaflms_user_id=${newUser.id}; path=/; max-age=604800; SameSite=Lax`;
+        }
       } else {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
+        if (typeof document !== 'undefined') {
+          document.cookie = 'deaflms_role=; path=/; max-age=0; SameSite=Lax';
+          document.cookie = 'deaflms_user_id=; path=/; max-age=0; SameSite=Lax';
+        }
       }
     } catch (e) {
       console.warn('Storage error:', e);

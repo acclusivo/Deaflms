@@ -100,15 +100,75 @@ ALTER TABLE lessons ENABLE ROW LEVEL SECURITY;
 ALTER TABLE worksheets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE student_progress ENABLE ROW LEVEL SECURITY;
 
--- Profiles: Public read, self update
-CREATE POLICY "Profiles readable by authenticated users" ON profiles FOR SELECT USING (true);
-CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
+-- Helper function: Securely read role from profiles
+CREATE OR REPLACE FUNCTION get_user_role(user_uuid UUID)
+RETURNS TEXT AS $$
+  SELECT role FROM public.profiles WHERE id = user_uuid;
+$$ LANGUAGE sql SECURITY DEFINER STABLE;
 
--- Courses: Published courses readable by everyone, teachers can create/update their own
-CREATE POLICY "Public courses viewable by all" ON courses FOR SELECT USING (is_published = true);
-CREATE POLICY "Teachers can insert courses" ON courses FOR INSERT WITH CHECK (auth.uid() = teacher_id);
-CREATE POLICY "Teachers can update own courses" ON courses FOR UPDATE USING (auth.uid() = teacher_id);
+-- 1. Profiles Table Policies
+-- Any authenticated user can view basic profile cards
+CREATE POLICY "Profiles viewable by authenticated users" 
+  ON profiles FOR SELECT 
+  TO authenticated 
+  USING (true);
 
--- Progress: Students can view and insert their own progress, teachers can view all
-CREATE POLICY "Students view own progress" ON student_progress FOR SELECT USING (auth.uid() = student_id);
-CREATE POLICY "Students record progress" ON student_progress FOR INSERT WITH CHECK (auth.uid() = student_id);
+-- Users can only update their own profile; role cannot be altered by non-admins
+CREATE POLICY "Users can update own profile" 
+  ON profiles FOR UPDATE 
+  TO authenticated 
+  USING (auth.uid() = id)
+  WITH CHECK (
+    auth.uid() = id AND 
+    (role = (SELECT role FROM profiles WHERE id = auth.uid()) OR get_user_role(auth.uid()) = 'admin')
+  );
+
+-- Admins can update any profile (role verification, roster assignment)
+CREATE POLICY "Admins have full profile update authority" 
+  ON profiles FOR ALL 
+  TO authenticated 
+  USING (get_user_role(auth.uid()) = 'admin');
+
+-- 2. Courses Table Policies
+-- Published courses readable by everyone; unapproved drafts only by author or admin
+CREATE POLICY "Published courses viewable by all" 
+  ON courses FOR SELECT 
+  USING (is_published = true OR auth.uid() = teacher_id OR get_user_role(auth.uid()) = 'admin');
+
+-- Only teachers and admins can create courses
+CREATE POLICY "Teachers can insert courses" 
+  ON courses FOR INSERT 
+  TO authenticated 
+  WITH CHECK (
+    (get_user_role(auth.uid()) = 'teacher' AND auth.uid() = teacher_id) OR
+    get_user_role(auth.uid()) = 'admin'
+  );
+
+-- Teachers can only update their own courses; Admins can moderate any course
+CREATE POLICY "Teachers update own courses, Admins moderate all" 
+  ON courses FOR UPDATE 
+  TO authenticated 
+  USING (auth.uid() = teacher_id OR get_user_role(auth.uid()) = 'admin');
+
+-- 3. Student Progress & Submissions Table Policies
+-- Students can ONLY view their own records (Anti-IDOR)
+CREATE POLICY "Students view only own progress" 
+  ON student_progress FOR SELECT 
+  TO authenticated 
+  USING (
+    auth.uid() = student_id OR 
+    get_user_role(auth.uid()) = 'teacher' OR 
+    get_user_role(auth.uid()) = 'admin'
+  );
+
+-- Students can only insert progress records with their own authenticated ID
+CREATE POLICY "Students record only own progress" 
+  ON student_progress FOR INSERT 
+  TO authenticated 
+  WITH CHECK (auth.uid() = student_id AND get_user_role(auth.uid()) = 'student');
+
+-- Teachers and Admins cannot alter student star achievements fraudulently
+CREATE POLICY "Students update own quiz progress" 
+  ON student_progress FOR UPDATE 
+  TO authenticated 
+  USING (auth.uid() = student_id);
