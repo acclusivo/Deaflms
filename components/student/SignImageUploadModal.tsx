@@ -161,7 +161,7 @@ export const SignImageUploadModal: React.FC<SignImageUploadModalProps> = ({
               </div>
 
               {/* Handshape Picture Box */}
-              <div className="w-32 h-32 rounded-2xl bg-white border-2 border-indigo-200 flex items-center justify-center p-2 shadow-inner overflow-hidden relative">
+              <div className="w-32 h-32 rounded-2xl bg-slate-100 border-2 border-slate-300 flex items-center justify-center p-2 shadow-inner overflow-hidden relative">
                 <SignHandshapeIcon letter={selectedLetter} size="xl" />
               </div>
 

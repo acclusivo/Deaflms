@@ -221,8 +221,8 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                       isTyped
                         ? 'border-emerald-500 bg-emerald-50 text-emerald-900 shadow-md scale-105'
                         : isCurrent
-                        ? 'border-indigo-600 bg-white text-indigo-900 ring-4 ring-indigo-200 shadow-xl scale-110 animate-pulse'
-                        : 'border-slate-200 bg-white text-slate-400 opacity-60'
+                        ? 'border-indigo-600 bg-indigo-50/70 text-indigo-900 ring-4 ring-indigo-200 shadow-xl scale-110 animate-pulse'
+                        : 'border-slate-200 bg-slate-100/80 text-slate-400 opacity-60'
                     }`}
                   >
                     {/* Enlarged Visual Sign Image / Icon for this letter */}
@@ -283,8 +283,8 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
               )}
             </div>
 
-            {/* Extra-Large High Visibility Sign Picture Box */}
-            <div className="w-32 h-32 sm:w-38 sm:h-38 rounded-3xl bg-white/95 border-4 border-amber-400 flex items-center justify-center p-2.5 shadow-2xl overflow-hidden relative group">
+            {/* Transparent High Visibility Sign Picture Box */}
+            <div className="w-32 h-32 sm:w-38 sm:h-38 rounded-3xl bg-indigo-950/60 border-4 border-amber-400/90 flex items-center justify-center p-2.5 shadow-2xl overflow-hidden relative group">
               {nextTargetChar ? (
                 <SignHandshapeIcon letter={nextTargetChar} size="2xl" />
               ) : (
