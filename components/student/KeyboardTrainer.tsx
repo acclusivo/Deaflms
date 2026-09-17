@@ -114,9 +114,12 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                 <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md">
                   Deaf Literacy
                 </span>
+                <span className="hidden sm:inline-flex text-[10px] font-black uppercase tracking-wider bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-md border border-indigo-200">
+                  AnySign ASL Matched
+                </span>
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
-                Each key displays the individual sign picture (or custom uploaded photo) for visual typing!
+                Each letter and key is matched with authentic AnySign ASL handshape photos (or custom photos) for instant visual learning!
               </p>
             </div>
           </div>
