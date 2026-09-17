@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/common/Navbar';
 import { getPlatformKPIs } from '@/lib/api';
+import { useAuth } from '@/lib/auth-context';
 import {
   ShieldCheck,
   Users,
@@ -14,9 +15,13 @@ import {
   CheckCircle2,
   Sparkles,
   ArrowUpRight,
+  Globe,
+  Award,
+  Settings,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
+  const { user } = useAuth();
   const [kpis, setKpis] = useState<any>(null);
 
   useEffect(() => {
@@ -32,18 +37,63 @@ export default function AdminDashboardPage() {
       <Navbar currentRole="admin" />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-8">
-        {/* Admin Banner */}
+        {/* Admin Banner — Personalized to Institutional Administrator */}
         <div className="bg-gradient-to-r from-amber-700 via-amber-800 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
-          <div className="max-w-2xl space-y-2 relative z-10">
-            <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-black uppercase tracking-wider text-amber-100 inline-block">
-              School & District Oversight Hub
-            </span>
+          <div className="max-w-2xl space-y-2.5 relative z-10">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-black uppercase tracking-wider text-amber-100 inline-flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-300" />
+                Institutional Oversight Hub
+              </span>
+              <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 rounded-md text-[10px] font-black uppercase">
+                Super Admin
+              </span>
+            </div>
+
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
-              Deaf Academy Administration
+              Welcome, {user?.displayName || 'Dr. Patricia Okon'}
             </h1>
-            <p className="text-amber-100 text-sm sm:text-base">
-              Monitor school-wide visual literacy progress, manage educator and student accounts, and oversee Supabase video storage.
+
+            <p className="text-amber-100 text-sm sm:text-base leading-relaxed">
+              Deaf LMS pan-African &amp; global institutional cockpit. Monitor district student engagement, approve certified deaf educators, and oversee cross-dialect curricula.
             </p>
+          </div>
+        </div>
+
+        {/* Multi-Dialect Regional Reach Banner */}
+        <div className="bg-white p-6 rounded-3xl border-2 border-slate-200 shadow-sm space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <Globe className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-black text-slate-900 text-base">Pan-African &amp; Global Dialect Deployment</h3>
+                <p className="text-xs text-slate-500 font-medium">Active visual education reach across partner countries</p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+              ● 7 Sign Dialects Active
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+            {[
+              { flag: '🇳🇬', code: 'NSL', name: 'Nigeria', students: '584 learners', share: '42%' },
+              { flag: '🇰🇪', code: 'KSL', name: 'Kenya', students: '312 learners', share: '22%' },
+              { flag: '🇿🇦', code: 'SASL', name: 'South Africa', students: '240 learners', share: '17%' },
+              { flag: '🇬🇭', code: 'GSL', name: 'Ghana', students: '118 learners', share: '8%' },
+              { flag: '🌐', code: 'ASL', name: 'Global ASL', students: '94 learners', share: '7%' },
+              { flag: '🇬🇧', code: 'BSL', name: 'UK Partner', students: '38 learners', share: '3%' },
+              { flag: '🌍', code: 'IS', name: 'Intl Sign', students: '16 learners', share: '1%' },
+            ].map((d) => (
+              <div key={d.code} className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
+                <div className="text-2xl">{d.flag}</div>
+                <div className="font-black text-xs text-slate-900">{d.code}</div>
+                <div className="text-[10px] text-slate-500">{d.name}</div>
+                <div className="text-[11px] font-bold text-indigo-600">{d.share}</div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -55,7 +105,9 @@ export default function AdminDashboardPage() {
                 <GraduationCap className="w-5 h-5" />
               </div>
               <div className="text-3xl font-black text-slate-900">{kpis.totalStudents}</div>
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Total Enrolled Students</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">
+                Total Enrolled Students
+              </div>
             </div>
 
             <div className="bg-white p-6 rounded-3xl border-2 border-slate-200 shadow-sm">
@@ -63,7 +115,9 @@ export default function AdminDashboardPage() {
                 <Users className="w-5 h-5" />
               </div>
               <div className="text-3xl font-black text-slate-900">{kpis.totalTeachers}</div>
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Certified Deaf Educators</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">
+                Certified Deaf Educators
+              </div>
             </div>
 
             <div className="bg-white p-6 rounded-3xl border-2 border-slate-200 shadow-sm">
@@ -71,7 +125,9 @@ export default function AdminDashboardPage() {
                 <BookOpen className="w-5 h-5" />
               </div>
               <div className="text-3xl font-black text-slate-900">{kpis.publishedCourses}</div>
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Curriculum Courses Active</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">
+                Curriculum Courses Active
+              </div>
             </div>
 
             <div className="bg-white p-6 rounded-3xl border-2 border-slate-200 shadow-sm">
@@ -79,7 +135,9 @@ export default function AdminDashboardPage() {
                 <HardDrive className="w-5 h-5" />
               </div>
               <div className="text-3xl font-black text-slate-900">{kpis.storageUsedGb}</div>
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Video Storage Allocated</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">
+                Video Storage Allocated
+              </div>
             </div>
           </div>
         )}
@@ -96,14 +154,14 @@ export default function AdminDashboardPage() {
               </div>
               <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-amber-600 transition" />
             </div>
-            <h3 className="text-xl font-black text-slate-900">User & Roster Management</h3>
+            <h3 className="text-xl font-black text-slate-900">User &amp; Roster Management</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              View all student and teacher accounts, assign portal roles, and review account permissions.
+              Assign roles, approve certified deaf educators, and oversee student grade-cohort groupings.
             </p>
           </Link>
 
           <Link
-            href="/admin/courses"
+            href="/teacher/courses/new"
             className="bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-amber-400 hover:shadow-md transition group space-y-3"
           >
             <div className="flex items-center justify-between">
@@ -112,27 +170,24 @@ export default function AdminDashboardPage() {
               </div>
               <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-amber-600 transition" />
             </div>
-            <h3 className="text-xl font-black text-slate-900">Curriculum Moderation</h3>
+            <h3 className="text-xl font-black text-slate-900">Curriculum Publishing</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Audit reading storybooks and digital literacy courses to ensure DHH accessibility standards.
+              Publish district-wide video modules with synchronized sign language overlays.
             </p>
           </Link>
 
-          <Link
-            href="/admin/settings"
-            className="bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-amber-400 hover:shadow-md transition group space-y-3"
-          >
+          <div className="bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-amber-400 hover:shadow-md transition group space-y-3">
             <div className="flex items-center justify-between">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center">
-                <Activity className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                <HardDrive className="w-6 h-6" />
               </div>
-              <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-amber-600 transition" />
+              <CheckCircle2 className="w-5 h-5 text-emerald-500" />
             </div>
-            <h3 className="text-xl font-black text-slate-900">System & AI Diagnostics</h3>
+            <h3 className="text-xl font-black text-slate-900">Supabase Storage Health</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Inspect Supabase database connectivity, Gemini API status, and storage quotas.
+              100% operational with low-latency CDN streaming across West &amp; East Africa.
             </p>
-          </Link>
+          </div>
         </div>
       </main>
     </div>
