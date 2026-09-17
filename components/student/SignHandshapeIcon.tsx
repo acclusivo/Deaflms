@@ -5,7 +5,7 @@ import { getSignImage } from '@/lib/fingerspell-signs';
 
 interface SignHandshapeIconProps {
   letter: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'keycap' | 'fill';
   className?: string;
   showBorder?: boolean;
 }
@@ -20,18 +20,21 @@ export const SignHandshapeIcon: React.FC<SignHandshapeIconProps> = ({
   const [imgError, setImgError] = useState(false);
 
   const sizeClasses = {
-    xs: 'w-6 h-6',
-    sm: 'w-8 h-8',
+    xs: 'w-7 h-7',
+    sm: 'w-9 h-9',
     md: 'w-12 h-12',
     lg: 'w-16 h-16',
     xl: 'w-24 h-24',
+    '2xl': 'w-32 h-32',
+    keycap: 'w-9 h-9 sm:w-12 sm:h-12 md:w-13 md:h-13',
+    fill: 'w-full h-full',
   }[size];
 
   // If using authentic AnySign ASL photo or custom uploaded photo
   if ((signInfo.type === 'photo' || signInfo.type === 'custom') && !imgError) {
     return (
       <div
-        className={`relative ${sizeClasses} rounded-xl overflow-hidden shrink-0 flex items-center justify-center bg-white/90 ${
+        className={`relative ${sizeClasses} rounded-xl overflow-hidden shrink-0 flex items-center justify-center bg-white/95 ${
           showBorder ? 'border-2 border-indigo-200 shadow-sm' : ''
         } ${className}`}
         title={`ASL Handshape for letter ${letter}: ${signInfo.details.name}`}
@@ -41,7 +44,7 @@ export const SignHandshapeIcon: React.FC<SignHandshapeIconProps> = ({
           src={signInfo.value}
           alt={`ASL Sign for letter ${letter}`}
           onError={() => setImgError(true)}
-          className="w-full h-full object-contain p-0.5 filter drop-shadow-sm transition-transform duration-200 group-hover:scale-105"
+          className="w-full h-full object-contain p-0.5 filter drop-shadow-md transition-transform duration-200"
           loading="eager"
         />
       </div>
