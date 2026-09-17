@@ -63,7 +63,7 @@ export default function LandingPage() {
       fingerspell: 'W E L C O M E',
       description:
         'In Nigerian Sign Language (NSL) and ASL, this welcoming sign invites students and parents into our visual classroom. No sound is needed—watch the open hands glide gently toward the body to say "You are warmly welcome here".',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      videoUrl: 'https://meet.google.com/qan-cdis-miv?hs=224',
       posterUrl: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&auto=format&fit=crop&q=80',
       accentColor: 'indigo',
       signGuide: {
@@ -199,10 +199,10 @@ export default function LandingPage() {
       </header>
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 sm:space-y-20">
-        
+
         {/* HERO SECTION: 2-COLUMN SPLIT */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-2 sm:pt-4">
-          
+
           {/* Left Column: Instant Free Lesson + Sign Up CTA */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border-2 border-emerald-300 text-emerald-800 text-xs font-black uppercase tracking-wider shadow-sm">
@@ -299,7 +299,7 @@ export default function LandingPage() {
           {/* Right Column: Google Video Card Format (Clean, Distraction-Free, Zero Distracting Buttons) */}
           <div className="lg:col-span-5">
             <div className="bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xl shadow-slate-200/50 flex flex-col transition hover:shadow-indigo-100 hover:border-slate-300">
-              
+
               {/* Google Video Card: Clean Header */}
               <div className="bg-slate-900 px-4 py-3 flex items-center justify-between gap-2 border-b border-slate-800">
                 <div className="flex items-center gap-2">
@@ -316,7 +316,7 @@ export default function LandingPage() {
               </div>
 
               {/* Edge-to-Edge 16:9 Video Window */}
-              <div className="relative aspect-video bg-black flex items-center justify-center">
+              <div className="relative aspect-video bg-slate-900 flex items-center justify-center">
                 <iframe
                   src="https://www.youtube.com/embed/v1desDduz5M?enablejsapi=1&rel=0&modestbranding=1&playsinline=1"
                   title="Sign Language Introduction for Deaf Learners & Parents"
@@ -326,14 +326,14 @@ export default function LandingPage() {
                 />
               </div>
 
-              {/* Google Video Card: Minimalist Metadata & Caption (No Distracting Buttons) */}
-              <div className="p-4 sm:p-5 bg-white space-y-2 border-t border-slate-100">
+              {/* Accessible Video Metadata & Playback Controls */}
+              <div className="p-4 sm:p-5 bg-white space-y-3 border-t border-slate-100">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-100">
                     Free Introductory Lesson
                   </span>
-                  <span className="text-[11px] font-bold text-slate-400 flex items-center gap-1">
-                    <VolumeX className="w-3.5 h-3.5 text-rose-400" />
+                  <span className="text-[11px] font-bold text-slate-500 flex items-center gap-1">
+                    <VolumeX className="w-3.5 h-3.5 text-rose-500" />
                     Zero Audio Needed
                   </span>
                 </div>
@@ -346,9 +346,27 @@ export default function LandingPage() {
                   Watch visual communication in action. Designed for deaf children and their hearing parents to learn their first signs, fingerspelling, and handshapes together.
                 </p>
 
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
-                  <span>100% Visual Instruction</span>
-                  <span>Use YouTube ⚙️ for 0.5x Slow-Mo</span>
+                {/* Video Playback Speed Assistance & Live Room */}
+                <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 text-xs">
+                    <span className="text-[11px] font-bold text-slate-400">Slow-Mo Cues:</span>
+                    <span className="px-2 py-0.5 rounded-md bg-slate-100 font-black text-[10px] text-slate-700 border border-slate-200">
+                      0.5x Slow
+                    </span>
+                    <span className="px-2 py-0.5 rounded-md bg-slate-100 font-black text-[10px] text-slate-700 border border-slate-200">
+                      0.75x Moderate
+                    </span>
+                  </div>
+
+                  <a
+                    href="https://meet.google.com/qan-cdis-miv?hs=224"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold text-[11px] border border-indigo-200 transition"
+                    title="Join Live Facilitator Classroom on Google Meet"
+                  >
+                    <span>🎥 Live Sign Room</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -490,11 +508,10 @@ export default function LandingPage() {
                 <button
                   key={guide.id}
                   onClick={() => setActiveGuideTab(guide.id)}
-                  className={`flex-1 min-w-[170px] py-2.5 px-4 rounded-xl font-black text-xs transition flex items-center justify-center gap-2 interactive-target ${
-                    isActive
-                      ? 'bg-white text-slate-900 shadow-md border border-slate-200 scale-100'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
-                  }`}
+                  className={`flex-1 min-w-[170px] py-2.5 px-4 rounded-xl font-black text-xs transition flex items-center justify-center gap-2 interactive-target ${isActive
+                    ? 'bg-white text-slate-900 shadow-md border border-slate-200 scale-100'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+                    }`}
                 >
                   <span className={isActive ? 'text-indigo-600' : 'text-slate-400'}>
                     {guide.icon}
@@ -793,9 +810,129 @@ export default function LandingPage() {
         </button>
       </aside>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 py-8 text-center text-xs font-bold text-slate-400">
-        Deaf LMS — Built for Deaf &amp; Hard-of-Hearing K-12 Learners in Nigeria and Worldwide
+      {/* Accessible Comprehensive Footer */}
+      <footer className="bg-white border-t border-slate-200 mt-20 pt-12 pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Brand Column */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-sm">
+                  <HandMetal className="w-5 h-5" />
+                </div>
+                <span className="text-xl font-black text-slate-900">
+                  Deaf<span className="text-indigo-600">LMS</span>
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                Zero-auditory, visual-first K-12 learning management and digital literacy platform for deaf children, hearing parents, and educators.
+              </p>
+              <div className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 inline-block">
+                ● 🇳🇬 Priority Launch: Nigeria (NSL)
+              </div>
+            </div>
+
+            {/* Learning Pathways */}
+            <div className="space-y-2.5 text-xs">
+              <span className="font-black text-slate-900 uppercase tracking-wider block">
+                Learning Pathways
+              </span>
+              <ul className="space-y-2 font-medium text-slate-600">
+                <li>
+                  <Link href="/student/courses/course-digital-literacy-1" className="hover:text-indigo-600 transition">
+                    Free Basic 1 (5 Core Lessons)
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/student/digital-literacy" className="hover:text-indigo-600 transition">
+                    AnySign Keyboard Trainer
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/student/storybook/lesson-storybook-1" className="hover:text-indigo-600 transition">
+                    Dual-Pane Visual Storybooks
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="hover:text-indigo-600 transition font-bold text-indigo-600">
+                    Plans &amp; Upgrades →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Support & Community */}
+            <div className="space-y-2.5 text-xs">
+              <span className="font-black text-slate-900 uppercase tracking-wider block">
+                Support &amp; Community
+              </span>
+              <ul className="space-y-2 font-medium text-slate-600">
+                <li>
+                  <Link href="/support" className="hover:text-indigo-600 transition">
+                    Help &amp; Knowledge Base
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/support" className="hover:text-indigo-600 transition">
+                    Hearing Parents Guide
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/accessibility" className="hover:text-indigo-600 transition font-bold text-emerald-700">
+                    Accessibility Statement (WCAG 2.2 AA)
+                  </Link>
+                </li>
+                <li>
+                  <a href="mailto:support@deaflms.org" className="hover:text-indigo-600 transition">
+                    support@deaflms.org
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Legal & Child Safety */}
+            <div className="space-y-2.5 text-xs">
+              <span className="font-black text-slate-900 uppercase tracking-wider block">
+                Privacy &amp; Terms
+              </span>
+              <ul className="space-y-2 font-medium text-slate-600">
+                <li>
+                  <Link href="/privacy" className="hover:text-indigo-600 transition">
+                    Privacy Policy (COPPA/NDPR)
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-indigo-600 transition">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="hover:text-indigo-600 transition">
+                    Transparent Pricing Pledge
+                  </Link>
+                </li>
+                <li>
+                  <span className="text-slate-400">Zero Audiological Data Collection</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-400">
+            <div>
+              &copy; 2026 Deaf LMS Education Foundation. All rights reserved.
+            </div>
+            <div className="flex items-center gap-4 text-slate-500 font-bold">
+              <Link href="/privacy" className="hover:text-indigo-600 transition">Privacy</Link>
+              <span>•</span>
+              <Link href="/terms" className="hover:text-indigo-600 transition">Terms</Link>
+              <span>•</span>
+              <Link href="/accessibility" className="hover:text-indigo-600 transition">Accessibility</Link>
+              <span>•</span>
+              <Link href="/support" className="hover:text-indigo-600 transition">Support</Link>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );

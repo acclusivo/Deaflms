@@ -141,6 +141,62 @@ export default function StudentDashboardPage() {
           </div>
         </div>
 
+        {/* Plan & Entitlement Status Banner */}
+        <div className="bg-white p-6 rounded-3xl border-2 border-indigo-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+            <div className="space-y-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-md border border-emerald-200">
+                  {user?.subscription?.status === 'active' ? 'Supporter Member' : 'Free Basic 1 Plan'}
+                </span>
+                <span className="text-xs font-bold text-slate-500">
+                  {user?.subscription?.status === 'active'
+                    ? 'Full K-12 Curriculum • Unlimited Access'
+                    : 'Your free plan: Basic 1 • 1 module • 5 lessons'}
+                </span>
+              </div>
+              <h2 className="text-lg font-black text-slate-900">
+                {user?.subscription?.status === 'active'
+                  ? 'Welcome Back, Supporter!'
+                  : 'Your Free Plan: Basic 1 • 1 Module • 5 Lessons'}
+              </h2>
+              <p className="text-xs text-slate-600 font-medium">
+                {user?.subscription?.status === 'active'
+                  ? 'Enjoy unrestricted access to all STEM modules, interactive storybooks, and Signy AI tutor.'
+                  : 'Master computer hardware, QWERTY fingerspelling typing, web navigation, and everyday signs free forever.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
+            <Link
+              href="/student/courses/course-digital-literacy-1"
+              className="flex-1 md:flex-initial px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition flex items-center justify-center gap-2 shadow-md shadow-emerald-200 interactive-target"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>{(user?.totalStars || 0) > 25 ? 'Resume Lesson' : 'Start Lesson 1'}</span>
+            </Link>
+            {user?.subscription?.status === 'active' ? (
+              <Link
+                href="/pricing"
+                className="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition"
+              >
+                Manage Plan
+              </Link>
+            ) : (
+              <Link
+                href="/pricing"
+                className="px-4 py-3 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs border border-indigo-200 transition"
+              >
+                Explore Supporter Plans
+              </Link>
+            )}
+          </div>
+        </div>
+
         {/* Personalized Daily Goal & Parent Tip Card */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Daily Goal Pace Tracker */}

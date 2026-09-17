@@ -93,48 +93,101 @@ export default function CourseDetailPage() {
           </div>
         </div>
 
-        {/* Lesson List */}
+        {/* Plan Entitlement Notice */}
+        <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-between gap-4 text-xs">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-bold text-slate-800">
+              Your Current Access: <strong>Basic 1 • 1 Module • 5 Lessons Included</strong>
+            </span>
+          </div>
+          <Link href="/pricing" className="font-black text-indigo-700 hover:underline">
+            View Supporter Plans →
+          </Link>
+        </div>
+
+        {/* Lesson List with Server Entitlement Checks */}
         <div className="space-y-3">
-          <h2 className="text-xl font-black text-slate-900">Lessons in this Course</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-black text-slate-900">Module Lessons &amp; Sign Videos</h2>
+            <span className="text-xs font-bold text-slate-500">5 Lessons Available</span>
+          </div>
 
-          <div className="bg-white rounded-3xl border-2 border-slate-200 p-4 divide-y divide-slate-100 shadow-sm">
-            <div className="py-4 px-3 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">
-                  1
+          <div className="bg-white rounded-3xl border-2 border-slate-200 p-2 divide-y divide-slate-100 shadow-sm">
+            {[
+              {
+                id: 'lesson-hardware-1',
+                order: 1,
+                title: 'Lesson 1: Computer Hardware Signs & Functions',
+                desc: 'Monitor, Keyboard, Mouse, and Webcam signs with 0.5x slow-mo playback.',
+                badge: 'Free Basic 1',
+                href: '/student/worksheets/ws-hardware-match',
+                unlocked: true,
+              },
+              {
+                id: 'lesson-keyboard-1',
+                order: 2,
+                title: 'Lesson 2: Fingerspelling QWERTY Typing & Handshapes',
+                desc: 'AnySign handshapes mapped to physical QWERTY keys.',
+                badge: 'Free Basic 1',
+                href: '/student/digital-literacy',
+                unlocked: true,
+              },
+              {
+                id: 'lesson-web-1',
+                order: 3,
+                title: 'Lesson 3: Web Browser Navigation & Safe Online Signs',
+                desc: 'URL link icons, search buttons, and online sign safety rules.',
+                badge: 'Free Basic 1',
+                href: '/student/digital-literacy',
+                unlocked: true,
+              },
+              {
+                id: 'lesson-everyday-1',
+                order: 4,
+                title: 'Lesson 4: Everyday Signs for School & Home',
+                desc: 'Greetings, family questions, and classroom visual vocabulary.',
+                badge: 'Free Basic 1',
+                href: '/student/worksheets/ws-hardware-match',
+                unlocked: true,
+              },
+              {
+                id: 'lesson-storybook-1',
+                order: 5,
+                title: 'Lesson 5: Dual-Pane Storybook: The Clever Fox',
+                desc: 'Interactive dual-pane storybook with side-by-side sign video demonstration.',
+                badge: 'Free Basic 1',
+                href: '/student/storybook/lesson-storybook-1',
+                unlocked: true,
+              },
+            ].map((item) => (
+              <div key={item.id} className="py-4 px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition rounded-2xl">
+                <div className="flex items-start sm:items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-black text-sm shrink-0 mt-0.5 sm:mt-0">
+                    {item.order}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">{item.title}</h3>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md border border-emerald-200">
+                        {item.badge}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 font-medium mt-0.5">{item.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-extrabold text-slate-900 text-base">Lesson 1: Hardware & Vocabulary</h3>
-                  <p className="text-xs text-slate-500">Teacher sign video with slow-motion controls</p>
+
+                <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                  <Link
+                    href={item.href}
+                    className="inline-flex items-center gap-1.5 py-2.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-sm interactive-target"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    Start Lesson
+                  </Link>
                 </div>
               </div>
-              <Link
-                href="/student/worksheets/ws-hardware-match"
-                className="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold transition shadow-sm"
-              >
-                <Play className="w-3.5 h-3.5 fill-current" />
-                Start
-              </Link>
-            </div>
-
-            <div className="py-4 px-3 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">
-                  2
-                </div>
-                <div>
-                  <h3 className="font-extrabold text-slate-900 text-base">Interactive Tech Diagram</h3>
-                  <p className="text-xs text-slate-500">Computer hotspot matching game</p>
-                </div>
-              </div>
-              <Link
-                href="/student/digital-literacy"
-                className="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold transition shadow-sm"
-              >
-                <Play className="w-3.5 h-3.5 fill-current" />
-                Start
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </main>

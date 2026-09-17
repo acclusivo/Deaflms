@@ -10,6 +10,16 @@ export type SignLanguageDialect =
   | 'BSL'     // British Sign Language (Coming Soon)
   | 'IS';     // International Sign (Coming Soon)
 
+export type MembershipTier = 'free_basic_1' | 'family_supporter' | 'school_institutional';
+
+export interface UserSubscription {
+  tier: MembershipTier;
+  status: 'active' | 'canceling' | 'expired' | 'pending';
+  billingPeriod?: 'monthly' | 'annual';
+  currentPeriodEnd?: string;
+  cancelAtPeriodEnd?: boolean;
+}
+
 export interface UserProfile {
   id: string;
   email: string;
@@ -23,6 +33,8 @@ export interface UserProfile {
   dailyGoalMinutes?: number;
   personaGoal?: string;
   experienceLevel?: string;
+  membershipTier?: MembershipTier;
+  subscription?: UserSubscription;
 }
 
 export type CourseCategory = 

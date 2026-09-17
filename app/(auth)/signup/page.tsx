@@ -201,15 +201,19 @@ export default function SignUpPage() {
                 </div>
               </div>
 
-              {/* Reassurance Checkbox list */}
-              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-[11px] text-slate-600 font-medium space-y-1.5">
+              {/* Reassurance Checkbox list & Child Privacy Pledge */}
+              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-[11px] text-slate-600 font-medium space-y-2">
                 <div className="flex items-center gap-1.5 font-bold text-slate-800">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  Free Basic Sign Language Courses Included
+                  Your Free Plan: Basic 1 • 1 Module • 5 Lessons Included
                 </div>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   Zero Auditory Reliance (100% Visual Confetti &amp; Stars)
+                </div>
+                <div className="flex items-start gap-1.5 text-slate-500 pt-1 border-t border-slate-200/60">
+                  <span className="font-bold text-slate-700">🔒 Child Privacy:</span>
+                  <span>We never collect medical or audiological records. Accounts for learners under 13 are parent/guardian-managed.</span>
                 </div>
               </div>
 
@@ -222,6 +226,18 @@ export default function SignUpPage() {
                 {submitting ? 'Creating Account...' : 'Complete Free Registration'}
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              <div className="text-[11px] text-slate-400 text-center leading-relaxed">
+                By registering, you agree to our{' '}
+                <Link href="/terms" className="text-indigo-600 font-bold hover:underline">
+                  Terms of Service
+                </Link>{' '}
+                and{' '}
+                <Link href="/privacy" className="text-indigo-600 font-bold hover:underline">
+                  Privacy Policy
+                </Link>
+                .
+              </div>
             </form>
 
             <div className="pt-2 border-t border-slate-100 text-center">
@@ -239,9 +255,17 @@ export default function SignUpPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 py-4 text-center text-xs font-bold text-slate-400">
-        Deaf LMS — K-12 Visual Sign &amp; Digital Literacy Platform
+      {/* Footer with Working Links */}
+      <footer className="bg-white border-t border-slate-200 py-4 px-4 text-center text-xs font-medium text-slate-500 flex flex-wrap items-center justify-center gap-4">
+        <span>&copy; 2026 Deaf LMS</span>
+        <span>•</span>
+        <Link href="/privacy" className="hover:text-indigo-600 transition">Privacy</Link>
+        <span>•</span>
+        <Link href="/terms" className="hover:text-indigo-600 transition">Terms</Link>
+        <span>•</span>
+        <Link href="/accessibility" className="hover:text-indigo-600 transition">Accessibility</Link>
+        <span>•</span>
+        <Link href="/support" className="hover:text-indigo-600 transition">Support</Link>
       </footer>
     </div>
   );

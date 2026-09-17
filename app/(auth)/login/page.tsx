@@ -272,9 +272,17 @@ export default function LoginPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 py-4 text-center text-xs font-bold text-slate-400">
-        Deaf LMS — K-12 Visual Sign &amp; Digital Literacy Platform
+      {/* Footer with Working Links */}
+      <footer className="bg-white border-t border-slate-200 py-4 px-4 text-center text-xs font-medium text-slate-500 flex flex-wrap items-center justify-center gap-4">
+        <span>&copy; 2026 Deaf LMS</span>
+        <span>•</span>
+        <Link href="/privacy" className="hover:text-indigo-600 transition">Privacy</Link>
+        <span>•</span>
+        <Link href="/terms" className="hover:text-indigo-600 transition">Terms</Link>
+        <span>•</span>
+        <Link href="/accessibility" className="hover:text-indigo-600 transition">Accessibility</Link>
+        <span>•</span>
+        <Link href="/support" className="hover:text-indigo-600 transition">Support</Link>
       </footer>
     </div>
   );
