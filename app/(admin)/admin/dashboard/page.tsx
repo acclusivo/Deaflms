@@ -73,25 +73,35 @@ export default function AdminDashboardPage() {
               </div>
             </div>
             <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-              ● 7 Sign Dialects Active
+              ● 2 Priority Tracks Active (Nigeria 🇳🇬 &amp; S. Korea 🇰🇷)
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
             {[
-              { flag: '🇳🇬', code: 'NSL', name: 'Nigeria', students: '584 learners', share: '42%' },
-              { flag: '🇰🇪', code: 'KSL', name: 'Kenya', students: '312 learners', share: '22%' },
-              { flag: '🇿🇦', code: 'SASL', name: 'South Africa', students: '240 learners', share: '17%' },
-              { flag: '🇬🇭', code: 'GSL', name: 'Ghana', students: '118 learners', share: '8%' },
-              { flag: '🌐', code: 'ASL', name: 'Global ASL', students: '94 learners', share: '7%' },
-              { flag: '🇬🇧', code: 'BSL', name: 'UK Partner', students: '38 learners', share: '3%' },
-              { flag: '🌍', code: 'IS', name: 'Intl Sign', students: '16 learners', share: '1%' },
+              { flag: '🇳🇬', code: 'NSL', name: 'Nigeria', status: 'Priority 1 (Active)', share: '64%', active: true },
+              { flag: '🇰🇷', code: 'KRSL', name: 'South Korea', status: 'Priority 2 (Active)', share: '36%', active: true },
+              { flag: '🇰🇪', code: 'KSL', name: 'Kenya', status: '🔒 Q2 Expansion', share: 'Pipeline', active: false },
+              { flag: '🇿🇦', code: 'SASL', name: 'South Africa', status: '🔒 Q2 Expansion', share: 'Pipeline', active: false },
+              { flag: '🇬🇭', code: 'GSL', name: 'Ghana', status: '🔒 Q3 Expansion', share: 'Pipeline', active: false },
+              { flag: '🌐', code: 'ASL', name: 'Global ASL', status: '🔒 Q3 Expansion', share: 'Pipeline', active: false },
+              { flag: '🇬🇧', code: 'BSL', name: 'UK Partner', status: '🔒 Q4 Expansion', share: 'Pipeline', active: false },
+              { flag: '🌍', code: 'IS', name: 'Intl Sign', status: '🔒 Summit Pack', share: 'Pipeline', active: false },
             ].map((d) => (
-              <div key={d.code} className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
+              <div
+                key={d.code}
+                className={`p-3 rounded-2xl border text-center space-y-1 ${
+                  d.active
+                    ? 'bg-white border-indigo-400 shadow-md ring-2 ring-indigo-100'
+                    : 'bg-slate-50/80 border-dashed border-slate-300 opacity-60'
+                }`}
+              >
                 <div className="text-2xl">{d.flag}</div>
                 <div className="font-black text-xs text-slate-900">{d.code}</div>
                 <div className="text-[10px] text-slate-500">{d.name}</div>
-                <div className="text-[11px] font-bold text-indigo-600">{d.share}</div>
+                <div className={`text-[10px] font-black ${d.active ? 'text-emerald-700' : 'text-slate-400'}`}>
+                  {d.status}
+                </div>
               </div>
             ))}
           </div>

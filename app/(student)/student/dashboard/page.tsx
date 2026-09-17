@@ -42,8 +42,9 @@ export default function StudentDashboardPage() {
   }, []);
 
   const dialectFlags: Record<string, { flag: string; name: string }> = {
-    ASL: { flag: '🌐', name: 'American Sign Language (Global)' },
     NSL: { flag: '🇳🇬', name: 'Nigerian Sign Language (NSL)' },
+    KRSL: { flag: '🇰🇷', name: 'Korean Sign Language (한국수어)' },
+    ASL: { flag: '🌐', name: 'American Sign Language (Global)' },
     KSL: { flag: '🇰🇪', name: 'Kenyan Sign Language (KSL)' },
     SASL: { flag: '🇿🇦', name: 'South African Sign Language (SASL)' },
     GSL: { flag: '🇬🇭', name: 'Ghanaian Sign Language (GSL)' },
@@ -51,8 +52,8 @@ export default function StudentDashboardPage() {
     IS: { flag: '🌍', name: 'International Sign (IS)' },
   };
 
-  const currentDialect = (user?.signLanguage as string) || 'ASL';
-  const dialectInfo = dialectFlags[currentDialect] || dialectFlags['ASL'];
+  const currentDialect = (user?.signLanguage as string) || 'NSL';
+  const dialectInfo = dialectFlags[currentDialect] || dialectFlags['NSL'];
   const dailyTarget = user?.dailyGoalMinutes || 10;
   const progressPct = Math.min(100, Math.round((dailyMinutesLogged / dailyTarget) * 100));
 

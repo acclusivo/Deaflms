@@ -1,13 +1,14 @@
 export type UserRole = 'student' | 'teacher' | 'admin';
 
 export type SignLanguageDialect =
-  | 'ASL'   // American Sign Language (Global Standard)
-  | 'NSL'   // Nigerian Sign Language
-  | 'KSL'   // Kenyan Sign Language
-  | 'SASL'  // South African Sign Language
-  | 'GSL'   // Ghanaian Sign Language
-  | 'BSL'   // British Sign Language
-  | 'IS';   // International Sign
+  | 'NSL'     // Nigerian Sign Language (Active Priority 1)
+  | 'KRSL'    // Korean Sign Language / 한국수어 (Active Priority 2)
+  | 'ASL'     // American Sign Language (Coming Soon)
+  | 'KSL'     // Kenyan Sign Language (Coming Soon)
+  | 'SASL'    // South African Sign Language (Coming Soon)
+  | 'GSL'     // Ghanaian Sign Language (Coming Soon)
+  | 'BSL'     // British Sign Language (Coming Soon)
+  | 'IS';     // International Sign (Coming Soon)
 
 export interface UserProfile {
   id: string;

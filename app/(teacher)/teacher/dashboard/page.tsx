@@ -39,6 +39,11 @@ export default function TeacherDashboardPage() {
       flag: '🇳🇬',
       curriculum: 'NERDC Special Needs National Curriculum (Nigeria)',
     },
+    KRSL: {
+      name: 'Korean Sign Language (한국수어)',
+      flag: '🇰🇷',
+      curriculum: 'South Korea National Special Education & KSL Act (한국수어법) Standards',
+    },
     KSL: {
       name: 'Kenyan Sign Language (KSL)',
       flag: '🇰🇪',
