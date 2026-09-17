@@ -8,6 +8,7 @@ interface SignHandshapeIconProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'keycap' | 'fill';
   className?: string;
   showBorder?: boolean;
+  invertOnDark?: boolean;
 }
 
 export const SignHandshapeIcon: React.FC<SignHandshapeIconProps> = ({
@@ -15,6 +16,7 @@ export const SignHandshapeIcon: React.FC<SignHandshapeIconProps> = ({
   size = 'md',
   className = '',
   showBorder = false,
+  invertOnDark = false,
 }) => {
   const signInfo = getSignImage(letter);
   const [imgError, setImgError] = useState(false);
@@ -25,12 +27,12 @@ export const SignHandshapeIcon: React.FC<SignHandshapeIconProps> = ({
     md: 'w-12 h-12',
     lg: 'w-16 h-16',
     xl: 'w-24 h-24',
-    '2xl': 'w-32 h-32',
+    '2xl': 'w-36 h-36',
     keycap: 'w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16',
     fill: 'w-full h-full',
   }[size];
 
-  // If using authentic AnySign ASL photo or custom uploaded photo (with transparent background)
+  // If using authentic AnySign ASL photo or custom uploaded photo
   if ((signInfo.type === 'photo' || signInfo.type === 'custom') && !imgError) {
     return (
       <div
@@ -44,7 +46,11 @@ export const SignHandshapeIcon: React.FC<SignHandshapeIconProps> = ({
           src={signInfo.value}
           alt={`ASL Sign for letter ${letter}`}
           onError={() => setImgError(true)}
-          className="w-full h-full object-contain p-0.5 filter drop-shadow-[0_3px_6px_rgba(0,0,0,0.55)] transition-transform duration-200 group-hover:scale-105 select-none pointer-events-none"
+          className={`w-full h-full object-contain p-0.5 select-none pointer-events-none transition-transform duration-200 group-hover:scale-105 ${
+            invertOnDark
+              ? 'filter invert brightness-125 drop-shadow-[0_2px_4px_rgba(255,255,255,0.4)]'
+              : 'filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]'
+          }`}
           loading="eager"
         />
       </div>
