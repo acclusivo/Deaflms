@@ -9,7 +9,7 @@ import { PictureToSignGame } from '@/components/student/PictureToSignGame';
 import { SignToTextGame } from '@/components/student/SignToTextGame';
 import { FingerspellBuilder } from '@/components/student/FingerspellBuilder';
 import { VisualReward } from '@/components/common/VisualReward';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft, Loader2, Video } from 'lucide-react';
 import Link from 'next/link';
 
 export default function WorksheetRunnerPage() {
@@ -84,16 +84,29 @@ export default function WorksheetRunnerPage() {
 
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8">
         {/* Navigation & Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <Link
-            href="/student/dashboard"
-            className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-900 bg-white border border-slate-200 px-3.5 py-2 rounded-xl transition shadow-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Dashboard
-          </Link>
-          <span className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
-            Activity Type: {worksheet.activityType.replace(/_/g, ' ')}
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Link
+              href="/student/dashboard"
+              className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-900 bg-white border border-slate-200 px-3.5 py-2 rounded-xl transition shadow-sm interactive-target"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Dashboard
+            </Link>
+
+            {worksheet.lessonId && (
+              <Link
+                href={`/student/lessons/${worksheet.lessonId}`}
+                className="inline-flex items-center gap-1.5 text-xs font-black text-indigo-700 hover:text-indigo-900 bg-indigo-50 border border-indigo-200 px-3.5 py-2 rounded-xl transition shadow-sm interactive-target"
+              >
+                <Video className="w-4 h-4 text-indigo-600" />
+                <span>← Review Sign Video</span>
+              </Link>
+            )}
+          </div>
+
+          <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 bg-white px-3 py-1.5 rounded-xl border border-slate-200">
+            Activity: {worksheet.activityType.replace(/_/g, ' ')}
           </span>
         </div>
 

@@ -119,36 +119,36 @@ export default function CourseDetailPage() {
                 id: 'lesson-hardware-1',
                 order: 1,
                 title: 'Lesson 1: Computer Hardware Signs & Functions',
-                desc: 'Monitor, Keyboard, Mouse, and Webcam signs with 0.5x slow-mo playback.',
+                desc: 'Watch native sign video for Monitor, Keyboard, Mouse, and Webcam with 0.5x slow-mo playback.',
                 badge: 'Free Basic 1',
-                href: '/student/worksheets/ws-hardware-match',
+                href: '/student/lessons/lesson-hardware-1',
                 unlocked: true,
               },
               {
                 id: 'lesson-keyboard-1',
                 order: 2,
                 title: 'Lesson 2: Fingerspelling QWERTY Typing & Handshapes',
-                desc: 'AnySign handshapes mapped to physical QWERTY keys.',
+                desc: 'Watch sign video mapping AnySign handshapes to physical QWERTY keys.',
                 badge: 'Free Basic 1',
-                href: '/student/digital-literacy',
+                href: '/student/lessons/lesson-keyboard-1',
                 unlocked: true,
               },
               {
                 id: 'lesson-web-1',
                 order: 3,
                 title: 'Lesson 3: Web Browser Navigation & Safe Online Signs',
-                desc: 'URL link icons, search buttons, and online sign safety rules.',
+                desc: 'Watch sign video for URL link icons, search buttons, and online sign safety rules.',
                 badge: 'Free Basic 1',
-                href: '/student/digital-literacy',
+                href: '/student/lessons/lesson-web-1',
                 unlocked: true,
               },
               {
                 id: 'lesson-everyday-1',
                 order: 4,
                 title: 'Lesson 4: Everyday Signs for School & Home',
-                desc: 'Greetings, family questions, and classroom visual vocabulary.',
+                desc: 'Watch sign video for greetings, family questions, and classroom visual vocabulary.',
                 badge: 'Free Basic 1',
-                href: '/student/worksheets/ws-hardware-match',
+                href: '/student/lessons/lesson-everyday-1',
                 unlocked: true,
               },
               {
@@ -157,7 +157,7 @@ export default function CourseDetailPage() {
                 title: 'Lesson 5: Dual-Pane Storybook: The Clever Fox',
                 desc: 'Interactive dual-pane storybook with side-by-side sign video demonstration.',
                 badge: 'Free Basic 1',
-                href: '/student/storybook/lesson-storybook-1',
+                href: '/student/lessons/lesson-storybook-1',
                 unlocked: true,
               },
             ].map((item) => (
@@ -183,7 +183,7 @@ export default function CourseDetailPage() {
                     className="inline-flex items-center gap-1.5 py-2.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-sm interactive-target"
                   >
                     <Play className="w-3.5 h-3.5 fill-current" />
-                    Start Lesson
+                    <span>Watch Sign Lesson</span>
                   </Link>
                 </div>
               </div>

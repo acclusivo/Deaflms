@@ -173,7 +173,7 @@ export default function StudentDashboardPage() {
 
           <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
             <Link
-              href="/student/courses/course-digital-literacy-1"
+              href={(user?.totalStars || 0) > 25 ? '/student/courses/course-digital-literacy-1' : '/student/lessons/lesson-hardware-1'}
               className="flex-1 md:flex-initial px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition flex items-center justify-center gap-2 shadow-md shadow-emerald-200 interactive-target"
             >
               <Play className="w-4 h-4 fill-current" />
