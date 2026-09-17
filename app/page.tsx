@@ -22,7 +22,10 @@ import {
   Users,
   Smile,
   Youtube,
-  Gauge,
+  LogIn,
+  UserPlus,
+  Lock,
+  Unlock,
 } from 'lucide-react';
 import { SignExplainerCard } from '@/components/common/SignExplainerCard';
 
@@ -147,7 +150,8 @@ export default function LandingPage() {
       {/* Top Navigation Header */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-200">
               <HandMetal className="w-6 h-6" />
             </div>
@@ -164,22 +168,31 @@ export default function LandingPage() {
                 Visual Sign &amp; Digital Literacy • Nigerian &amp; Global DHH
               </span>
             </div>
-          </div>
+          </Link>
 
+          {/* Action Links & Simple Auth Buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              onClick={() => scrollToGuide('welcome')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition interactive-target"
+            <Link
+              href="/login"
+              className="px-4 py-2 rounded-xl text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 font-black text-xs transition flex items-center gap-1.5 interactive-target"
             >
-              <Video className="w-3.5 h-3.5 text-indigo-600" />
-              Watch Sign Guide
-            </button>
+              <LogIn className="w-4 h-4 text-indigo-600" />
+              <span>Sign In</span>
+            </Link>
 
             <Link
-              href="/student/dashboard"
+              href="/signup"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-xs transition interactive-target border border-slate-200"
+            >
+              <UserPlus className="w-4 h-4 text-emerald-600" />
+              <span>Register Free</span>
+            </Link>
+
+            <Link
+              href="/student/courses/course-digital-literacy-1"
               className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm shadow-md shadow-indigo-200 transition interactive-target"
             >
-              Launch Platform
+              Free Basic Lesson
             </Link>
           </div>
         </div>
@@ -187,10 +200,10 @@ export default function LandingPage() {
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 sm:space-y-20">
         
-        {/* HERO SECTION: 2-COLUMN SPLIT (Left: Parent & Learner Content + Start Button | Right: YouTube Sign Video) */}
+        {/* HERO SECTION: 2-COLUMN SPLIT */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-2 sm:pt-4">
           
-          {/* Left Column: Short, Impactful Content & Start Button */}
+          {/* Left Column: Instant Free Lesson + Sign Up CTA */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border-2 border-emerald-300 text-emerald-800 text-xs font-black uppercase tracking-wider shadow-sm">
               <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -203,18 +216,18 @@ export default function LandingPage() {
 
             <div className="space-y-3">
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
-                Where Signs, Pictures &amp; Digital Skills{' '}
+                Watch Basic Signs for Free,{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-800">
-                  Come Together
+                  Then Unlock Intermediate &amp; Advanced Modules
                 </span>
               </h1>
 
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed max-w-2xl">
-                Over 90% of deaf children are born to hearing parents. In Nigeria and across the world, Deaf LMS bridges the communication gap by introducing reading, writing, and computer skills through natural <strong>sign language video demonstrations</strong>.
+                We know your time is valuable. Watch our foundational sign video immediately—no login required. Once you are ready for advanced storybooks and digital skills, create a free account to save your stars!
               </p>
             </div>
 
-            {/* Quick Benefits for Parents & Deaf Learners */}
+            {/* Value Cards for Parents & Deaf Learners */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
                 <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 mt-0.5">
@@ -223,7 +236,7 @@ export default function LandingPage() {
                 <div>
                   <h2 className="font-black text-slate-900 text-xs uppercase tracking-wide">For Parents &amp; Families</h2>
                   <p className="text-slate-600 text-xs font-medium mt-0.5 leading-snug">
-                    Learn signs alongside your child with slow-mo YouTube videos and handshape guides.
+                    Learn signs alongside your child with slow-mo video and handshape guides.
                   </p>
                 </div>
               </div>
@@ -241,36 +254,44 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Primary Action Button & Secondary Triggers */}
+            {/* Fast Action Buttons: Jump to Free Lesson or Sign In */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
-                href="/student/dashboard"
+                href="/student/courses/course-digital-literacy-1"
                 className="px-6 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm shadow-xl shadow-indigo-200 hover:scale-105 transition interactive-target flex items-center gap-2.5"
               >
-                <GraduationCap className="w-5 h-5" />
-                Start Learning in Sign Language
+                <Play className="w-4 h-4 fill-current" />
+                Watch Free Basic Lesson Now
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
-              <button
-                onClick={() => scrollToGuide('welcome')}
-                className="px-5 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-sm border-2 border-slate-300 shadow-sm transition interactive-target flex items-center gap-2"
+              <Link
+                href="/signup"
+                className="px-5 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm shadow-md shadow-emerald-200 transition interactive-target flex items-center gap-2"
               >
-                <Play className="w-4 h-4 text-emerald-600 fill-emerald-600" />
-                Explore Sign Curriculum
-              </button>
+                <UserPlus className="w-4 h-4" />
+                Sign Up for Advanced Courses
+              </Link>
+
+              <Link
+                href="/login"
+                className="px-4 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-extrabold text-sm border-2 border-slate-200 shadow-sm transition interactive-target flex items-center gap-1.5"
+              >
+                <LogIn className="w-4 h-4 text-indigo-600" />
+                Sign In
+              </Link>
             </div>
 
             {/* Micro-Badges Trust Row */}
             <div className="flex flex-wrap items-center gap-4 text-xs font-bold text-slate-500 pt-1">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> 100% Visual Sign Affirmations
+              <span className="flex items-center gap-1.5 text-emerald-700">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Instant Free Access
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> K-12 Literacy Engine
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> No Card Needed
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Works On Mobile &amp; Tablet
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Student, Facilitator &amp; Admin Auth
               </span>
             </div>
           </div>
@@ -309,7 +330,7 @@ export default function LandingPage() {
               <div className="p-4 sm:p-5 bg-white space-y-2 border-t border-slate-100">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-100">
-                    Visual Sign Lesson
+                    Free Introductory Lesson
                   </span>
                   <span className="text-[11px] font-bold text-slate-400 flex items-center gap-1">
                     <VolumeX className="w-3.5 h-3.5 text-rose-400" />
@@ -334,13 +355,117 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* 3-LEVEL LEARNING PATHWAY: FREE BASIC -> INTERMEDIATE -> ADVANCED */}
+        <section className="bg-white rounded-3xl p-7 sm:p-10 border-2 border-slate-200 shadow-sm space-y-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              Clear Learning Progression
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+              Start with Free Basic Signs, Then Level Up
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 font-medium">
+              We never trap students behind a paywall for basic communication. Start learning immediately, then create an account to unlock the full curriculum.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Level 1: Free Basic Signs */}
+            <div className="p-6 rounded-3xl bg-emerald-50/70 border-2 border-emerald-300 flex flex-col justify-between space-y-5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider bg-emerald-600 text-white px-2.5 py-0.5 rounded-md">
+                    Level 1 • 100% Free
+                  </span>
+                  <Unlock className="w-4 h-4 text-emerald-600" />
+                </div>
+                <h3 className="text-xl font-black text-slate-900">Basic Signs &amp; Alphabet</h3>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  Watch foundational sign videos, learn everyday greetings, and inspect fingerspelling handshapes. No login required.
+                </p>
+                <ul className="text-xs font-bold text-slate-700 space-y-1.5 pt-1">
+                  <li className="flex items-center gap-2">✓ Family &amp; Greeting Signs</li>
+                  <li className="flex items-center gap-2">✓ Slow-Mo Video Demonstrations</li>
+                  <li className="flex items-center gap-2">✓ Interactive Picture Matching</li>
+                </ul>
+              </div>
+
+              <Link
+                href="/student/courses/course-digital-literacy-1"
+                className="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center shadow-md transition interactive-target flex items-center justify-center gap-2"
+              >
+                <Play className="w-3.5 h-3.5 fill-current" />
+                Start Free Lesson Now
+              </Link>
+            </div>
+
+            {/* Level 2: Intermediate Sign Stories */}
+            <div className="p-6 rounded-3xl bg-indigo-50/70 border-2 border-indigo-300 flex flex-col justify-between space-y-5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider bg-indigo-600 text-white px-2.5 py-0.5 rounded-md">
+                    Level 2 • Free Account
+                  </span>
+                  <Sparkles className="w-4 h-4 text-indigo-600" />
+                </div>
+                <h3 className="text-xl font-black text-slate-900">Visual Storybooks &amp; Vocabulary</h3>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  Dual-pane reading with synchronized sign narration, tap-to-sign words, and star counter gamification.
+                </p>
+                <ul className="text-xs font-bold text-slate-700 space-y-1.5 pt-1">
+                  <li className="flex items-center gap-2">✓ Illustrated Sign Storybooks</li>
+                  <li className="flex items-center gap-2">✓ Star Meter &amp; Confetti Rewards</li>
+                  <li className="flex items-center gap-2">✓ Save Your Progress Across Devices</li>
+                </ul>
+              </div>
+
+              <Link
+                href="/signup"
+                className="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs text-center shadow-md transition interactive-target flex items-center justify-center gap-2"
+              >
+                <UserPlus className="w-3.5 h-3.5" />
+                Register to Unlock Stories
+              </Link>
+            </div>
+
+            {/* Level 3: Advanced Tech & Facilitator Studio */}
+            <div className="p-6 rounded-3xl bg-amber-50/70 border-2 border-amber-300 flex flex-col justify-between space-y-5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider bg-amber-700 text-white px-2.5 py-0.5 rounded-md">
+                    Level 3 • Advanced Track
+                  </span>
+                  <Award className="w-4 h-4 text-amber-700" />
+                </div>
+                <h3 className="text-xl font-black text-slate-900">Digital Skills &amp; Facilitator Tools</h3>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  Fingerspell QWERTY typing, hardware matching, Gemini AI Lesson Co-Pilot, and educator gradebooks.
+                </p>
+                <ul className="text-xs font-bold text-slate-700 space-y-1.5 pt-1">
+                  <li className="flex items-center gap-2">✓ Keyboarding &amp; Webcam Etiquette</li>
+                  <li className="flex items-center gap-2">✓ Teacher &amp; Facilitator Studio</li>
+                  <li className="flex items-center gap-2">✓ District KPI &amp; Storage Oversight</li>
+                </ul>
+              </div>
+
+              <Link
+                href="/login"
+                className="w-full py-3 px-4 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-black text-xs text-center shadow-md transition interactive-target flex items-center justify-center gap-2"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                Sign In as Facilitator / Admin
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* FEATURED SIGN LANGUAGE PLAYER CARD (Reusable Core Section) */}
         <section id="sign-language-guide" className="space-y-6 scroll-mt-24">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-4">
             <div>
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-indigo-600">
                 <Sparkles className="w-4 h-4 text-amber-500" />
-                Visual Sign Player for Deaf Children
+                Visual Sign Player for Deaf Children &amp; Parents
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
                 Watch How Each Feature Works in Sign Language
@@ -398,11 +523,11 @@ export default function LandingPage() {
           />
         </section>
 
-        {/* 3 Portal Selection Cards (with Sign Watcher Triggers) */}
+        {/* 3 Portal Selection Cards (Student, Facilitator, Admin) */}
         <section className="space-y-6">
           <div className="text-center max-w-xl mx-auto space-y-2">
             <span className="text-xs font-black uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
-              Tri-Portal Architecture
+              Role-Based Portals
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
               Select an Experience to Explore
@@ -450,7 +575,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Teacher Studio Card */}
+            {/* Facilitator Studio Card (formerly Teacher) */}
             <div className="bg-white rounded-3xl p-7 sm:p-8 border-4 border-indigo-400/40 hover:border-indigo-500 hover:shadow-xl hover:-translate-y-1 transition group flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -460,7 +585,7 @@ export default function LandingPage() {
                   <button
                     onClick={() => scrollToGuide('welcome')}
                     className="text-[11px] font-black uppercase text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-2.5 py-1 rounded-lg border border-indigo-200 flex items-center gap-1 transition interactive-target"
-                    title="Watch Teacher Studio Sign Guide"
+                    title="Watch Facilitator Studio Sign Guide"
                   >
                     <Video className="w-3 h-3" />
                     Sign Video
@@ -468,9 +593,9 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <span className="text-xs font-black uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-md">
-                    Teacher Studio
+                    Facilitator Studio
                   </span>
-                  <h3 className="text-2xl font-black text-slate-900 mt-2">Enter as Educator</h3>
+                  <h3 className="text-2xl font-black text-slate-900 mt-2">Enter as Facilitator</h3>
                   <p className="text-sm text-slate-600 font-medium mt-1 leading-relaxed">
                     Upload sign video demonstrations, auto-generate DHH worksheets with Gemini AI, and inspect student star gradebooks.
                   </p>
@@ -482,7 +607,7 @@ export default function LandingPage() {
                   href="/teacher/dashboard"
                   className="inline-flex items-center gap-2 text-indigo-600 font-black text-sm group-hover:translate-x-1 transition interactive-target"
                 >
-                  Open Teacher Studio <ArrowRight className="w-4 h-4" />
+                  Open Facilitator Studio <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

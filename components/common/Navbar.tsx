@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { UserRole } from '@/lib/types';
 import { StarMeter } from './StarMeter';
+import { useAuth } from '@/lib/auth-context';
 import {
   HandMetal,
   BookOpen,
@@ -15,6 +16,9 @@ import {
   Users,
   Settings,
   FileCheck2,
+  LogIn,
+  LogOut,
+  User as UserIcon,
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -25,6 +29,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars = 24 }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const { user, logout, quickLogin } = useAuth();
 
   // Determine current active role from URL or prop
   let activeRole: UserRole = currentRole;
@@ -33,9 +38,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars =
   if (pathname.startsWith('/student')) activeRole = 'student';
 
   const switchRole = (newRole: UserRole) => {
+    quickLogin(newRole);
     if (newRole === 'student') router.push('/student/dashboard');
     if (newRole === 'teacher') router.push('/teacher/dashboard');
     if (newRole === 'admin') router.push('/admin/dashboard');
+  };
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
   };
 
   return (
@@ -53,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars =
                 <span className="text-xl font-black tracking-tight text-slate-900">Deaf<span className="text-indigo-600">LMS</span></span>
                 <span className="px-1.5 py-0.5 text-[10px] font-black uppercase bg-indigo-100 text-indigo-700 rounded-md">K-12</span>
               </div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block -mt-0.5">Visual Sign & Tech Learning</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block -mt-0.5">Visual Sign &amp; Tech Learning</span>
             </div>
           </Link>
 
@@ -108,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars =
                   }`}
                 >
                   <GraduationCap className="w-4 h-4" />
-                  Classroom Overview
+                  Facilitator Studio
                 </Link>
                 <Link
                   href="/teacher/ai-generator"
@@ -130,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars =
                   }`}
                 >
                   <FileCheck2 className="w-4 h-4" />
-                  Gradebook & Progress
+                  Gradebook &amp; Progress
                 </Link>
               </>
             )}
@@ -168,18 +179,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars =
                   }`}
                 >
                   <Settings className="w-4 h-4" />
-                  System & Storage
+                  System &amp; Storage
                 </Link>
               </>
             )}
           </nav>
 
-          {/* Right Section: Stars & Quick Role Switcher */}
-          <div className="flex items-center gap-3">
+          {/* Right Section: Stars & Role Switcher + Auth Info */}
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Show Star counter in student portal */}
-            {activeRole === 'student' && <StarMeter stars={stars} />}
+            {activeRole === 'student' && <StarMeter stars={user?.totalStars ?? stars} />}
 
-            {/* Role Switcher Pill */}
+            {/* Role Switcher Pill (Student, Facilitator, Admin) */}
             <div className="flex items-center p-1 bg-slate-100 border border-slate-200 rounded-2xl">
               <button
                 onClick={() => switchRole('student')}
@@ -199,9 +210,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars =
                     ? 'bg-white text-indigo-700 shadow-sm border border-slate-200'
                     : 'text-slate-500 hover:text-slate-900'
                 }`}
-                title="Switch to Teacher View"
+                title="Switch to Facilitator View"
               >
-                Teacher
+                Facilitator
               </button>
               <button
                 onClick={() => switchRole('admin')}
@@ -215,6 +226,34 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole = 'student', stars =
                 Admin
               </button>
             </div>
+
+            {/* Auth Dropdown / Button */}
+            {user ? (
+              <div className="flex items-center gap-1.5 pl-1">
+                <div
+                  className="w-8 h-8 rounded-xl bg-indigo-100 border border-indigo-300 text-indigo-700 font-black text-xs flex items-center justify-center"
+                  title={`Logged in as ${user.displayName} (${user.role})`}
+                >
+                  {user.displayName.charAt(0)}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition interactive-target"
+                  title="Sign Out"
+                  aria-label="Sign Out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs flex items-center gap-1.5 shadow-sm transition interactive-target"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                <span>Sign In</span>
+              </Link>
+            )}
           </div>
         </div>
       </div>
