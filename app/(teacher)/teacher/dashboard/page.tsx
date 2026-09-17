@@ -175,10 +175,10 @@ export default function TeacherDashboardPage() {
             </div>
 
             <Link
-              href="/student/digital-literacy"
+              href="/teacher/courses/new"
               className="inline-flex items-center justify-between w-full p-3 bg-white hover:bg-amber-500 text-amber-900 hover:text-white font-black text-xs rounded-2xl border border-amber-200 transition shadow-xs group"
             >
-              <span>Manage School Keyboard Photos</span>
+              <span>Manage Classroom Media &amp; Lessons</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
             </Link>
           </div>
@@ -249,10 +249,10 @@ export default function TeacherDashboardPage() {
 
                 <div className="flex items-center gap-2">
                   <Link
-                    href={`/courses/${course.id}`}
+                    href="/teacher/gradebook"
                     className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition"
                   >
-                    View Lessons
+                    View Cohort Progress
                   </Link>
                 </div>
               </div>

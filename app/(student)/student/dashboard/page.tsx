@@ -256,10 +256,10 @@ export default function StudentDashboardPage() {
               </p>
             </div>
             <Link
-              href="/courses"
+              href="/student/courses/course-digital-literacy-1"
               className="text-xs font-black text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1"
             >
-              View All Courses <ArrowRight className="w-3.5 h-3.5" />
+              View Featured Course <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -299,7 +299,7 @@ export default function StudentDashboardPage() {
 
                 <div className="p-6 pt-0">
                   <Link
-                    href={`/courses/${course.id}`}
+                    href={`/student/courses/${course.id}`}
                     className="w-full py-3 rounded-2xl bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white font-black text-xs transition flex items-center justify-center gap-1.5 border border-indigo-200"
                   >
                     <Play className="w-3.5 h-3.5 fill-current" />

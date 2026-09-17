@@ -171,7 +171,7 @@ export default function AdminDashboardPage() {
           </Link>
 
           <Link
-            href="/teacher/courses/new"
+            href="/admin/courses"
             className="bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-amber-400 hover:shadow-md transition group space-y-3"
           >
             <div className="flex items-center justify-between">
@@ -180,9 +180,9 @@ export default function AdminDashboardPage() {
               </div>
               <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-amber-600 transition" />
             </div>
-            <h3 className="text-xl font-black text-slate-900">Curriculum Publishing</h3>
+            <h3 className="text-xl font-black text-slate-900">Curriculum Standards &amp; Moderation</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Publish district-wide video modules with synchronized sign language overlays.
+              Audit published courses for DHH accessibility compliance, WCAG AAA contrast, and Nigerian sign accuracy.
             </p>
           </Link>
 
