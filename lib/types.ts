@@ -1,5 +1,14 @@
 export type UserRole = 'student' | 'teacher' | 'admin';
 
+export type SignLanguageDialect =
+  | 'ASL'   // American Sign Language (Global Standard)
+  | 'NSL'   // Nigerian Sign Language
+  | 'KSL'   // Kenyan Sign Language
+  | 'SASL'  // South African Sign Language
+  | 'GSL'   // Ghanaian Sign Language
+  | 'BSL'   // British Sign Language
+  | 'IS';   // International Sign
+
 export interface UserProfile {
   id: string;
   email: string;
@@ -9,6 +18,10 @@ export interface UserProfile {
   avatarUrl: string;
   totalStars?: number;
   badgesUnlocked?: string[];
+  signLanguage?: SignLanguageDialect | string;
+  dailyGoalMinutes?: number;
+  personaGoal?: string;
+  experienceLevel?: string;
 }
 
 export type CourseCategory = 

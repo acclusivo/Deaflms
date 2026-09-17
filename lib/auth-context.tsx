@@ -14,6 +14,7 @@ interface AuthContextType {
   signup: (displayName: string, email: string, role: UserRole, password?: string) => Promise<boolean>;
   logout: () => void;
   quickLogin: (targetRole: UserRole) => void;
+  updateProfile: (updates: Partial<UserProfile>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -165,6 +166,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (targetRole === 'admin') persistUser(MOCK_ADMIN);
   };
 
+  const updateProfile = (updates: Partial<UserProfile>) => {
+    if (!user) return;
+    const updated = { ...user, ...updates };
+    persistUser(updated);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -176,6 +183,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         signup,
         logout,
         quickLogin,
+        updateProfile,
       }}
     >
       {children}

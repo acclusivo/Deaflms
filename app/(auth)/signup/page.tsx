@@ -38,9 +38,8 @@ export default function SignUpPage() {
     try {
       const success = await signup(displayName, email, selectedRole, password);
       if (success) {
-        if (selectedRole === 'student') router.push('/student/dashboard');
-        if (selectedRole === 'teacher') router.push('/teacher/dashboard');
-        if (selectedRole === 'admin') router.push('/admin/dashboard');
+        // Launch Duolingo-style interactive onboarding
+        router.push('/onboarding');
       } else {
         setErrorMsg('Sign up encountered an issue. Please try again.');
       }
