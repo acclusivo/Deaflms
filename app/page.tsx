@@ -49,31 +49,6 @@ interface FeatureSignGuide {
 export default function LandingPage() {
   const [activeGuideTab, setActiveGuideTab] = useState<string>('welcome');
 
-  // Hero YouTube video selector state (curated sign language introductory videos)
-  const [heroYoutubeId, setHeroYoutubeId] = useState<string>('v1desDduz5M');
-  const [heroVideoTitle, setHeroVideoTitle] = useState<string>('Basic Signs for Kids & Parents');
-
-  const heroVideoOptions = [
-    {
-      id: 'v1desDduz5M',
-      label: 'Family & First Signs',
-      title: 'Introductory Sign Language for Parents & Kids',
-      badge: 'Parent & Child',
-    },
-    {
-      id: '0FcwzMq4iWg',
-      label: 'Alphabet & Fingerspell',
-      title: 'Fingerspelling & Alphabet Handshapes',
-      badge: 'Literacy Foundation',
-    },
-    {
-      id: 'ianCxd71nM4',
-      label: 'Everyday Words',
-      title: 'Everyday Communication Signs in the Home',
-      badge: 'Home & School',
-    },
-  ];
-
   const signGuides: Record<string, FeatureSignGuide> = {
     welcome: {
       id: 'welcome',
@@ -300,75 +275,59 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Right Column: YouTube Sign Language Player Card */}
+          {/* Right Column: Google Video Card Format (Clean, Distraction-Free, Zero Distracting Buttons) */}
           <div className="lg:col-span-5">
-            <div className="bg-slate-900 rounded-3xl overflow-hidden border-4 border-indigo-500/40 shadow-2xl relative flex flex-col group">
-              {/* Header Bar */}
-              <div className="bg-slate-950 px-4 py-3 border-b border-slate-800 flex items-center justify-between gap-2">
+            <div className="bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xl shadow-slate-200/50 flex flex-col transition hover:shadow-indigo-100 hover:border-slate-300">
+              
+              {/* Google Video Card: Clean Header */}
+              <div className="bg-slate-900 px-4 py-3 flex items-center justify-between gap-2 border-b border-slate-800">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-xs font-black text-white tracking-wide truncate">
-                    {heroVideoTitle}
+                    🇳🇬 Nigerian Sign Language (NSL) &amp; ASL
                   </span>
                 </div>
 
                 <span className="text-[10px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded-md flex items-center gap-1 shrink-0">
                   <Youtube className="w-3 h-3 fill-rose-500 text-rose-500" />
-                  YouTube Video
+                  YouTube
                 </span>
               </div>
 
-              {/* Responsive 16:9 Video Embed */}
+              {/* Edge-to-Edge 16:9 Video Window */}
               <div className="relative aspect-video bg-black flex items-center justify-center">
                 <iframe
-                  src={`https://www.youtube.com/embed/${heroYoutubeId}?enablejsapi=1&rel=0&modestbranding=1&playsinline=1`}
-                  title={heroVideoTitle}
+                  src="https://www.youtube.com/embed/v1desDduz5M?enablejsapi=1&rel=0&modestbranding=1&playsinline=1"
+                  title="Sign Language Introduction for Deaf Learners & Parents"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   className="w-full h-full border-0"
                 />
               </div>
 
-              {/* Video Selector Options for Parents & Kids */}
-              <div className="p-3 bg-slate-950 border-t border-slate-800 space-y-2.5">
-                <div className="flex items-center justify-between text-[11px] text-slate-400 font-bold px-1">
-                  <span className="flex items-center gap-1 text-amber-400">
-                    <Sparkles className="w-3.5 h-3.5" /> Watch Sign Video Topics:
+              {/* Google Video Card: Minimalist Metadata & Caption (No Distracting Buttons) */}
+              <div className="p-4 sm:p-5 bg-white space-y-2 border-t border-slate-100">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-100">
+                    Visual Sign Lesson
                   </span>
-                  <span className="text-slate-400">Tap to Switch</span>
+                  <span className="text-[11px] font-bold text-slate-400 flex items-center gap-1">
+                    <VolumeX className="w-3.5 h-3.5 text-rose-400" />
+                    Zero Audio Needed
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-1.5">
-                  {heroVideoOptions.map((opt) => {
-                    const isCurrent = heroYoutubeId === opt.id;
-                    return (
-                      <button
-                        key={opt.id}
-                        onClick={() => {
-                          setHeroYoutubeId(opt.id);
-                          setHeroVideoTitle(opt.title);
-                        }}
-                        className={`py-2 px-1.5 rounded-xl text-[11px] font-black text-center transition flex flex-col items-center justify-center interactive-target ${
-                          isCurrent
-                            ? 'bg-indigo-600 text-white shadow-md'
-                            : 'bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'
-                        }`}
-                      >
-                        <span className="truncate w-full">{opt.label}</span>
-                        <span className={`text-[9px] font-bold ${isCurrent ? 'text-indigo-200' : 'text-slate-500'}`}>
-                          {opt.badge}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                <h3 className="text-base font-black text-slate-900 leading-snug">
+                  Sign Language Foundations for Deaf Learners &amp; Families
+                </h3>
 
-                {/* Parent & Child Guidance Helper */}
-                <div className="bg-slate-900/90 rounded-2xl p-2.5 border border-slate-800/80 flex items-start gap-2 text-slate-300 text-[11px] font-medium leading-relaxed">
-                  <Gauge className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <p>
-                    <strong className="text-white">Tip for Parents:</strong> Tap the video gear icon <strong className="text-amber-400">⚙️ Settings</strong> to set playback speed to <strong className="text-amber-400">0.5x Slow-Mo</strong> so you and your child can observe every hand movement clearly.
-                  </p>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  Watch visual communication in action. Designed for deaf children and their hearing parents to learn their first signs, fingerspelling, and handshapes together.
+                </p>
+
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                  <span>100% Visual Instruction</span>
+                  <span>Use YouTube ⚙️ for 0.5x Slow-Mo</span>
                 </div>
               </div>
             </div>
