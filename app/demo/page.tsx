@@ -27,6 +27,12 @@ import {
   Lock,
   Clock,
   RefreshCw,
+  GraduationCap,
+  Award,
+  Sparkles,
+  UserCheck,
+  FileText,
+  Check,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -42,6 +48,7 @@ export default function DemoPage() {
   const [unlockedWords, setUnlockedWords] = useState<string[]>(['webcam']);
   const [completedWords, setCompletedWords] = useState<string[]>([]);
   const [lockedNotice, setLockedNotice] = useState<string | null>(null);
+  const [showSubscriptionDemo, setShowSubscriptionDemo] = useState<boolean>(false);
 
   // Flow State (5 Visual Steps)
   const [currentStep, setCurrentStep] = useState<StepNumber>(1);
@@ -127,6 +134,7 @@ export default function DemoPage() {
     setSelectedMeaningOption(null);
     setMeaningAnsweredCorrectly(null);
     setSecondsElapsed(0);
+    setShowSubscriptionDemo(false);
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current.pause();
@@ -234,6 +242,23 @@ export default function DemoPage() {
                 </button>
               );
             })}
+
+            {/* Parent Pro & Certificate Milestone Tab (For Parents & Pitch Investors) */}
+            <button
+              onClick={() => {
+                setShowSubscriptionDemo(true);
+                setCurrentStep(5);
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase transition interactive-target flex items-center gap-1.5 ${
+                showSubscriptionDemo
+                  ? 'bg-amber-500 text-slate-950 shadow-sm ring-2 ring-amber-300'
+                  : 'bg-gradient-to-r from-amber-50 to-teal-50 hover:from-amber-100 hover:to-teal-100 text-slate-800 border border-amber-300'
+              }`}
+              aria-label="View Parent Subscription and Certificate Demo"
+            >
+              <GraduationCap className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+              <span>Parent Pro Tier 👑</span>
+            </button>
           </div>
         </div>
 
@@ -836,17 +861,159 @@ export default function DemoPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="p-6 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 rounded-3xl shadow-lg space-y-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-slate-950 text-amber-400 flex items-center justify-center font-black shrink-0">
-                          <Trophy className="w-7 h-7" />
+                    <div className="space-y-6">
+                      {/* 1. Free Starter Tier Completion Banner */}
+                      <div className="p-6 bg-gradient-to-r from-teal-900 to-slate-900 text-white rounded-3xl border-2 border-teal-500/40 shadow-xl space-y-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div className="space-y-1">
+                            <span className="px-3 py-1 rounded-full bg-emerald-400 text-slate-950 font-black text-[11px] uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              Free Starter Tier Completed!
+                            </span>
+                            <h3 className="text-xl sm:text-2xl font-black text-white pt-1">
+                              All 4 Foundation Lessons Mastered
+                            </h3>
+                            <p className="text-xs text-teal-100 font-medium max-w-xl">
+                              Your learner independently mastered physical hardware recognition, Nigerian Sign Language vocabulary, and visual comprehension with 100% autonomy.
+                            </p>
+                          </div>
+                          <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-amber-300 shrink-0">
+                            <Trophy className="w-8 h-8" />
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="text-xl font-black text-slate-950">
-                            Curriculum Mastered! All 4 Lessons Complete
-                          </h4>
-                          <p className="text-xs font-bold text-slate-900">
-                            You have mastered Webcam, Keyboard, Mouse, and Monitor with full visual accuracy in Nigerian Sign Language.
+
+                        {/* 4 Completed Lessons Badges */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-teal-800/60 text-xs">
+                          {LESSON_ORDER.map((itemKey) => (
+                            <div key={itemKey} className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                              <span className="font-extrabold uppercase tracking-wide text-[11px]">{itemKey}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* 2. Parent / Guardian / Individual Subscription Card (The Core Monetization Funnel) */}
+                      <div className="p-6 sm:p-8 bg-white border-2 border-teal-300 rounded-3xl shadow-lg space-y-6">
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                          <div className="space-y-1.5">
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-black uppercase tracking-wider">
+                              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                              Parent &amp; Guardian Next Step • Premium Pro
+                            </div>
+                            <h4 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
+                              Ready to Subscribe to Premium Pro?
+                            </h4>
+                            <p className="text-xs sm:text-sm text-slate-600 font-medium max-w-2xl leading-relaxed">
+                              Deaf learners absorb computer skills rapidly when guided eye-first. Give your child full access to our accredited K-12 digital curriculum, verified completion certificate, and specialized Deaf educator support.
+                            </p>
+                          </div>
+
+                          <div className="px-4 py-2 rounded-2xl bg-teal-50 border border-teal-200 text-center shrink-0">
+                            <span className="text-[10px] font-black uppercase text-teal-800 block">Subscription Price</span>
+                            <span className="text-xl font-black text-slate-900">₦5,000 / $8</span>
+                            <span className="text-[10px] text-slate-500 font-semibold block">per month</span>
+                          </div>
+                        </div>
+
+                        {/* What Premium Pro Unlocks (Key Value Drivers) */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                            <div className="w-9 h-9 rounded-xl bg-teal-700 text-white flex items-center justify-center shrink-0">
+                              <GraduationCap className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <strong className="text-slate-900 font-black block">Official Accredited Certificate</strong>
+                              <span className="text-slate-600 font-medium leading-relaxed">
+                                Verified Digital Literacy Certificate of Completion with your child&apos;s name and certified achievement seal for school records.
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                            <div className="w-9 h-9 rounded-xl bg-teal-700 text-white flex items-center justify-center shrink-0">
+                              <Laptop className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <strong className="text-slate-900 font-black block">50+ Advanced STEM &amp; Typing Modules</strong>
+                              <span className="text-slate-600 font-medium leading-relaxed">
+                                Full elementary &amp; secondary modules: touch typing, internet safety, coding concepts, and mathematics in Nigerian Sign Language.
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                            <div className="w-9 h-9 rounded-xl bg-teal-700 text-white flex items-center justify-center shrink-0">
+                              <UserCheck className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <strong className="text-slate-900 font-black block">Deaf Teacher Support &amp; Insights</strong>
+                              <span className="text-slate-600 font-medium leading-relaxed">
+                                Human Deaf educator reviews, weekly progress reports sent directly to parents, and custom practice advice.
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                            <div className="w-9 h-9 rounded-xl bg-teal-700 text-white flex items-center justify-center shrink-0">
+                              <FileText className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <strong className="text-slate-900 font-black block">Printable Offline Activity Packs</strong>
+                              <span className="text-slate-600 font-medium leading-relaxed">
+                                Downloadable visual worksheets, flashcards, and homework sheets for offline home and classroom practice.
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Sign-Up Action Buttons for Parents & Students */}
+                        <div className="p-5 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-3">
+                          <span className="text-xs font-black uppercase tracking-wider text-slate-700 block">
+                            Choose How to Register &amp; Subscribe:
+                          </span>
+
+                          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                            {/* Primary Button: Parent Sign-Up */}
+                            <Link
+                              href="/signup?role=parent_guardian&plan=pro"
+                              className="flex-1 px-6 py-4 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-sm shadow-lg shadow-teal-200 transition transform hover:scale-[1.02] interactive-target flex items-center justify-center gap-2 text-center"
+                            >
+                              <GraduationCap className="w-4 h-4" />
+                              <span>Sign Up as Parent / Guardian → Subscribe Premium Pro</span>
+                              <ArrowRight className="w-4 h-4" />
+                            </Link>
+
+                            {/* Secondary Button: Student Sign-Up */}
+                            <Link
+                              href="/signup?role=learner"
+                              className="px-6 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-800 font-black text-sm border-2 border-slate-300 transition interactive-target flex items-center justify-center gap-2 text-center"
+                            >
+                              <UserCheck className="w-4 h-4 text-teal-700" />
+                              <span>Sign Up as Student (Free)</span>
+                            </Link>
+                          </div>
+
+                          <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 pt-1 px-1">
+                            <span>Zero card required for student free tier • Cancel subscription anytime</span>
+                            <Link href="/pricing" className="text-teal-700 font-extrabold hover:underline">
+                              View School Pilot &amp; Institutional Plans →
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* 3. Investor Spotlight (Attracting Investor's Attention) */}
+                        <div className="p-4 rounded-2xl bg-amber-50/90 border border-amber-300 text-amber-950 space-y-2">
+                          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900">
+                            <Award className="w-4 h-4 text-amber-700" />
+                            <span>Investor Demo Insight: Product-Led Growth (PLG) Monetization Engine</span>
+                          </div>
+                          <p className="text-xs text-amber-900/90 leading-relaxed font-medium">
+                            <strong>1. Zero-CAC Acquisition:</strong> The 4-lesson starter tier removes all friction (no credit cards, pure visual loop). Deaf children experience rapid success in under 90 seconds.
+                            <br />
+                            <strong>2. High-Intent Conversion:</strong> Parents witness their child&apos;s autonomy firsthand, directly motivating subscription for official certification and advanced modules (₦5,000 / $8/mo).
+                            <br />
+                            <strong>3. B2B Expansion:</strong> Special education schools and state education boards license annual institutional seats (₦45,000 / $49/yr).
                           </p>
                         </div>
                       </div>

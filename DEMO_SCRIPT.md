@@ -74,6 +74,23 @@ Before stepping on stage or beginning screen share with judges:
 
 ---
 
+### 01:50 – 02:20 | The Monetization Funnel: Free Tier Completion to Parent & Guardian Subscription
+* **Screen:** Click the **"Parent Pro Tier 👑"** tab (or complete Lesson 4: Monitor).
+* **Action:**
+  1. Direct attention to the **Free Starter Tier Completed!** milestone card with all 4 verified foundation badges.
+  2. Point out the high-converting **Parent & Guardian Subscription Section**:
+     - Highlights the accredited certificate of completion with verified learner seal.
+     - Outlines 50+ advanced K-12 STEM modules in Nigerian Sign Language.
+     - Shows human Deaf teacher progress tracking reports sent weekly to parents.
+  3. Highlight the clear Dual Sign-Up CTAs:
+     - **"Sign Up as Parent / Guardian → Subscribe Premium Pro (₦5,000 / $8/mo)"**
+     - **"Sign Up as Student (Create Free Account)"**
+     - **"View School Pilot & Institutional Plans (₦45,000 / $49/yr)"**
+* **Spoken Pitch to Investors:**
+  > *"Investors, this brings us to our business model and Product-Led Growth engine. The free 4-lesson tier acts as our zero-CAC acquisition wedge. In under two minutes, parents witness their Deaf child learning independently without auditory barriers. That immediate proof of value creates high-intent conversion: parents and guardians upgrade to Premium Pro (₦5,000 / $8/mo) to unlock accredited completion certificates and advanced STEM modules. Simultaneously, we license annual institutional seats to special education schools and state boards for ₦45,000/yr."*
+
+---
+
 ## 3. Contingency Handling & Judge Q&A Defense
 
 ### Contingency 1: What if a judge asks: "Does your AI invent new signs?"
