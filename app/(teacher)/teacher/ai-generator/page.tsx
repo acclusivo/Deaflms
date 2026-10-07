@@ -53,7 +53,7 @@ export default function TeacherAIGeneratorPage() {
       thumbnailUrl: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80',
       durationMinutes: 35,
       iconName: 'Laptop',
-      teacherName: 'Mr. Jordan Ellis',
+      teacherName: 'Facilitator — Sample Account',
       videoUrl: uploadedVideoUrl,
     });
 

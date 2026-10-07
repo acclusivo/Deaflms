@@ -215,10 +215,45 @@ export default function PricingPage() {
             Have Billing Questions? Contact Support →
           </Link>
         </div>
+
+        {/* Buyer Section & Pilot Invitation per Section 17 */}
+        <div className="p-6 rounded-3xl bg-teal-50 border-2 border-teal-200 text-teal-950 space-y-3">
+          <div className="flex items-center gap-2 font-black text-sm">
+            <Sparkles className="w-4 h-4 text-teal-700" />
+            <span>Customer &amp; Buyer Model</span>
+          </div>
+          <p className="text-xs font-semibold leading-relaxed">
+            Learners use DeafLMS. Schools, NGOs, sponsors or families may pay for access. All prices displayed are proposed prices currently being tested with potential institutional and pilot partners.
+          </p>
+          <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <span className="text-xs font-bold text-teal-900">
+              We are seeking schools and organisations to test the prototype with Deaf learners.
+            </span>
+            <a
+              href="mailto:pilots@acclusivo.com?subject=Pilot%20Inquiry"
+              className="px-4 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs transition text-center shrink-0 interactive-target"
+            >
+              Inquire for Pilot Cohorts
+            </a>
+          </div>
+        </div>
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs font-bold text-slate-400">
-        Deaf LMS — Transparent Pricing for Inclusive Education
+      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
+        <p className="text-slate-600 font-semibold">
+          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
+          <span>•</span>
+          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
+          <span>•</span>
+          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
+          <span>•</span>
+          <Link href="/support" className="hover:text-teal-700 transition">Support</Link>
+        </div>
       </footer>
     </div>
   );

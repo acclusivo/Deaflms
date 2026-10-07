@@ -68,6 +68,26 @@ export interface StoryPage {
   highlightWords?: { word: string; signUrl: string }[];
 }
 
+export type SignReviewStatus = 'draft' | 'reviewed' | 'approved';
+export type SignLanguageCode = 'NSL' | 'ASL' | 'Other';
+
+export interface ApprovedVocabularyItem {
+  id: string;
+  word: string;
+  simpleMeaning: string;
+  exampleSentence: string;
+  imageUrl: string;
+  signVideoUrl?: string;
+  signStillUrl?: string;
+  signLanguage: SignLanguageCode;
+  regionalVariant?: string;
+  reviewStatus: SignReviewStatus;
+  reviewedBy?: string;
+  reviewedAt?: string;
+  reviewNote?: string;
+  fingerspell: string;
+}
+
 export interface VocabularyItem {
   id: string;
   lessonId?: string;
@@ -77,6 +97,9 @@ export interface VocabularyItem {
   fingerspellText: string;
   category: string;
   descriptionTips?: string;
+  reviewStatus?: SignReviewStatus;
+  signLanguage?: SignLanguageCode;
+  reviewedBy?: string;
 }
 
 export type ActivityType = 
@@ -151,16 +174,23 @@ export interface StudentProgress {
 
 export interface SignyExplanation {
   term: string;
+  isApprovedWord: boolean;
   simplifiedDefinition: string;
-  visualAnalogy: string;
+  exampleSentence?: string;
+  visualAnalogy?: string;
   fingerspell: string;
-  signGuide: {
+  signVideoUrl?: string;
+  reviewStatus?: SignReviewStatus;
+  reviewedBy?: string;
+  signLanguage?: SignLanguageCode;
+  boundaryNotice?: string;
+  signGuide?: {
     handshape: string;
     location: string;
     movement: string;
     facialExpression: string;
-  };
-  visualPromptSuggestion: string;
+  } | null;
+  visualPromptSuggestion?: string;
 }
 
 export interface AILessonGeneration {

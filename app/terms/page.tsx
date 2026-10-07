@@ -66,28 +66,39 @@ export default function TermsOfServicePage() {
           <section className="space-y-3">
             <h2 className="text-lg font-black text-slate-900">3. Cultural Integrity of Sign Language Content</h2>
             <p>
-              All sign language videos, handshape illustrations, and curriculum assets are developed in collaboration with native Deaf educators and respected sign language linguistics bodies (including the Nigerian Educational Research and Development Council - NERDC). Users may not re-upload, commercialize, or distort approved sign language assets.
+              Sign language videos, handshape assets, and curriculum items require review by Deaf educators and sign language specialists before being approved. Users may not re-upload, commercialize, or distort approved sign language assets.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-black text-slate-900">4. Responsible AI Tutor Usage</h2>
+            <h2 className="text-lg font-black text-slate-900">4. Responsible Educational Clarification</h2>
             <p>
-              Our Gemini AI Tutor (&quot;Signy&quot;) is designed as a supplementary comprehension aid to provide visual analogies and fingerspelling sequences. It does not replace certified human deaf educators or formal speech-and-language pathology services.
+              Our &quot;Clarify This Word&quot; feature is designed as a supplementary comprehension aid using reviewed learning content. It does not replace Deaf educators or facilitators.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-black text-slate-900">5. Contact &amp; Legal Support</h2>
             <p className="text-xs text-slate-600">
-              Questions regarding these terms may be sent to <a href="mailto:legal@deaflms.org" className="text-indigo-600 font-bold hover:underline">legal@deaflms.org</a>.
+              Questions regarding these terms may be sent to <a href="mailto:legal@acclusivo.com" className="text-teal-700 font-bold hover:underline">legal@acclusivo.com</a>.
             </p>
           </section>
         </div>
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs font-bold text-slate-400">
-        Deaf LMS — Transparent K-12 Educational Terms
+      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
+        <p className="text-slate-600 font-semibold">
+          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
+          <span>•</span>
+          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
+          <span>•</span>
+          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
+        </div>
       </footer>
     </div>
   );

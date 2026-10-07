@@ -117,16 +117,27 @@ export default function PrivacyPolicyPage() {
               If you have questions regarding student privacy, school institutional data agreements, or accessibility compliance:
             </p>
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 space-y-1">
-              <div>Email: <a href="mailto:privacy@deaflms.org" className="text-indigo-600 hover:underline">privacy@deaflms.org</a></div>
-              <div>Deaf LMS Education Foundation • Lagos, Nigeria &amp; Global DHH Initiative</div>
+              <div>Email: <a href="mailto:privacy@acclusivo.com" className="text-teal-700 hover:underline">privacy@acclusivo.com</a></div>
+              <div>Acclusivo • Tech Inclusion Enterprise Ltd, Abuja, Nigeria</div>
             </div>
           </section>
 
         </div>
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs font-bold text-slate-400">
-        Deaf LMS — Child-Safe Visual Sign Platform
+      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
+        <p className="text-slate-600 font-semibold">
+          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
+          <span>•</span>
+          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
+          <span>•</span>
+          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
+        </div>
       </footer>
     </div>
   );

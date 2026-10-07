@@ -60,7 +60,7 @@ export default function OnboardingPage() {
       name: 'Nigerian Sign Language (NSL)',
       flag: '🇳🇬',
       region: 'Nigeria & West Africa',
-      description: 'Aligned with Nigerian National Special Needs curriculum (NERDC) and indigenous Nigerian sign concepts.',
+      description: 'Focusing on Nigerian Sign Language visual literacy and indigenous Nigerian sign concepts.',
       isAvailable: true,
       priorityBadge: '🟢 Priority Launch 1 • Active Now',
     },

@@ -23,7 +23,8 @@ export default function SignUpPage() {
   const router = useRouter();
   const { signup, isLoading } = useAuth();
 
-  const [selectedRole, setSelectedRole] = useState<UserRole>('student');
+  type PublicRegistrationRole = 'learner' | 'parent_guardian' | 'family_supporter';
+  const [selectedPublicRole, setSelectedPublicRole] = useState<PublicRegistrationRole>('learner');
   const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -36,9 +37,10 @@ export default function SignUpPage() {
     setErrorMsg('');
 
     try {
-      const success = await signup(displayName, email, selectedRole, password);
+      // Map public registration to student/supporter role in backend
+      const mappedRole: UserRole = 'student';
+      const success = await signup(displayName, email, mappedRole, password);
       if (success) {
-        // Launch Duolingo-style interactive onboarding
         router.push('/onboarding');
       } else {
         setErrorMsg('Sign up encountered an issue. Please try again.');
@@ -102,49 +104,52 @@ export default function SignUpPage() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Account Role Selector */}
+              {/* Public Account Role Selector */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">I am joining as a:</label>
+                <label className="text-xs font-bold text-slate-700">I am registering as a:</label>
                 <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200">
                   <button
                     type="button"
-                    onClick={() => setSelectedRole('student')}
-                    className={`py-2 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 ${
-                      selectedRole === 'student'
+                    onClick={() => setSelectedPublicRole('learner')}
+                    className={`py-2 px-1 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 text-center ${
+                      selectedPublicRole === 'learner'
                         ? 'bg-white text-emerald-700 shadow-sm border border-slate-200'
                         : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
                     <GraduationCap className="w-4 h-4" />
-                    Student
+                    <span>Learner</span>
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => setSelectedRole('teacher')}
-                    className={`py-2 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 ${
-                      selectedRole === 'teacher'
+                    onClick={() => setSelectedPublicRole('parent_guardian')}
+                    className={`py-2 px-1 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 text-center ${
+                      selectedPublicRole === 'parent_guardian'
                         ? 'bg-white text-indigo-700 shadow-sm border border-slate-200'
                         : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
-                    <BookOpen className="w-4 h-4" />
-                    Facilitator
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Parent / Guardian</span>
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => setSelectedRole('admin')}
-                    className={`py-2 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 ${
-                      selectedRole === 'admin'
-                        ? 'bg-white text-amber-800 shadow-sm border border-slate-200'
+                    onClick={() => setSelectedPublicRole('family_supporter')}
+                    className={`py-2 px-1 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 text-center ${
+                      selectedPublicRole === 'family_supporter'
+                        ? 'bg-white text-teal-800 shadow-sm border border-slate-200'
                         : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
-                    <ShieldCheck className="w-4 h-4" />
-                    Admin
+                    <BookOpen className="w-4 h-4" />
+                    <span>Family Supporter</span>
                   </button>
                 </div>
+                <p className="text-[11px] text-slate-500 pt-1">
+                  Note: Facilitator and Administrator accounts require institutional invitation and cannot be created via public registration.
+                </p>
               </div>
 
               {/* Display Name */}
@@ -158,11 +163,11 @@ export default function SignUpPage() {
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                     placeholder={
-                      selectedRole === 'student'
-                        ? 'e.g., Emeka Johnson'
-                        : selectedRole === 'teacher'
-                        ? 'e.g., Mrs. Aisha Bello'
-                        : 'e.g., Dr. Chidi Okafor'
+                      selectedPublicRole === 'learner'
+                        ? 'e.g., Emeka Johnson (Learner)'
+                        : selectedPublicRole === 'parent_guardian'
+                        ? 'e.g., Mrs. Aisha Bello (Parent/Guardian)'
+                        : 'e.g., Dr. Chidi Okafor (Family Supporter)'
                     }
                     className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
                   />
@@ -256,16 +261,21 @@ export default function SignUpPage() {
       </main>
 
       {/* Footer with Working Links */}
-      <footer className="bg-white border-t border-slate-200 py-4 px-4 text-center text-xs font-medium text-slate-500 flex flex-wrap items-center justify-center gap-4">
-        <span>&copy; 2026 Deaf LMS</span>
-        <span>•</span>
-        <Link href="/privacy" className="hover:text-indigo-600 transition">Privacy</Link>
-        <span>•</span>
-        <Link href="/terms" className="hover:text-indigo-600 transition">Terms</Link>
-        <span>•</span>
-        <Link href="/accessibility" className="hover:text-indigo-600 transition">Accessibility</Link>
-        <span>•</span>
-        <Link href="/support" className="hover:text-indigo-600 transition">Support</Link>
+      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
+        <p className="text-slate-600 font-semibold">
+          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
+          <span>•</span>
+          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
+          <span>•</span>
+          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
+          <span>•</span>
+          <Link href="/support" className="hover:text-teal-700 transition">Support</Link>
+        </div>
       </footer>
     </div>
   );

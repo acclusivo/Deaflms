@@ -58,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
       badge: 'Facilitator Studio',
       badgeClass: 'bg-indigo-50 text-indigo-800 border-indigo-200',
       subtitle: 'Educator & Curriculum Portal',
-      roleTag: '👨‍🏫 Certified Facilitator',
+      roleTag: '👨‍🏫 Facilitator Account',
       roleClass: 'text-indigo-700 bg-indigo-50 border-indigo-200',
       avatarBg: 'bg-indigo-600 text-white',
     },

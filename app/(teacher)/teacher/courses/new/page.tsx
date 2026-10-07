@@ -31,7 +31,7 @@ export default function NewCoursePage() {
       thumbnailUrl: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80',
       durationMinutes: 40,
       iconName: 'Laptop',
-      teacherName: 'Mr. Jordan Ellis',
+      teacherName: 'Facilitator — Sample Account',
       videoUrl: uploadedVideoUrl,
     });
 

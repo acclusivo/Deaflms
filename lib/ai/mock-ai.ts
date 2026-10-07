@@ -1,114 +1,178 @@
-import { SignyExplanation, AILessonGeneration, CourseCategory } from '../types';
+import { SignyExplanation, AILessonGeneration } from '../types';
+import { APPROVED_COMPUTER_WORDS, getApprovedWord } from '../approved-vocabulary';
 
-export const MOCK_SIGNY_EXPLANATIONS: Record<string, SignyExplanation> = {
-  webcam: {
-    term: 'Webcam',
-    simplifiedDefinition: 'A small camera on your computer that captures video of your signing hands and face.',
-    visualAnalogy: 'Like a digital eye on your computer screen that lets your teacher see your hands signing across the internet.',
-    fingerspell: 'W E B C A M',
-    signGuide: {
-      handshape: "Curved 'C' hand shape mimicking a circular camera lens",
-      location: 'Held outward in signing space directly facing the webcam',
-      movement: 'Twist slightly like focusing a camera lens, then point toward screen',
-      facialExpression: 'Focused gaze forward into the camera lens',
-    },
-    visualPromptSuggestion: 'A computer screen with a glowing green webcam light showing smiling hands signing hello.',
-  },
-  keyboard: {
-    term: 'Keyboard',
-    simplifiedDefinition: 'The flat rectangular board with alphabet letter keys used to type words and message teachers.',
-    visualAnalogy: 'Like a magic piano where each key presses a letter onto your glowing screen.',
-    fingerspell: 'K E Y B O A R D',
-    signGuide: {
-      handshape: 'Both hands open with fingers bent and wiggling',
-      location: 'Horizontal plane in front of stomach/waist height',
-      movement: 'Rapid fluttering downward taps across the invisible desk',
-      facialExpression: 'Neutral, looking slightly down at signing hands',
-    },
-    visualPromptSuggestion: 'Colorful mechanical keyboard with glowing RGB keys and ASL alphabet symbols.',
-  },
-  monitor: {
-    term: 'Monitor (Screen)',
-    simplifiedDefinition: 'The large visual display of the computer where storybooks, videos, and signs are shown.',
-    visualAnalogy: 'Like a digital picture frame that moves and displays signing lessons.',
-    fingerspell: 'M O N I T O R',
-    signGuide: {
-      handshape: "Both index fingers and thumbs form 'L' shapes",
-      location: 'In front of chest',
-      movement: 'Trace the top, sides, and bottom of a wide rectangle in the air',
-      facialExpression: 'Attentive, eyes open wide',
-    },
-    visualPromptSuggestion: 'Wide crystal-clear computer monitor showing sign language video lesson with captions.',
-  },
+/**
+ * Safe, Grounded Clarification Engine (Mock & Fallback)
+ * 
+ * Complies with Section 10 of DeafLMS Master Specification:
+ * - AI must retrieve content from approved vocabulary list before answering.
+ * - Never invent a sign.
+ * - Never generate physical sign instructions (handshape/location/movement/expression).
+ * - Never claim generated handshapes are NSL.
+ * - Never diagnose a learner.
+ * - Unapproved words return explicit safety disclaimer.
+ */
+
+// Dictionary of safe, simple written definitions for common unapproved words (NO SIGNS)
+const UNAPPROVED_SAFE_DEFINITIONS: Record<string, string> = {
+  photosynthesis: 'Photosynthesis is the way green plants use light from the sun to make food from water and air.',
+  cryptocurrency: 'Cryptocurrency is digital money that exists only on computers and the internet.',
+  internet: 'The internet is a global network that connects computers together so people can share information.',
+  computer: 'A computer is an electronic machine that helps you work, write, draw, and communicate with others.',
+  book: 'A book has pages with words and pictures that you read to learn or enjoy stories.',
+  teacher: 'A teacher is a person who helps students learn new skills and ideas.',
+  school: 'A school is a safe place where learners gather to study, make friends, and discover new things.',
 };
 
+const INAPPROPRIATE_KEYWORDS = ['kill', 'weapon', 'violence', 'hate', 'bomb', 'harm'];
+
 export function getMockSignyExplanation(term: string): SignyExplanation {
-  const normalized = term.toLowerCase().trim();
-  if (MOCK_SIGNY_EXPLANATIONS[normalized]) {
-    return MOCK_SIGNY_EXPLANATIONS[normalized];
+  if (!term || !term.trim()) {
+    return {
+      term: '',
+      isApprovedWord: false,
+      simplifiedDefinition: 'Please enter a word to clarify.',
+      fingerspell: '',
+      signGuide: null,
+      boundaryNotice: 'Please provide a valid vocabulary word.',
+    };
   }
 
-  // Fallback dynamic generator
-  const fingerspelling = term.toUpperCase().split('').join(' ');
+  const cleanTerm = term.trim();
+  const lower = cleanTerm.toLowerCase();
+
+  // Inappropriate content guardrail
+  if (INAPPROPRIATE_KEYWORDS.some((bad) => lower.includes(bad))) {
+    return {
+      term: cleanTerm,
+      isApprovedWord: false,
+      simplifiedDefinition: 'This term cannot be displayed. DeafLMS is a safe, focused learning platform for children.',
+      fingerspell: '',
+      signGuide: null,
+      boundaryNotice: 'Inappropriate or harmful request blocked by child safeguarding filter.',
+    };
+  }
+
+  // 1. Check approved vocabulary store first
+  const approvedItem = getApprovedWord(lower);
+
+  if (approvedItem) {
+    return {
+      term: approvedItem.word,
+      isApprovedWord: true,
+      simplifiedDefinition: approvedItem.simpleMeaning,
+      exampleSentence: approvedItem.exampleSentence,
+      fingerspell: approvedItem.fingerspell,
+      signVideoUrl: approvedItem.signVideoUrl,
+      reviewStatus: approvedItem.reviewStatus,
+      reviewedBy: approvedItem.reviewedBy,
+      signLanguage: approvedItem.signLanguage,
+      signGuide: null, // Strictly null: we do NOT generate arbitrary text descriptions
+      boundaryNotice: undefined,
+      visualPromptSuggestion: `Reviewed Nigerian Sign Language lesson for ${approvedItem.word}.`,
+    };
+  }
+
+  // 2. Unapproved word processing
+  // Must NOT generate handshape, location, movement, or facial expression
+  const safeDefinition =
+    UNAPPROVED_SAFE_DEFINITIONS[lower] ||
+    `"${cleanTerm}" is a written word. Here is a simple meaning to help you understand its use in sentences.`;
+
   return {
-    term,
-    simplifiedDefinition: `A visual learning concept in sign language: '${term}'.`,
-    visualAnalogy: `Think of ${term} as a clear visual image that connects to a physical handshape.`,
-    fingerspell: fingerspelling,
-    signGuide: {
-      handshape: 'Open hand with thumb extended or dominant handshape',
-      location: 'Center of neutral signing space in front of upper chest',
-      movement: 'Gentle forward arc movement indicating clarity',
-      facialExpression: 'Engaged and nodding slightly',
-    },
-    visualPromptSuggestion: `A clean visual illustration representing '${term}' with clear signing hand cues.`,
+    term: cleanTerm,
+    isApprovedWord: false,
+    simplifiedDefinition: safeDefinition,
+    exampleSentence: undefined,
+    fingerspell: cleanTerm.toUpperCase().split('').join(' '),
+    signVideoUrl: undefined,
+    reviewStatus: undefined,
+    signLanguage: undefined,
+    signGuide: null, // Strictly null: NEVER hallucinate signs!
+    boundaryNotice:
+      'This word is not yet in our reviewed sign library. I can give you a simple written meaning, but I cannot create or approve its Nigerian Sign Language sign. Ask your facilitator for the reviewed local sign.',
+    visualPromptSuggestion: undefined,
+  };
+}
+
+/**
+ * Non-AI Offline Fallback
+ * Guaranteed to return safe content even during total API/AI disconnection.
+ */
+export function getOfflineFallbackExplanation(term: string): SignyExplanation {
+  const approved = getApprovedWord(term);
+  if (approved) {
+    return {
+      term: approved.word,
+      isApprovedWord: true,
+      simplifiedDefinition: approved.simpleMeaning,
+      exampleSentence: approved.exampleSentence,
+      fingerspell: approved.fingerspell,
+      signVideoUrl: approved.signVideoUrl,
+      reviewStatus: approved.reviewStatus,
+      reviewedBy: approved.reviewedBy,
+      signLanguage: approved.signLanguage,
+      signGuide: null,
+      boundaryNotice: 'Offline Mode: Displaying pre-reviewed curriculum content.',
+    };
+  }
+
+  return {
+    term: term || 'Offline Word',
+    isApprovedWord: false,
+    simplifiedDefinition:
+      'We cannot create a new explanation right now. Watch the approved lesson again or ask your facilitator for help.',
+    fingerspell: (term || '').toUpperCase().split('').join(' '),
+    signGuide: null,
+    boundaryNotice:
+      'We cannot create a new explanation right now. Watch the approved lesson again or ask your facilitator for help.',
   };
 }
 
 export function getMockAILessonGeneration(topic: string, gradeLevel: string = 'Grade 3'): AILessonGeneration {
   return {
-    lessonTitle: `${topic}: Sign Language & Visual Mastery`,
-    description: `An engaging visual curriculum unit on ${topic}, designed for Deaf and Hard-of-Hearing students.`,
+    lessonTitle: `${topic}: Approved Visual Literacy Unit`,
+    description: `Structured curriculum unit on ${topic}, designed for Deaf and Hard-of-Hearing students with human review safeguards.`,
     gradeLevel,
     category: topic.toLowerCase().includes('computer') || topic.toLowerCase().includes('tech')
       ? 'Digital Literacy'
       : 'Reading & Literacy',
     vocabulary: [
       {
-        word: `${topic} Item 1`,
-        category: 'Core Vocabulary',
-        signDescription: 'Form primary handshape and sign with outward movement.',
-        visualIcon: 'star',
+        word: 'Webcam',
+        category: 'Hardware',
+        signDescription: 'Reviewed NSL sign available in library.',
+        visualIcon: 'camera',
       },
       {
-        word: `${topic} Item 2`,
-        category: 'Core Vocabulary',
-        signDescription: 'Both hands move in symmetry across the signing area.',
-        visualIcon: 'sparkles',
+        word: 'Keyboard',
+        category: 'Hardware',
+        signDescription: 'Reviewed NSL sign available in library.',
+        visualIcon: 'laptop',
       },
       {
-        word: `${topic} Item 3`,
-        category: 'Action Sign',
-        signDescription: 'Dominant hand gestures toward the visual context anchor.',
-        visualIcon: 'hand',
+        word: 'Monitor',
+        category: 'Hardware',
+        signDescription: 'Reviewed NSL sign available in library.',
+        visualIcon: 'monitor',
       },
     ],
     worksheet: {
-      title: `${topic} Visual Challenge`,
+      title: `${topic} Visual Review`,
       activityType: 'picture_to_sign',
       pairs: [
         {
           id: 'p-ai-1',
-          label: `${topic} Part A`,
-          pictureIcon: 'laptop',
-          signHint: 'Two-hand symmetric sign',
+          label: 'Webcam',
+          pictureIcon: 'camera',
+          signHint: 'Approved camera sign',
           matchId: 'm-ai-1',
         },
         {
           id: 'p-ai-2',
-          label: `${topic} Part B`,
-          pictureIcon: 'book',
-          signHint: 'Fingerspell anchor sign',
+          label: 'Keyboard',
+          pictureIcon: 'laptop',
+          signHint: 'Approved typing sign',
           matchId: 'm-ai-2',
         },
       ],

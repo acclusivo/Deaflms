@@ -88,7 +88,7 @@ export default function CourseDetailPage() {
                 {course.durationMinutes} Minutes
               </span>
               <span>•</span>
-              <span>Educator: {course.teacherName || 'Mr. Jordan Ellis'}</span>
+              <span>Educator: {course.teacherName || 'Facilitator — Sample Account'}</span>
             </div>
           </div>
         </div>

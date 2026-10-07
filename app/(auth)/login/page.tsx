@@ -100,14 +100,19 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* 1-CLICK INSTANT DEMO LOGIN TABS (Fastest Way to Proceed) */}
+          {/* 1-CLICK INSTANT DEMO LOGIN TABS */}
           <div className="bg-white p-5 rounded-3xl border-2 border-indigo-100 shadow-md space-y-3">
             <div className="flex items-center justify-between text-xs font-black text-slate-800">
               <span className="flex items-center gap-1.5 text-indigo-600">
                 <Sparkles className="w-4 h-4 text-amber-500" />
-                1-Click Instant Demo Login:
+                1-Click Demonstration Accounts:
               </span>
               <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">No Password Needed</span>
+            </div>
+
+            {/* Required Sample Data Notice */}
+            <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] font-bold text-amber-900 text-center">
+              All progress shown is sample demonstration data.
             </div>
 
             <div className="grid grid-cols-3 gap-2">
@@ -119,8 +124,8 @@ export default function LoginPage() {
                 <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-1.5 group-hover:scale-110 transition">
                   <GraduationCap className="w-4 h-4" />
                 </div>
-                <span className="text-xs font-black">Student</span>
-                <span className="text-[9px] font-bold text-emerald-600">Maya Lin</span>
+                <span className="text-xs font-black">Demo Learner</span>
+                <span className="text-[9px] font-bold text-emerald-700">Amina</span>
               </button>
 
               <button
@@ -132,7 +137,7 @@ export default function LoginPage() {
                   <BookOpen className="w-4 h-4" />
                 </div>
                 <span className="text-xs font-black">Facilitator</span>
-                <span className="text-[9px] font-bold text-indigo-600">Mr. Jordan</span>
+                <span className="text-[9px] font-bold text-indigo-700">Sample Account</span>
               </button>
 
               <button
@@ -144,7 +149,7 @@ export default function LoginPage() {
                   <ShieldCheck className="w-4 h-4" />
                 </div>
                 <span className="text-xs font-black">Admin</span>
-                <span className="text-[9px] font-bold text-amber-700">Director Sarah</span>
+                <span className="text-[9px] font-bold text-amber-800">Demo Account</span>
               </button>
             </div>
           </div>
@@ -273,16 +278,21 @@ export default function LoginPage() {
       </main>
 
       {/* Footer with Working Links */}
-      <footer className="bg-white border-t border-slate-200 py-4 px-4 text-center text-xs font-medium text-slate-500 flex flex-wrap items-center justify-center gap-4">
-        <span>&copy; 2026 Deaf LMS</span>
-        <span>•</span>
-        <Link href="/privacy" className="hover:text-indigo-600 transition">Privacy</Link>
-        <span>•</span>
-        <Link href="/terms" className="hover:text-indigo-600 transition">Terms</Link>
-        <span>•</span>
-        <Link href="/accessibility" className="hover:text-indigo-600 transition">Accessibility</Link>
-        <span>•</span>
-        <Link href="/support" className="hover:text-indigo-600 transition">Support</Link>
+      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
+        <p className="text-slate-600 font-semibold">
+          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
+          <span>•</span>
+          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
+          <span>•</span>
+          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
+          <span>•</span>
+          <Link href="/support" className="hover:text-teal-700 transition">Support</Link>
+        </div>
       </footer>
     </div>
   );

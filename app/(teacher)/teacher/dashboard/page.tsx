@@ -37,7 +37,7 @@ export default function TeacherDashboardPage() {
     NSL: {
       name: 'Nigerian Sign Language (NSL)',
       flag: '🇳🇬',
-      curriculum: 'NERDC Special Needs National Curriculum (Nigeria)',
+      curriculum: 'Proposed future curriculum alignment (Nigeria)',
     },
     KRSL: {
       name: 'Korean Sign Language (한국수어)',
@@ -98,7 +98,7 @@ export default function TeacherDashboardPage() {
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Welcome, {user?.displayName || 'Jordan Ellis'}
+              Welcome, {user?.displayName || 'Facilitator'}
             </h1>
 
             <p className="text-slate-500 text-sm leading-relaxed font-medium">

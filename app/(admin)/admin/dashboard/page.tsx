@@ -182,7 +182,7 @@ export default function AdminDashboardPage() {
             </div>
             <h3 className="text-xl font-black text-slate-900">Curriculum Standards &amp; Moderation</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Audit published courses for DHH accessibility compliance, WCAG AAA contrast, and Nigerian sign accuracy.
+              Audit published courses for DHH accessibility compliance, WCAG 2.2 AA target contrast, and Nigerian sign accuracy.
             </p>
           </Link>
 

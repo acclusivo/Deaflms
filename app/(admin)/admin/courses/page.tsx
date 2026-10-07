@@ -67,11 +67,11 @@ export default function AdminCoursesPage() {
                       </span>
                     </td>
                     <td className="py-4 px-6 text-slate-600">{course.gradeLevel}</td>
-                    <td className="py-4 px-6 text-slate-700">{course.teacherName || 'Mr. Jordan Ellis'}</td>
+                    <td className="py-4 px-6 text-slate-700">{course.teacherName || 'Facilitator — Sample Account'}</td>
                     <td className="py-4 px-6">
-                      <span className="inline-flex items-center gap-1 text-xs text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                      <span className="inline-flex items-center gap-1 text-xs text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
                         <CheckCircle2 className="w-3.5 h-3.5" />
-                        WCAG AAA Verified
+                        Designed toward AA
                       </span>
                     </td>
                     <td className="py-4 px-6 text-right">

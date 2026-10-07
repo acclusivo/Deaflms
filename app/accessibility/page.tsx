@@ -116,14 +116,25 @@ export default function AccessibilityStatementPage() {
               If you encounter any barrier, unreadable sign video, or keyboard navigation conflict, please notify our accessibility working group:
             </p>
             <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800">
-              Email: <a href="mailto:accessibility@deaflms.org" className="text-indigo-600 hover:underline">accessibility@deaflms.org</a>
+              Email: <a href="mailto:accessibility@acclusivo.com" className="text-teal-700 hover:underline">accessibility@acclusivo.com</a>
             </div>
           </div>
         </div>
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs font-bold text-slate-400">
-        Deaf LMS — Dedicated to Inclusive Visual Education
+      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
+        <p className="text-slate-600 font-semibold">
+          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
+          <span>•</span>
+          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
+          <span>•</span>
+          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
+        </div>
       </footer>
     </div>
   );
