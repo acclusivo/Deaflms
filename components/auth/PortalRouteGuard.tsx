@@ -40,7 +40,7 @@ export const PortalRouteGuard: React.FC<PortalRouteGuardProps> = ({
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
         <div className="flex flex-col items-center gap-3 p-8 rounded-3xl bg-white border border-slate-200 shadow-lg text-center max-w-sm w-full">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center animate-pulse">
+          <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center animate-pulse">
             <Loader2 className="w-6 h-6 animate-spin" />
           </div>
           <h2 className="text-base font-black text-slate-900">Verifying Portal Access</h2>
@@ -56,19 +56,19 @@ export const PortalRouteGuard: React.FC<PortalRouteGuardProps> = ({
   if (!user) {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl p-8 border-2 border-slate-200 shadow-xl text-center space-y-5">
-          <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto shadow-sm">
+        <div className="max-w-md w-full bg-white rounded-3xl p-8 border-2 border-slate-200 shadow-sm text-center space-y-5">
+          <div className="w-14 h-14 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center mx-auto shadow-xs">
             <Lock className="w-7 h-7" />
           </div>
           <div className="space-y-1.5">
             <h1 className="text-2xl font-black text-slate-900">Sign In Required</h1>
-            <p className="text-xs text-slate-500 font-medium">
-              You must be logged in to access this portal. Redirecting to login...
+            <p className="text-xs text-slate-600 font-medium">
+              You must be logged in to access this portal. Redirecting to sign in...
             </p>
           </div>
           <button
             onClick={() => router.push(`/login?redirect=${encodeURIComponent(pathname)}`)}
-            className="w-full py-3.5 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-md transition"
+            className="w-full py-3.5 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs shadow-md transition interactive-target"
           >
             Go to Sign In
           </button>
@@ -83,22 +83,22 @@ export const PortalRouteGuard: React.FC<PortalRouteGuardProps> = ({
       student: {
         name: 'Student Learner',
         portal: 'Student Learner Portal',
-        icon: <GraduationCap className="w-4 h-4 text-emerald-600" />,
-        color: 'text-emerald-700 bg-emerald-50 border-emerald-200',
+        icon: <GraduationCap className="w-4 h-4 text-teal-700" />,
+        color: 'text-teal-900 bg-teal-50 border-teal-200',
         path: '/student/dashboard',
       },
       teacher: {
         name: 'Facilitator / Educator',
         portal: 'Facilitator Studio',
-        icon: <BookOpen className="w-4 h-4 text-indigo-600" />,
-        color: 'text-indigo-700 bg-indigo-50 border-indigo-200',
+        icon: <BookOpen className="w-4 h-4 text-slate-700" />,
+        color: 'text-slate-800 bg-slate-100 border-slate-300',
         path: '/teacher/dashboard',
       },
       admin: {
         name: 'Administrator',
         portal: 'Admin Console',
-        icon: <ShieldCheck className="w-4 h-4 text-amber-700" />,
-        color: 'text-amber-800 bg-amber-50 border-amber-200',
+        icon: <ShieldCheck className="w-4 h-4 text-amber-800" />,
+        color: 'text-amber-900 bg-amber-50 border-amber-300',
         path: '/admin/dashboard',
       },
     };

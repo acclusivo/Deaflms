@@ -5,38 +5,127 @@ import { UserProfile, UserRole } from './types';
 import { MOCK_CURRENT_USER, MOCK_TEACHER, MOCK_ADMIN } from './mock-data';
 import { isSupabaseConfigured, supabase } from './supabase/client';
 
+interface RegisteredAccount {
+  email: string;
+  password: string;
+  profile: UserProfile;
+}
+
 interface AuthContextType {
   user: UserProfile | null;
   role: UserRole;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (role: UserRole, email?: string, password?: string) => Promise<boolean>;
-  signup: (displayName: string, email: string, role: UserRole, password?: string) => Promise<boolean>;
+  login: (role?: UserRole, email?: string, password?: string) => Promise<{ success: boolean; error?: string }>;
+  signup: (displayName: string, email: string, role: UserRole, password?: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   quickLogin: (targetRole: UserRole) => void;
   updateProfile: (updates: Partial<UserProfile>) => void;
+  demoCredentials: {
+    student: { email: string; pass: string; label: string };
+    teacher: { email: string; pass: string; label: string };
+    admin: { email: string; pass: string; label: string };
+  };
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const LOCAL_STORAGE_KEY = 'deaflms_auth_user';
+const ACCOUNTS_STORAGE_KEY = 'deaflms_registered_accounts';
+
+export const DEMO_CREDENTIALS = {
+  student: {
+    email: 'student@deaflms.org',
+    pass: 'learner123',
+    label: 'Amina (Primary 4 Learner)',
+  },
+  teacher: {
+    email: 'teacher@deaflms.org',
+    pass: 'teacher123',
+    label: 'Jordan Ellis (Deaf Facilitator)',
+  },
+  admin: {
+    email: 'admin@deaflms.org',
+    pass: 'admin123',
+    label: 'Dr. Patricia Okon (Institutional Admin)',
+  },
+};
+
+const DEFAULT_ACCOUNTS: RegisteredAccount[] = [
+  {
+    email: DEMO_CREDENTIALS.student.email.toLowerCase(),
+    password: DEMO_CREDENTIALS.student.pass,
+    profile: {
+      ...MOCK_CURRENT_USER,
+      email: DEMO_CREDENTIALS.student.email,
+    },
+  },
+  {
+    email: DEMO_CREDENTIALS.teacher.email.toLowerCase(),
+    password: DEMO_CREDENTIALS.teacher.pass,
+    profile: {
+      ...MOCK_TEACHER,
+      email: DEMO_CREDENTIALS.teacher.email,
+    },
+  },
+  {
+    email: DEMO_CREDENTIALS.admin.email.toLowerCase(),
+    password: DEMO_CREDENTIALS.admin.pass,
+    profile: {
+      ...MOCK_ADMIN,
+      email: DEMO_CREDENTIALS.admin.email,
+    },
+  },
+];
+
+function getStoredAccounts(): RegisteredAccount[] {
+  if (typeof window === 'undefined') return DEFAULT_ACCOUNTS;
+  try {
+    const raw = localStorage.getItem(ACCOUNTS_STORAGE_KEY);
+    if (!raw) {
+      localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(DEFAULT_ACCOUNTS));
+      return DEFAULT_ACCOUNTS;
+    }
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_ACCOUNTS;
+  } catch {
+    return DEFAULT_ACCOUNTS;
+  }
+}
+
+function saveAccount(account: RegisteredAccount) {
+  try {
+    const current = getStoredAccounts();
+    const filtered = current.filter((a) => a.email.toLowerCase() !== account.email.toLowerCase());
+    const updated = [...filtered, account];
+    localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(updated));
+  } catch (e) {
+    console.warn('Error saving local account:', e);
+  }
+}
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // Initialize session from localStorage or cookie
   useEffect(() => {
-    // Load persisted user on client
     try {
       const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (stored) {
-        setUser(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        setUser(parsed);
+        // Ensure cookies match session
+        if (typeof document !== 'undefined' && parsed?.role) {
+          document.cookie = `deaflms_role=${parsed.role}; path=/; max-age=604800; SameSite=Lax`;
+          document.cookie = `deaflms_user_id=${parsed.id}; path=/; max-age=604800; SameSite=Lax`;
+        }
       } else {
-        // Default to student demo user
-        setUser(MOCK_CURRENT_USER);
+        // True guest state: unauthenticated until sign in
+        setUser(null);
       }
-    } catch (e) {
-      setUser(MOCK_CURRENT_USER);
+    } catch {
+      setUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -63,48 +152,107 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const login = async (role: UserRole, email?: string, password?: string): Promise<boolean> => {
+  const login = async (
+    role?: UserRole,
+    email?: string,
+    password?: string
+  ): Promise<{ success: boolean; error?: string }> => {
     setIsLoading(true);
-    try {
-      if (isSupabaseConfigured && supabase && email && password) {
+
+    // 1. If Supabase is configured, use real Supabase authentication
+    if (isSupabaseConfigured && supabase && email && password) {
+      try {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (!error && data.user) {
+        if (error) {
+          setIsLoading(false);
+          return { success: false, error: error.message };
+        }
+        if (data.user) {
           const profile: UserProfile = {
             id: data.user.id,
             email: data.user.email || email,
             displayName: data.user.user_metadata?.display_name || email.split('@')[0],
-            role,
-            avatarUrl: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=150&auto=format&fit=crop&q=80',
+            role: (data.user.user_metadata?.role as UserRole) || role || 'student',
+            avatarUrl:
+              role === 'teacher'
+                ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+                : 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=150&auto=format&fit=crop&q=80',
             totalStars: role === 'student' ? 24 : undefined,
           };
           persistUser(profile);
           setIsLoading(false);
-          return true;
+          return { success: true };
         }
+      } catch (err: any) {
+        console.warn('Supabase auth failed, falling back to local registry:', err);
       }
-
-      // Mock login fallback
-      let matchedUser: UserProfile = MOCK_CURRENT_USER;
-      if (role === 'teacher') matchedUser = MOCK_TEACHER;
-      if (role === 'admin') matchedUser = MOCK_ADMIN;
-
-      if (email) {
-        matchedUser = {
-          ...matchedUser,
-          email,
-          displayName: email.split('@')[0].replace('.', ' '),
-        };
-      }
-
-      persistUser(matchedUser);
-      setIsLoading(false);
-      return true;
-    } catch (e) {
-      console.warn('Login error, using mock:', e);
-      persistUser(role === 'teacher' ? MOCK_TEACHER : role === 'admin' ? MOCK_ADMIN : MOCK_CURRENT_USER);
-      setIsLoading(false);
-      return true;
     }
+
+    // 2. Local Verified Account Registry (Offline & Pitch Proof)
+    const normalizedEmail = (email || '').trim().toLowerCase();
+    const accounts = getStoredAccounts();
+
+    if (normalizedEmail) {
+      const match = accounts.find((a) => a.email.toLowerCase() === normalizedEmail);
+
+      if (match) {
+        if (password && password !== match.password) {
+          setIsLoading(false);
+          return {
+            success: false,
+            error: 'Incorrect password. Please verify or use 1-click demo login below.',
+          };
+        }
+
+        // Account authenticated successfully
+        const activeProfile: UserProfile = {
+          ...match.profile,
+          role: role || match.profile.role,
+        };
+        persistUser(activeProfile);
+        setIsLoading(false);
+        return { success: true };
+      }
+
+      // If email not found in registry but password provided, create ad-hoc profile
+      if (password && password.length >= 4) {
+        const newProfile: UserProfile = {
+          id: `user-${Date.now()}`,
+          email: normalizedEmail,
+          displayName: normalizedEmail.split('@')[0].replace(/[-_.]/g, ' '),
+          role: role || 'student',
+          avatarUrl:
+            (role || 'student') === 'teacher'
+              ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+              : 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=150&auto=format&fit=crop&q=80',
+          totalStars: role === 'student' ? 10 : undefined,
+        };
+        saveAccount({
+          email: normalizedEmail,
+          password,
+          profile: newProfile,
+        });
+        persistUser(newProfile);
+        setIsLoading(false);
+        return { success: true };
+      }
+
+      setIsLoading(false);
+      return {
+        success: false,
+        error: 'Account not found. Please register or select 1-click demo login.',
+      };
+    }
+
+    // 3. Fallback quick login when no email passed
+    const targetRole: UserRole = role || 'student';
+    let fallbackProfile = MOCK_CURRENT_USER;
+    if (targetRole === 'teacher') fallbackProfile = MOCK_TEACHER;
+    if (targetRole === 'admin') fallbackProfile = MOCK_ADMIN;
+
+    persistUser(fallbackProfile);
+    setIsLoading(false);
+    return { success: true };
   };
 
   const signup = async (
@@ -112,53 +260,78 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     email: string,
     role: UserRole,
     password?: string
-  ): Promise<boolean> => {
+  ): Promise<{ success: boolean; error?: string }> => {
     setIsLoading(true);
-    try {
-      if (isSupabaseConfigured && supabase && password) {
+    const normalizedEmail = email.trim().toLowerCase();
+
+    // 1. Real Supabase registration if configured
+    if (isSupabaseConfigured && supabase && password) {
+      try {
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: normalizedEmail,
           password,
           options: { data: { display_name: displayName, role } },
         });
-        if (!error && data.user) {
-          const newUser: UserProfile = {
+        if (error) {
+          setIsLoading(false);
+          return { success: false, error: error.message };
+        }
+        if (data.user) {
+          const profile: UserProfile = {
             id: data.user.id,
-            email,
+            email: normalizedEmail,
             displayName,
             role,
-            avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+            avatarUrl:
+              role === 'teacher'
+                ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+                : 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=150&auto=format&fit=crop&q=80',
             totalStars: role === 'student' ? 10 : undefined,
           };
-          persistUser(newUser);
+          persistUser(profile);
           setIsLoading(false);
-          return true;
+          return { success: true };
         }
+      } catch (err: any) {
+        console.warn('Supabase signup error, using local accounts registry:', err);
       }
-
-      // Mock registration
-      const newUser: UserProfile = {
-        id: `user-${Date.now()}`,
-        email,
-        displayName,
-        role,
-        avatarUrl:
-          role === 'student'
-            ? 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=150&auto=format&fit=crop&q=80'
-            : role === 'teacher'
-            ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
-            : 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
-        totalStars: role === 'student' ? 10 : undefined,
-      };
-
-      persistUser(newUser);
-      setIsLoading(false);
-      return true;
-    } catch (e) {
-      console.warn('Signup error, using mock:', e);
-      setIsLoading(false);
-      return false;
     }
+
+    // 2. Local Account Registration
+    const accounts = getStoredAccounts();
+    const existing = accounts.find((a) => a.email.toLowerCase() === normalizedEmail);
+
+    if (existing) {
+      setIsLoading(false);
+      return {
+        success: false,
+        error: 'An account with this email already exists. Please sign in instead.',
+      };
+    }
+
+    const newProfile: UserProfile = {
+      id: `user-${Date.now()}`,
+      email: normalizedEmail,
+      displayName: displayName.trim() || normalizedEmail.split('@')[0],
+      role,
+      avatarUrl:
+        role === 'student'
+          ? 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=150&auto=format&fit=crop&q=80'
+          : role === 'teacher'
+          ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+          : 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+      totalStars: role === 'student' ? 10 : undefined,
+    };
+
+    saveAccount({
+      email: normalizedEmail,
+      password: password || 'learner123',
+      profile: newProfile,
+    });
+
+    persistUser(newProfile);
+    setIsLoading(false);
+    return { success: true };
   };
 
   const logout = () => {
@@ -178,6 +351,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user) return;
     const updated = { ...user, ...updates };
     persistUser(updated);
+
+    // Update in stored accounts if available
+    if (user.email) {
+      const accounts = getStoredAccounts();
+      const match = accounts.find((a) => a.email.toLowerCase() === user.email.toLowerCase());
+      if (match) {
+        saveAccount({
+          ...match,
+          profile: updated,
+        });
+      }
+    }
   };
 
   return (
@@ -192,6 +377,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         logout,
         quickLogin,
         updateProfile,
+        demoCredentials: DEMO_CREDENTIALS,
       }}
     >
       {children}

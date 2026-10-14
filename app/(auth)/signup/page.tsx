@@ -9,12 +9,10 @@ import {
   BookOpen,
   ShieldCheck,
   ArrowRight,
-  Sparkles,
   Lock,
   Mail,
   User,
-  CheckCircle2,
-  VolumeX,
+  AlertCircle,
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth-context';
 import { UserRole } from '@/lib/types';
@@ -23,8 +21,8 @@ export default function SignUpPage() {
   const router = useRouter();
   const { signup, isLoading } = useAuth();
 
-  type PublicRegistrationRole = 'learner' | 'parent_guardian' | 'family_supporter';
-  const [selectedPublicRole, setSelectedPublicRole] = useState<PublicRegistrationRole>('learner');
+  type AccountCategory = 'learner' | 'parent' | 'facilitator';
+  const [accountCategory, setAccountCategory] = useState<AccountCategory>('learner');
   const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -37,40 +35,42 @@ export default function SignUpPage() {
     setErrorMsg('');
 
     try {
-      // Map public registration to student/supporter role in backend
-      const mappedRole: UserRole = 'student';
-      const success = await signup(displayName, email, mappedRole, password);
-      if (success) {
-        router.push('/onboarding');
+      const mappedRole: UserRole = accountCategory === 'facilitator' ? 'teacher' : 'student';
+      const result = await signup(displayName, email, mappedRole, password);
+
+      if (result.success) {
+        if (mappedRole === 'teacher') {
+          router.push('/teacher/dashboard');
+        } else {
+          router.push('/student/dashboard');
+        }
       } else {
-        setErrorMsg('Sign up encountered an issue. Please try again.');
+        setErrorMsg(result.error || 'Registration could not be completed. Please try again.');
       }
-    } catch (err) {
-      setErrorMsg('Sign up failed. Please try again.');
+    } catch {
+      setErrorMsg('An unexpected error occurred during registration.');
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
-      {/* Top Header Bar */}
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-between text-slate-900">
+      {/* Top Header */}
       <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-200 group-hover:scale-105 transition transform">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 interactive-target">
+            <div className="w-9 h-9 rounded-xl bg-teal-700 flex items-center justify-center text-white font-bold">
               <HandMetal className="w-5 h-5" />
             </div>
-            <div>
-              <span className="text-xl font-black tracking-tight text-slate-900">
-                Deaf<span className="text-indigo-600">LMS</span>
-              </span>
-            </div>
+            <span className="text-xl font-black tracking-tight text-slate-900">
+              Deaf<span className="text-teal-700">LMS</span>
+            </span>
           </Link>
 
           <Link
             href="/"
-            className="text-xs font-black text-slate-500 hover:text-slate-900 transition"
+            className="text-xs font-bold text-slate-500 hover:text-slate-900 transition interactive-target"
           >
             ← Back to Home
           </Link>
@@ -81,40 +81,36 @@ export default function SignUpPage() {
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-10">
         <div className="max-w-md w-full space-y-6">
           
-          {/* Header Card */}
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-black uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Start Free • Unlock Intermediate &amp; Advanced Courses</span>
-            </div>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Create Your Free Account
+              Create an Account
             </h1>
-            <p className="text-xs text-slate-500 font-medium max-w-sm mx-auto">
-              Join Deaf LMS to track star achievements, access interactive storybooks, and learn computer skills in sign language.
+            <p className="text-xs text-slate-600 font-medium max-w-sm mx-auto">
+              Join DeafLMS for visual sign lessons, fingerspelling practice, and progress tracking.
             </p>
           </div>
 
-          {/* Form Card */}
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xl space-y-5">
+          {/* Registration Form Card */}
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-slate-200 shadow-xs space-y-5">
             {errorMsg && (
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold text-center">
-                {errorMsg}
+              <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-900 text-xs font-bold flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-red-700 shrink-0" />
+                <span>{errorMsg}</span>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Public Account Role Selector */}
+              {/* Account Role Selector */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">I am registering as a:</label>
-                <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200">
+                <label className="text-xs font-bold text-slate-700">I am joining as a:</label>
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200">
                   <button
                     type="button"
-                    onClick={() => setSelectedPublicRole('learner')}
-                    className={`py-2 px-1 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 text-center ${
-                      selectedPublicRole === 'learner'
-                        ? 'bg-white text-emerald-700 shadow-sm border border-slate-200'
-                        : 'text-slate-500 hover:text-slate-800'
+                    onClick={() => setAccountCategory('learner')}
+                    className={`py-2 px-1 text-xs font-extrabold rounded-lg transition flex flex-col items-center gap-1 text-center ${
+                      accountCategory === 'learner'
+                        ? 'bg-teal-700 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
                     <GraduationCap className="w-4 h-4" />
@@ -123,38 +119,35 @@ export default function SignUpPage() {
 
                   <button
                     type="button"
-                    onClick={() => setSelectedPublicRole('parent_guardian')}
-                    className={`py-2 px-1 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 text-center ${
-                      selectedPublicRole === 'parent_guardian'
-                        ? 'bg-white text-indigo-700 shadow-sm border border-slate-200'
-                        : 'text-slate-500 hover:text-slate-800'
+                    onClick={() => setAccountCategory('parent')}
+                    className={`py-2 px-1 text-xs font-extrabold rounded-lg transition flex flex-col items-center gap-1 text-center ${
+                      accountCategory === 'parent'
+                        ? 'bg-teal-700 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
                     <ShieldCheck className="w-4 h-4" />
-                    <span>Parent / Guardian</span>
+                    <span>Parent</span>
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => setSelectedPublicRole('family_supporter')}
-                    className={`py-2 px-1 text-xs font-extrabold rounded-xl transition flex flex-col items-center gap-1 text-center ${
-                      selectedPublicRole === 'family_supporter'
-                        ? 'bg-white text-teal-800 shadow-sm border border-slate-200'
-                        : 'text-slate-500 hover:text-slate-800'
+                    onClick={() => setAccountCategory('facilitator')}
+                    className={`py-2 px-1 text-xs font-extrabold rounded-lg transition flex flex-col items-center gap-1 text-center ${
+                      accountCategory === 'facilitator'
+                        ? 'bg-slate-800 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
                     <BookOpen className="w-4 h-4" />
-                    <span>Family Supporter</span>
+                    <span>Facilitator</span>
                   </button>
                 </div>
-                <p className="text-[11px] text-slate-500 pt-1">
-                  Note: Facilitator and Administrator accounts require institutional invitation and cannot be created via public registration.
-                </p>
               </div>
 
-              {/* Display Name */}
+              {/* Full Name */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">Full Name</label>
+                <label className="text-xs font-bold text-slate-700">Display Name</label>
                 <div className="relative">
                   <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                   <input
@@ -162,14 +155,8 @@ export default function SignUpPage() {
                     required
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
-                    placeholder={
-                      selectedPublicRole === 'learner'
-                        ? 'e.g., Emeka Johnson (Learner)'
-                        : selectedPublicRole === 'parent_guardian'
-                        ? 'e.g., Mrs. Aisha Bello (Parent/Guardian)'
-                        : 'e.g., Dr. Chidi Okafor (Family Supporter)'
-                    }
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+                    placeholder="e.g. Amina Musa"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-teal-700 focus:outline-none transition"
                   />
                 </div>
               </div>
@@ -184,41 +171,26 @@ export default function SignUpPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your.name@example.com"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+                    placeholder="name@school.org"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-teal-700 focus:outline-none transition"
                   />
                 </div>
               </div>
 
               {/* Password */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">Password</label>
+                <label className="text-xs font-bold text-slate-700">Create Password</label>
                 <div className="relative">
                   <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                   <input
                     type="password"
                     required
+                    minLength={6}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Create a strong password"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+                    placeholder="At least 6 characters"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-teal-700 focus:outline-none transition"
                   />
-                </div>
-              </div>
-
-              {/* Reassurance Checkbox list & Child Privacy Pledge */}
-              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-[11px] text-slate-600 font-medium space-y-2">
-                <div className="flex items-center gap-1.5 font-bold text-slate-800">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  Your Free Plan: Basic 1 • 1 Module • 5 Lessons Included
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  Zero Auditory Reliance (100% Visual Confetti &amp; Stars)
-                </div>
-                <div className="flex items-start gap-1.5 text-slate-500 pt-1 border-t border-slate-200/60">
-                  <span className="font-bold text-slate-700">🔒 Child Privacy:</span>
-                  <span>We never collect medical or audiological records. Accounts for learners under 13 are parent/guardian-managed.</span>
                 </div>
               </div>
 
@@ -226,56 +198,25 @@ export default function SignUpPage() {
               <button
                 type="submit"
                 disabled={submitting || isLoading}
-                className="w-full py-3.5 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm shadow-lg shadow-indigo-200 transition interactive-target flex items-center justify-center gap-2 mt-2"
+                className="w-full py-3.5 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2 interactive-target disabled:opacity-50"
               >
-                {submitting ? 'Creating Account...' : 'Complete Free Registration'}
+                <span>{submitting ? 'Creating Account...' : 'Create Account'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              <div className="text-[11px] text-slate-400 text-center leading-relaxed">
-                By registering, you agree to our{' '}
-                <Link href="/terms" className="text-indigo-600 font-bold hover:underline">
-                  Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link href="/privacy" className="text-indigo-600 font-bold hover:underline">
-                  Privacy Policy
-                </Link>
-                .
-              </div>
             </form>
 
-            <div className="pt-2 border-t border-slate-100 text-center">
-              <p className="text-xs text-slate-500 font-medium">
-                Already have an account?{' '}
-                <Link
-                  href="/login"
-                  className="font-black text-indigo-600 hover:underline"
-                >
-                  Sign In Here
-                </Link>
-              </p>
+            <div className="pt-2 text-center text-xs text-slate-500 font-medium">
+              Already have an account?{' '}
+              <Link href="/login" className="font-bold text-teal-700 underline hover:text-teal-900">
+                Sign in here
+              </Link>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Footer with Working Links */}
-      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
-        <p className="text-slate-600 font-semibold">
-          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
-          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
-          <span>•</span>
-          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
-          <span>•</span>
-          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
-          <span>•</span>
-          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
-          <span>•</span>
-          <Link href="/support" className="hover:text-teal-700 transition">Support</Link>
-        </div>
+      <footer className="py-6 text-center text-xs text-slate-500">
+        DeafLMS • Secure Role Isolation &amp; Accessible Authentication
       </footer>
     </div>
   );

@@ -6,12 +6,13 @@
   :root {
     --background: #f8fafc;
     --foreground: #0f172a;
-    --primary: #4f46e5;
+    --primary: #0f766e;
     --primary-foreground: #ffffff;
     --card: #ffffff;
     --card-foreground: #0f172a;
     --border: #e2e8f0;
     --radius: 1rem;
+    --accent-gold: #d97706;
   }
 
   body {
@@ -23,34 +24,36 @@
   }
 }
 
-/* Zero Audio Accessibility - High Contrast Visual Focus Rings */
+/* High Contrast Visual Focus Rings (WCAG 2.2 AA) */
 :focus-visible {
-  outline: 3px solid #4f46e5;
-  outline-offset: 3px;
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
 }
 
-/* Visual Feedback Glows */
-.correct-glow {
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.4), 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+/* Crisp feedback borders without distracting glows */
+.correct-border {
+  border-color: #059669;
+  background-color: #ecfdf5;
 }
 
-.incorrect-glow {
-  box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.4), 0 10px 15px -3px rgba(244, 63, 94, 0.2);
+.incorrect-border {
+  border-color: #dc2626;
+  background-color: #fef2f2;
 }
 
 .active-sign-border {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+  border-color: #0f766e;
+  box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
 }
 
-/* Touch targets for K-12 young learners */
+/* Touch targets for young learners (WCAG 2.2: >= 44px) */
 .interactive-target {
-  min-height: 48px;
-  min-width: 48px;
+  min-height: 44px;
+  min-width: 44px;
   touch-action: manipulation;
 }
 
-/* Respect Reduced-Motion Preferences (WCAG 2.2 AA) */
+/* Respect Reduced-Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -61,3 +64,4 @@
     scroll-behavior: auto !important;
   }
 }
+

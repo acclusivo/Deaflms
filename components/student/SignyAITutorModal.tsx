@@ -16,15 +16,53 @@ import {
 } from 'lucide-react';
 import { extractYouTubeId } from '@/lib/approved-vocabulary';
 
-export const SignyAITutorModal: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [term, setTerm] = useState('');
+export interface SignyAITutorModalProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  initialWord?: string;
+  showFloatingButton?: boolean;
+}
+
+/**
+ * Global helper to open the Safe AI Clarification modal from anywhere in the app.
+ */
+export function openClarifyModal(word?: string) {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('open-clarify-modal', { detail: { word } }));
+  }
+}
+
+export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
+  isOpen: controlledIsOpen,
+  onClose: controlledOnClose,
+  initialWord,
+  showFloatingButton = true,
+}) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isControlled = controlledIsOpen !== undefined;
+  const isModalOpen = isControlled ? controlledIsOpen : internalIsOpen;
+
+  const [term, setTerm] = useState(initialWord || '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<SignyExplanation | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Suggestions with both approved library words and unapproved boundary tests
-  const suggestions = ['Webcam', 'Keyboard', 'Mouse', 'Monitor', 'Photosynthesis'];
+  const suggestions = ['Webcam', 'Keyboard', 'Mouse', 'Monitor', 'Photosynthesis', 'Cryptocurrency'];
+
+  const handleClose = () => {
+    if (isControlled) {
+      if (controlledOnClose) controlledOnClose();
+    } else {
+      setInternalIsOpen(false);
+    }
+  };
+
+  const handleOpen = () => {
+    if (!isControlled) {
+      setInternalIsOpen(true);
+    }
+  };
 
   const handleSearch = async (searchTerm: string) => {
     if (!searchTerm.trim()) {
@@ -59,6 +97,34 @@ export const SignyAITutorModal: React.FC = () => {
     }
   };
 
+  // Listen for global custom event so any button in the app can trigger the modal
+  React.useEffect(() => {
+    const handleOpenEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ word?: string }>;
+      const targetWord = customEvent.detail?.word;
+      if (!isControlled) {
+        setInternalIsOpen(true);
+      }
+      if (targetWord) {
+        setTerm(targetWord);
+        handleSearch(targetWord);
+      }
+    };
+
+    window.addEventListener('open-clarify-modal', handleOpenEvent);
+    return () => {
+      window.removeEventListener('open-clarify-modal', handleOpenEvent);
+    };
+  }, [isControlled]);
+
+  // Pre-load initialWord when opened
+  React.useEffect(() => {
+    if (isModalOpen && initialWord && (!result || result.term.toLowerCase() !== initialWord.toLowerCase())) {
+      setTerm(initialWord);
+      handleSearch(initialWord);
+    }
+  }, [isModalOpen, initialWord]);
+
   const handleClear = () => {
     setTerm('');
     setResult(null);
@@ -68,19 +134,24 @@ export const SignyAITutorModal: React.FC = () => {
   return (
     <>
       {/* Floating Action Trigger Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 bg-teal-700 hover:bg-teal-800 text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 font-extrabold text-sm tracking-wide border-2 border-teal-500/50 transform hover:scale-105 transition-all interactive-target"
-        aria-label="Clarify This Word"
-      >
-        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-          <BookOpen className="w-5 h-5 text-teal-100" />
-        </div>
-        <span>Clarify This Word</span>
-      </button>
+      {showFloatingButton && (
+        <button
+          onClick={handleOpen}
+          className="fixed bottom-6 right-6 z-40 bg-teal-700 hover:bg-teal-800 text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 font-extrabold text-sm tracking-wide border-2 border-teal-500/50 transform hover:scale-105 transition-all interactive-target"
+          aria-label="Clarify This Word (AI Safety Boundary)"
+        >
+          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+            <Sparkles className="w-4 h-4 text-amber-300" />
+          </div>
+          <div className="text-left">
+            <span className="block leading-tight">AI Clarification</span>
+            <span className="text-[10px] text-teal-200 font-bold block leading-none">Safe Sign Retrieval</span>
+          </div>
+        </button>
+      )}
 
       {/* Modal Dialog */}
-      {isOpen && (
+      {isModalOpen && (
         <div
           role="dialog"
           aria-modal="true"
@@ -92,20 +163,25 @@ export const SignyAITutorModal: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-teal-700 text-white flex items-center justify-center font-black shadow-md shadow-teal-200">
-                  <BookOpen className="w-6 h-6" />
+                  <Sparkles className="w-6 h-6 text-amber-300" />
                 </div>
                 <div>
-                  <h3 id="clarify-modal-title" className="text-xl font-black text-slate-900">
-                    Clarify This Word
-                  </h3>
+                  <div className="flex items-center gap-2">
+                    <h3 id="clarify-modal-title" className="text-xl font-black text-slate-900">
+                      Clarify This Word
+                    </h3>
+                    <span className="px-2 py-0.5 rounded-md bg-teal-100 text-teal-900 text-[10px] font-black uppercase">
+                      Safe AI
+                    </span>
+                  </div>
                   <p className="text-xs font-bold text-slate-600">
-                    Simple explanations using reviewed learning content.
+                    Simple explanations using approved learning content.
                   </p>
                 </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
-                className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition"
+                onClick={handleClose}
+                className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition interactive-target"
                 aria-label="Close clarify word panel"
               >
                 <X className="w-5 h-5" />

@@ -46,41 +46,19 @@ export default function KeyboardTrainerPage() {
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 space-y-8">
         {/* Page Hero Header */}
-        <div className="bg-gradient-to-r from-teal-800 via-teal-900 to-slate-950 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
-          <div className="max-w-3xl space-y-3 relative z-10">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 bg-white/15 backdrop-blur-md rounded-full text-xs font-black uppercase tracking-wider text-teal-200 inline-flex items-center gap-1.5">
-                <Keyboard className="w-3.5 h-3.5" />
-                Touch Typing & Fingerspelling Innovation
-              </span>
-              <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 rounded-full text-[10px] font-black uppercase tracking-wider">
-                Home Row Progression: ASDF → JKL; → GH
-              </span>
-            </div>
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-200 shadow-xs space-y-4">
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-black uppercase tracking-wider text-teal-800 bg-teal-50 px-3 py-1 rounded-md border border-teal-200 inline-block">
+              Fingerspelling &amp; QWERTY Practice
+            </span>
 
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
-              Colourful Hand Virtual Keyboard Trainer
+            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+              Colourful Hand Keyboard Trainer
             </h1>
 
-            <p className="text-teal-100 text-sm sm:text-base leading-relaxed max-w-2xl font-medium">
-              Designed specifically for Deaf students to connect fingerspelling handshapes with tactile QWERTY typing. 
-              Follow the color-coded fingers attached to the keyboard to master home row finger placement without relying on auditory feedback.
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
+              Connect fingerspelling handshapes to tactile keyboard typing. Follow the color-coded fingers to learn home row key positions visually.
             </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold text-teal-200">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Left Hand (ASDF) & Right Hand (JKL;)
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Center Reach Keys (G & H)
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Physical & On-Screen Typing Supported
-              </span>
-            </div>
           </div>
         </div>
 
@@ -89,33 +67,33 @@ export default function KeyboardTrainerPage() {
 
         {/* Pedagogical Feature Breakdown */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-          <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center font-black">
-              🖐️
+          <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-xs space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center font-black">
+              1
             </div>
-            <h3 className="text-lg font-black text-slate-900">1. Attached Colourful Hands</h3>
+            <h3 className="text-lg font-black text-slate-900">Color-Coded Finger Guidance</h3>
             <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Each finger has a distinct, vibrant color matching its designated keycaps. As the learner types, the exact finger lights up and bounces to prompt correct placement.
+              Each finger matches its assigned home row keys, giving instant visual confirmation of finger placement.
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center font-black">
-              🔤
+          <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-xs space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center font-black">
+              2
             </div>
-            <h3 className="text-lg font-black text-slate-900">2. Progressive Skill Sequence</h3>
+            <h3 className="text-lg font-black text-slate-900">Step-by-Step Practice</h3>
             <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Start with Left Hand anchors (ASDF), balance with Right Hand anchors (JKL;), master Center Reaches (GH), and advance into approved computer literacy vocabulary.
+              Start with left hand anchors (ASDF), then right hand (JKL;), and advance into approved computer vocabulary.
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-black">
-              📸
+          <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-xs space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-900 flex items-center justify-center font-black">
+              3
             </div>
-            <h3 className="text-lg font-black text-slate-900">3. AnySign ASL & Custom Photos</h3>
+            <h3 className="text-lg font-black text-slate-900">Real Handshape Photos</h3>
             <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Authentic high-contrast fingerspelling photographs show the exact handshape for every key. Teachers can also upload custom Nigerian Sign Language (NSL) hand photographs.
+              Clear fingerspelling photographs show the exact handshape for every key without relying on sound.
             </p>
           </div>
         </div>

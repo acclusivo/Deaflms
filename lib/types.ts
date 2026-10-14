@@ -10,6 +10,23 @@ export type SignLanguageDialect =
   | 'BSL'     // British Sign Language (Coming Soon)
   | 'IS';     // International Sign (Coming Soon)
 
+export interface CountrySignLanguageSupport {
+  code: SignLanguageDialect;
+  name: string;
+  country: string;
+  flag: string;
+  region: string;
+  status: 'active' | 'pilot' | 'in_review' | 'planned';
+  statusLabel: string;
+  reviewerTeam: string;
+  regionalVariants: string[];
+  learnerCount: number;
+  approvedVocabularyCount: number;
+  isPriority: boolean;
+  isLocked?: boolean;
+  notes: string;
+}
+
 export type MembershipTier = 'free_basic_1' | 'family_supporter' | 'school_institutional';
 
 export interface UserSubscription {
@@ -56,6 +73,8 @@ export interface Course {
   lessonsCount: number;
   durationMinutes: number;
   iconName: string;
+  signLanguage?: SignLanguageDialect | string;
+  country?: string;
 }
 
 export type LessonType = 'standard_lesson' | 'interactive_storybook' | 'digital_simulation';
@@ -78,6 +97,11 @@ export interface ApprovedVocabularyItem {
   exampleSentence: string;
   imageUrl: string;
   signVideoUrl?: string;
+  vocabularySignVideoUrl?: string;
+  signedMeaningVideoUrl?: string;
+  signedMeaningPosterUrl?: string;
+  signedMeaningExplanation?: string;
+  visualStoryFrames?: VisualStoryFrame[];
   signStillUrl?: string;
   signLanguage: SignLanguageCode;
   regionalVariant?: string;
@@ -216,3 +240,106 @@ export interface AILessonGeneration {
     }[];
   };
 }
+
+export type VideoProvider = 'mux' | 'supabase' | 'local' | 'youtube';
+
+export interface AccessibleVideoSource {
+  provider: VideoProvider;
+  playbackId?: string;
+  src?: string;
+  fallbackSrc?: string;
+  posterUrl: string;
+  title: string;
+  signLanguage: string;
+  regionalVariant?: string;
+  durationSeconds?: number;
+  reviewedBy: string;
+  reviewStatus: 'draft' | 'approved';
+}
+
+export interface VisualStoryFrame {
+  id: string;
+  order: number;
+  imageUrl: string;
+  caption: string;
+  altText: string;
+}
+
+export interface VisualExplanation {
+  id: string;
+  word: string;
+  originalSentence: string;
+  simpleMeaning: string;
+  conceptTags: string[];
+  frames: VisualStoryFrame[];
+  approvedSignVideoUrl?: string;
+  signedMeaningVideoUrl: string;
+  language: string;
+  reviewStatus: 'draft' | 'reviewed' | 'approved';
+  reviewedBy: string;
+  offlineAvailable: boolean;
+}
+
+export type ContentReviewStatus =
+  | 'draft'
+  | 'needs_review'
+  | 'changes_requested'
+  | 'approved'
+  | 'published'
+  | 'archived';
+
+export interface VocabularyContent {
+  id: string;
+  word: string;
+  slug: string;
+  courseId: string;
+  moduleId: string;
+  lessonId: string;
+  pictureUrl: string;
+  pictureAlt: string;
+  vocabularySignVideoUrl: string;
+  signedMeaningVideoUrl: string;
+  signedExampleVideoUrl?: string;
+  writtenMeaning?: string;
+  exampleSentence?: string;
+  fingerspelling: string;
+  signLanguage: string;
+  country: string;
+  region?: string;
+  localVariant?: string;
+  visualExplanation?: VisualStoryFrame[];
+  ageMin: number;
+  ageMax: number;
+  difficultyLevel: 'beginner' | 'developing' | 'independent';
+  status: ContentReviewStatus;
+  version: number;
+  createdBy: string;
+  reviewedBy?: string[];
+  approvedBy?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+  updateReason?: string;
+}
+
+export type HelpDifficultyStage = 'sign' | 'word' | 'meaning' | 'ui' | 'facilitator';
+
+export interface LearnerHelpRequest {
+  id: string;
+  learnerId: string;
+  learnerName: string;
+  lessonTitle: string;
+  word: string;
+  difficultyStage: HelpDifficultyStage;
+  difficultyDescription: string;
+  attemptsCount: number;
+  showMeViewed: boolean;
+  preferredSupport: 'short_video_call' | 'video_question' | 'message';
+  approvalStatus: 'parent_approved' | 'teacher_approved' | 'pending';
+  approvalContact?: string;
+  status: 'waiting_for_facilitator' | 'in_progress' | 'resolved';
+  requestedAt: string;
+  resolvedAt?: string;
+  facilitatorNotes?: string;
+}
+

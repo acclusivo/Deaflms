@@ -172,3 +172,93 @@ CREATE POLICY "Students update own quiz progress"
   ON student_progress FOR UPDATE 
   TO authenticated 
   USING (auth.uid() = student_id);
+
+-- 4. Vocabulary Content Table (Dual Sign Streams, Versioning, Regional Variants)
+CREATE TABLE IF NOT EXISTS vocabulary_content (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    word TEXT NOT NULL,
+    slug TEXT NOT NULL,
+    course_id UUID REFERENCES courses(id) ON DELETE SET NULL,
+    lesson_id UUID REFERENCES lessons(id) ON DELETE SET NULL,
+    picture_url TEXT NOT NULL,
+    picture_alt TEXT NOT NULL DEFAULT '',
+    vocabulary_sign_video_url TEXT NOT NULL,
+    signed_meaning_video_url TEXT NOT NULL,
+    signed_example_video_url TEXT,
+    written_meaning TEXT,
+    example_sentence TEXT,
+    fingerspelling TEXT NOT NULL,
+    sign_language TEXT NOT NULL DEFAULT 'NSL',
+    country TEXT NOT NULL DEFAULT 'Nigeria',
+    region TEXT,
+    local_variant TEXT,
+    visual_explanation JSONB DEFAULT '[]'::jsonb,
+    age_min INTEGER DEFAULT 8,
+    age_max INTEGER DEFAULT 16,
+    difficulty_level TEXT NOT NULL CHECK (difficulty_level IN ('beginner', 'developing', 'independent')) DEFAULT 'beginner',
+    status TEXT NOT NULL CHECK (status IN ('draft', 'needs_review', 'changes_requested', 'approved', 'published', 'archived')) DEFAULT 'draft',
+    version INTEGER NOT NULL DEFAULT 1,
+    created_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
+    reviewed_by TEXT[] DEFAULT '{}',
+    approved_by TEXT,
+    update_reason TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    published_at TIMESTAMPTZ
+);
+
+-- 5. Learner Help Requests Table (Supervised Human Support with Parent Approval)
+CREATE TABLE IF NOT EXISTS learner_help_requests (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    learner_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+    learner_name TEXT NOT NULL,
+    lesson_title TEXT NOT NULL,
+    word TEXT NOT NULL,
+    difficulty_stage TEXT NOT NULL CHECK (difficulty_stage IN ('sign', 'word', 'meaning', 'ui', 'facilitator')),
+    difficulty_description TEXT,
+    attempts_count INTEGER DEFAULT 1,
+    show_me_viewed BOOLEAN DEFAULT FALSE,
+    preferred_support TEXT NOT NULL CHECK (preferred_support IN ('short_video_call', 'video_question', 'message')),
+    approval_status TEXT NOT NULL CHECK (approval_status IN ('parent_approved', 'teacher_approved', 'pending')),
+    approval_contact TEXT,
+    status TEXT NOT NULL CHECK (status IN ('waiting_for_facilitator', 'in_progress', 'resolved')) DEFAULT 'waiting_for_facilitator',
+    facilitator_notes TEXT,
+    requested_at TIMESTAMPTZ DEFAULT NOW(),
+    resolved_at TIMESTAMPTZ
+);
+
+ALTER TABLE vocabulary_content ENABLE ROW LEVEL SECURITY;
+ALTER TABLE learner_help_requests ENABLE ROW LEVEL SECURITY;
+
+-- Unreviewed/Draft content is strictly invisible to children; Published visible to all
+CREATE POLICY "Published vocabulary viewable by all learners"
+  ON vocabulary_content FOR SELECT
+  USING (status = 'published' OR get_user_role(auth.uid()) IN ('teacher', 'admin'));
+
+-- Only teachers and admins can create/update vocabulary
+CREATE POLICY "Facilitators author vocabulary content"
+  ON vocabulary_content FOR INSERT
+  TO authenticated
+  WITH CHECK (get_user_role(auth.uid()) IN ('teacher', 'admin'));
+
+CREATE POLICY "Facilitators and Admins update vocabulary"
+  ON vocabulary_content FOR UPDATE
+  TO authenticated
+  USING (get_user_role(auth.uid()) IN ('teacher', 'admin'));
+
+-- Help requests accessible by requesting student, teachers, and admins (Zero public exposure)
+CREATE POLICY "Learners see own help requests"
+  ON learner_help_requests FOR SELECT
+  TO authenticated
+  USING (auth.uid() = learner_id OR get_user_role(auth.uid()) IN ('teacher', 'admin'));
+
+CREATE POLICY "Learners insert supervised help requests"
+  ON learner_help_requests FOR INSERT
+  TO authenticated
+  WITH CHECK (auth.uid() = learner_id);
+
+CREATE POLICY "Facilitators resolve help requests"
+  ON learner_help_requests FOR UPDATE
+  TO authenticated
+  USING (get_user_role(auth.uid()) IN ('teacher', 'admin'));
+

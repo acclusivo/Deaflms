@@ -1,5 +1,6 @@
 import React from 'react';
 import { PortalRouteGuard } from '@/components/auth/PortalRouteGuard';
+import { SignyAITutorModal } from '@/components/student/SignyAITutorModal';
 
 export const metadata = {
   title: 'Learner Portal | Deaf LMS',
@@ -7,5 +8,10 @@ export const metadata = {
 };
 
 export default function StudentLayout({ children }: { children: React.ReactNode }) {
-  return <PortalRouteGuard allowedRole="student">{children}</PortalRouteGuard>;
+  return (
+    <PortalRouteGuard allowedRole="student">
+      {children}
+      <SignyAITutorModal />
+    </PortalRouteGuard>
+  );
 }

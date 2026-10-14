@@ -1,39 +1,61 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   HandMetal,
   GraduationCap,
   BookOpen,
   ShieldCheck,
   ArrowRight,
-  Sparkles,
   Lock,
   Mail,
-  UserCheck,
   CheckCircle2,
-  VolumeX,
+  AlertCircle,
 } from 'lucide-react';
-import { useAuth } from '@/lib/auth-context';
+import { useAuth, DEMO_CREDENTIALS } from '@/lib/auth-context';
 import { UserRole } from '@/lib/types';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get('redirect');
+
   const { login, quickLogin, isLoading } = useAuth();
 
   const [selectedRole, setSelectedRole] = useState<UserRole>('student');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('student@deaflms.org');
+  const [password, setPassword] = useState<string>('learner123');
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
 
+  const routeForRole = (role: UserRole) => {
+    if (redirectPath) return redirectPath;
+    if (role === 'student') return '/student/dashboard';
+    if (role === 'teacher') return '/teacher/dashboard';
+    if (role === 'admin') return '/admin/dashboard';
+    return '/';
+  };
+
   const handleRoleQuickLogin = (role: UserRole) => {
     quickLogin(role);
-    if (role === 'student') router.push('/student/dashboard');
-    if (role === 'teacher') router.push('/teacher/dashboard');
-    if (role === 'admin') router.push('/admin/dashboard');
+    router.push(routeForRole(role));
+  };
+
+  const handleSelectRolePreset = (role: UserRole) => {
+    setSelectedRole(role);
+    if (role === 'student') {
+      setEmail(DEMO_CREDENTIALS.student.email);
+      setPassword(DEMO_CREDENTIALS.student.pass);
+    } else if (role === 'teacher') {
+      setEmail(DEMO_CREDENTIALS.teacher.email);
+      setPassword(DEMO_CREDENTIALS.teacher.pass);
+    } else if (role === 'admin') {
+      setEmail(DEMO_CREDENTIALS.admin.email);
+      setPassword(DEMO_CREDENTIALS.admin.pass);
+    }
+    setErrorMsg('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,165 +64,146 @@ export default function LoginPage() {
     setErrorMsg('');
 
     try {
-      const success = await login(selectedRole, email, password);
-      if (success) {
-        if (selectedRole === 'student') router.push('/student/dashboard');
-        if (selectedRole === 'teacher') router.push('/teacher/dashboard');
-        if (selectedRole === 'admin') router.push('/admin/dashboard');
+      const result = await login(selectedRole, email, password);
+      if (result.success) {
+        router.push(routeForRole(selectedRole));
       } else {
-        setErrorMsg('Invalid login credentials. Try 1-click demo login below.');
+        setErrorMsg(result.error || 'Invalid login credentials. Please check your password or use 1-click login below.');
       }
-    } catch (err) {
-      setErrorMsg('Login failed. Please try again.');
+    } catch {
+      setErrorMsg('Login could not be completed. Please try again.');
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
-      {/* Top Header Bar */}
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-between text-slate-900">
+      {/* Top Header */}
       <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-200 group-hover:scale-105 transition transform">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 interactive-target">
+            <div className="w-9 h-9 rounded-xl bg-teal-700 flex items-center justify-center text-white font-bold">
               <HandMetal className="w-5 h-5" />
             </div>
-            <div>
-              <span className="text-xl font-black tracking-tight text-slate-900">
-                Deaf<span className="text-indigo-600">LMS</span>
-              </span>
-            </div>
+            <span className="text-xl font-black tracking-tight text-slate-900">
+              Deaf<span className="text-teal-700">LMS</span>
+            </span>
           </Link>
 
           <Link
             href="/"
-            className="text-xs font-black text-slate-500 hover:text-slate-900 transition"
+            className="text-xs font-bold text-slate-500 hover:text-slate-900 transition interactive-target"
           >
             ← Back to Home
           </Link>
         </div>
       </header>
 
-      {/* Main Form Container */}
+      {/* Main Login Container */}
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-10">
         <div className="max-w-md w-full space-y-6">
-          
-          {/* Header Card */}
+
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-[11px] font-black uppercase tracking-wider">
-              <VolumeX className="w-3 h-3 text-rose-500" />
-              <span>Zero Audio Required • Visual Sign LMS</span>
-            </div>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Sign In to Your Portal
+              Sign In to DeafLMS
             </h1>
-            <p className="text-xs text-slate-500 font-medium">
-              Access your visual sign courses, track student progress, or manage school curriculum.
+            <p className="text-xs text-slate-600 font-medium">
+              Choose your role or enter your account credentials.
             </p>
           </div>
 
-          {/* 1-CLICK INSTANT DEMO LOGIN TABS */}
-          <div className="bg-white p-5 rounded-3xl border-2 border-indigo-100 shadow-md space-y-3">
+          {/* 1-Click Fast Demo Login for Judges & Evaluators */}
+          <div className="bg-white p-5 rounded-3xl border-2 border-slate-200 shadow-xs space-y-3">
             <div className="flex items-center justify-between text-xs font-black text-slate-800">
-              <span className="flex items-center gap-1.5 text-indigo-600">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                1-Click Demonstration Accounts:
-              </span>
-              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">No Password Needed</span>
-            </div>
-
-            {/* Required Sample Data Notice */}
-            <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] font-bold text-amber-900 text-center">
-              All progress shown is sample demonstration data.
+              <span>1-Click Demonstration Accounts:</span>
+              <span className="text-[10px] text-slate-400 font-semibold uppercase">Instant Access</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => handleRoleQuickLogin('student')}
-                className="p-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 flex flex-col items-center text-center transition group interactive-target"
+                className="p-3 rounded-2xl bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-900 flex flex-col items-center text-center transition interactive-target"
               >
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-1.5 group-hover:scale-110 transition">
+                <div className="w-8 h-8 rounded-xl bg-teal-700 text-white flex items-center justify-center mb-1.5">
                   <GraduationCap className="w-4 h-4" />
                 </div>
-                <span className="text-xs font-black">Demo Learner</span>
-                <span className="text-[9px] font-bold text-emerald-700">Amina</span>
+                <span className="text-xs font-black">Learner</span>
+                <span className="text-[9px] font-bold text-teal-700">Amina</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleRoleQuickLogin('teacher')}
-                className="p-3 rounded-2xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-800 flex flex-col items-center text-center transition group interactive-target"
+                className="p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 flex flex-col items-center text-center transition interactive-target"
               >
-                <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center mb-1.5 group-hover:scale-110 transition">
+                <div className="w-8 h-8 rounded-xl bg-slate-800 text-white flex items-center justify-center mb-1.5">
                   <BookOpen className="w-4 h-4" />
                 </div>
                 <span className="text-xs font-black">Facilitator</span>
-                <span className="text-[9px] font-bold text-indigo-700">Sample Account</span>
+                <span className="text-[9px] font-bold text-slate-600">Jordan</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleRoleQuickLogin('admin')}
-                className="p-3 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 flex flex-col items-center text-center transition group interactive-target"
+                className="p-3 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 flex flex-col items-center text-center transition interactive-target"
               >
-                <div className="w-8 h-8 rounded-xl bg-amber-700 text-white flex items-center justify-center mb-1.5 group-hover:scale-110 transition">
+                <div className="w-8 h-8 rounded-xl bg-amber-800 text-white flex items-center justify-center mb-1.5">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
                 <span className="text-xs font-black">Admin</span>
-                <span className="text-[9px] font-bold text-amber-800">Demo Account</span>
+                <span className="text-[9px] font-bold text-amber-800">Dr. Okon</span>
               </button>
             </div>
           </div>
 
-          {/* Standard Email Sign-In Form */}
-          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-xl space-y-5">
+          {/* Standard Email / Password Form */}
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border-2 border-slate-200 shadow-xs space-y-5">
             <div className="text-xs font-black text-slate-700 uppercase tracking-wider text-center">
-              Or Sign In with Email Credentials
+              Or Sign In with Email
             </div>
 
             {errorMsg && (
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold text-center">
-                {errorMsg}
+              <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-900 text-xs font-bold flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-red-700 shrink-0" />
+                <span>{errorMsg}</span>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Select Role */}
+              {/* Role Selection Tabs */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">Account Role</label>
-                <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200">
+                <label className="text-xs font-bold text-slate-700">Account Portal</label>
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200">
                   <button
                     type="button"
-                    onClick={() => setSelectedRole('student')}
-                    className={`py-1.5 text-xs font-extrabold rounded-xl transition ${
-                      selectedRole === 'student'
-                        ? 'bg-white text-emerald-700 shadow-sm border border-slate-200'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
+                    onClick={() => handleSelectRolePreset('student')}
+                    className={`py-1.5 text-xs font-extrabold rounded-lg transition ${selectedRole === 'student'
+                        ? 'bg-teal-700 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                      }`}
                   >
-                    Student
+                    Learner
                   </button>
                   <button
                     type="button"
-                    onClick={() => setSelectedRole('teacher')}
-                    className={`py-1.5 text-xs font-extrabold rounded-xl transition ${
-                      selectedRole === 'teacher'
-                        ? 'bg-white text-indigo-700 shadow-sm border border-slate-200'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
+                    onClick={() => handleSelectRolePreset('teacher')}
+                    className={`py-1.5 text-xs font-extrabold rounded-lg transition ${selectedRole === 'teacher'
+                        ? 'bg-slate-800 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                      }`}
                   >
                     Facilitator
                   </button>
                   <button
                     type="button"
-                    onClick={() => setSelectedRole('admin')}
-                    className={`py-1.5 text-xs font-extrabold rounded-xl transition ${
-                      selectedRole === 'admin'
-                        ? 'bg-white text-amber-800 shadow-sm border border-slate-200'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
+                    onClick={() => handleSelectRolePreset('admin')}
+                    className={`py-1.5 text-xs font-extrabold rounded-lg transition ${selectedRole === 'admin'
+                        ? 'bg-amber-800 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                      }`}
                   >
                     Admin
                   </button>
@@ -217,14 +220,8 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder={
-                      selectedRole === 'student'
-                        ? 'maya.student@deafacademy.edu'
-                        : selectedRole === 'teacher'
-                        ? 'jordan.ellis@deafacademy.edu'
-                        : 'sarah.vance@deafacademy.edu'
-                    }
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+                    placeholder="name@school.org"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-teal-700 focus:outline-none transition"
                   />
                 </div>
               </div>
@@ -240,60 +237,56 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-teal-700 focus:outline-none transition"
                   />
                 </div>
               </div>
+
+              {/* Demo Hint */}
+              {/* <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-[11px] text-slate-600 font-medium">
+                Demo passwords: <code className="font-bold text-slate-900">learner123</code>, <code className="font-bold text-slate-900">teacher123</code>, or <code className="font-bold text-slate-900">admin123</code>
+              </div> */}
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={submitting || isLoading}
-                className="w-full py-3.5 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm shadow-md shadow-indigo-200 transition interactive-target flex items-center justify-center gap-2 mt-2"
+                className="w-full py-3.5 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2 interactive-target disabled:opacity-50"
               >
-                {submitting ? 'Signing In...' : 'Sign In with Credentials'}
+                <span>{submitting ? 'Signing In...' : 'Sign In'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
 
-            <div className="pt-2 border-t border-slate-100 text-center space-y-2">
-              <p className="text-xs text-slate-500 font-medium">
-                New to Deaf LMS?{' '}
-                <Link
-                  href="/signup"
-                  className="font-black text-indigo-600 hover:underline"
-                >
-                  Create a Free Account
-                </Link>
-              </p>
-              <p className="text-[11px] text-slate-400">
-                Want to try right now?{' '}
-                <Link href="/student/dashboard" className="font-bold text-emerald-600 hover:underline">
-                  Explore Free Basic Lessons →
-                </Link>
-              </p>
+            <div className="pt-2 text-center text-xs text-slate-500 font-medium">
+              Don&apos;t have an account yet?{' '}
+              <Link href="/signup" className="font-bold text-teal-700 underline hover:text-teal-900">
+                Register here
+              </Link>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Footer with Working Links */}
-      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
-        <p className="text-slate-600 font-semibold">
-          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
-          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
-          <span>•</span>
-          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
-          <span>•</span>
-          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
-          <span>•</span>
-          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
-          <span>•</span>
-          <Link href="/support" className="hover:text-teal-700 transition">Support</Link>
-        </div>
+      <footer className="py-6 text-center text-xs text-slate-500">
+        DeafLMS • Secure Role Isolation &amp; Accessible Authentication
       </footer>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+          <div className="p-8 bg-white rounded-3xl border border-slate-200 shadow-sm text-center">
+            <span className="text-xs font-bold text-slate-500">Loading Secure Portal Login...</span>
+          </div>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }

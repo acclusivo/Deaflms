@@ -29,7 +29,7 @@ export default function CourseDetailPage() {
       <div className="min-h-screen bg-slate-50 flex flex-col">
         <Navbar currentRole="student" />
         <div className="flex-1 flex items-center justify-center">
-          <div className="flex items-center gap-3 text-indigo-600 font-bold">
+          <div className="flex items-center gap-3 text-teal-700 font-bold">
             <Loader2 className="w-6 h-6 animate-spin" />
             Loading Course...
           </div>
@@ -44,7 +44,7 @@ export default function CourseDetailPage() {
         <Navbar currentRole="student" />
         <div className="flex-1 flex flex-col items-center justify-center p-4">
           <h2 className="text-xl font-bold text-slate-800 mb-2">Course not found</h2>
-          <Link href="/student/dashboard" className="text-sm font-bold text-indigo-600 hover:underline">
+          <Link href="/student/dashboard" className="text-sm font-bold text-teal-700 hover:underline">
             Back to Dashboard
           </Link>
         </div>
@@ -72,7 +72,7 @@ export default function CourseDetailPage() {
           </div>
 
           <div className="flex-1 space-y-3">
-            <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-black uppercase tracking-wider rounded-md">
+            <span className="px-3 py-1 bg-teal-50 text-teal-800 text-xs font-black uppercase tracking-wider rounded-md border border-teal-200">
               {course.category} • {course.gradeLevel}
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
@@ -94,14 +94,14 @@ export default function CourseDetailPage() {
         </div>
 
         {/* Plan Entitlement Notice */}
-        <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-between gap-4 text-xs">
+        <div className="p-4 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-between gap-4 text-xs">
           <div className="flex items-center gap-2.5">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-bold text-slate-800">
               Your Current Access: <strong>Basic 1 • 1 Module • 5 Lessons Included</strong>
             </span>
           </div>
-          <Link href="/pricing" className="font-black text-indigo-700 hover:underline">
+          <Link href="/pricing" className="font-black text-teal-800 hover:underline">
             View Supporter Plans →
           </Link>
         </div>
@@ -163,7 +163,7 @@ export default function CourseDetailPage() {
             ].map((item) => (
               <div key={item.id} className="py-4 px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition rounded-2xl">
                 <div className="flex items-start sm:items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-black text-sm shrink-0 mt-0.5 sm:mt-0">
+                  <div className="w-10 h-10 rounded-2xl bg-teal-50 text-teal-800 flex items-center justify-center font-black text-sm shrink-0 mt-0.5 sm:mt-0 border border-teal-200">
                     {item.order}
                   </div>
                   <div>
@@ -180,7 +180,7 @@ export default function CourseDetailPage() {
                 <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
                   <Link
                     href={item.href}
-                    className="inline-flex items-center gap-1.5 py-2.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-sm interactive-target"
+                    className="inline-flex items-center gap-1.5 py-2.5 px-5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-black transition shadow-sm interactive-target"
                   >
                     <Play className="w-3.5 h-3.5 fill-current" />
                     <span>Watch Sign Lesson</span>
