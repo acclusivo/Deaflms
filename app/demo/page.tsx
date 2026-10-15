@@ -39,6 +39,8 @@ import {
   ChevronLeft,
   RefreshCw,
   Award,
+  X,
+  ExternalLink,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -77,6 +79,7 @@ function DemoContent() {
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
   const [unlockedWords, setUnlockedWords] = useState<string[]>(['webcam']);
   const [completedWords, setCompletedWords] = useState<string[]>([]);
+  const [showTestimonialModal, setShowTestimonialModal] = useState<boolean>(false);
 
   // Start timer automatically when pitch mode is enabled
   useEffect(() => {
@@ -203,6 +206,17 @@ function DemoContent() {
                 </span>
               )}
             </div>
+
+            {/* Real Learners Video Button for Pitch Day */}
+            <button
+              type="button"
+              onClick={() => setShowTestimonialModal(true)}
+              className="px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-900 border border-teal-300 font-extrabold text-xs transition flex items-center gap-1.5 interactive-target shadow-2xs"
+              aria-label="Watch Real Learners Video"
+            >
+              <Play className="w-3.5 h-3.5 fill-teal-800 text-teal-800" />
+              <span className="hidden sm:inline">Learners Testimonial (2m)</span>
+            </button>
 
             {/* Restart Demo Button */}
             <button
@@ -1079,6 +1093,88 @@ function DemoContent() {
 
         {/* Safe AI Clarification Modal & Floating Launcher */}
         <SignyAITutorModal initialWord={activeWord.word} />
+
+        {/* Real Learners Video Modal (Pitch Day Spotlight) */}
+        {showTestimonialModal && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="testimonial-modal-title"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-fade-in"
+          >
+            <div className="bg-white rounded-3xl p-5 sm:p-6 max-w-2xl w-full border-2 border-teal-600/30 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-teal-700 text-white flex items-center justify-center font-black text-xs">
+                    TIDI
+                  </div>
+                  <div>
+                    <h3 id="testimonial-modal-title" className="text-base font-black text-slate-900">
+                      Deaf Kids Tech Bootcamp Testimonial
+                    </h3>
+                    <span className="text-[11px] font-bold text-slate-500">
+                      Tech Inclusion for the Deaf Initiative • Abuja, Nigeria
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowTestimonialModal(false)}
+                  className="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition"
+                  aria-label="Close testimonial modal"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Video Player */}
+              <div className="relative rounded-2xl overflow-hidden bg-slate-950 aspect-[9/16] sm:aspect-video max-h-[380px] flex items-center justify-center shadow-inner">
+                <video
+                  poster="/images/posters/tidi-testimonial-poster.jpg"
+                  controls
+                  playsInline
+                  className="w-full h-full object-contain"
+                >
+                  <source src="/videos/tidi-deaf-learners-testimonial.mp4" type="video/mp4" />
+                  <source src="https://dms.licdn.com/playlist/vid/v2/D4E05AQHE-DwmElfzPw/mp4-720p-30fp-crf28/B4EaCfBigKI0B8-/0/1789374396319?e=2147483647&v=beta&t=6viYlTcnF4DEz8c5Wv4tU095e72wtKiCtR1CXyDGjkw" type="video/mp4" />
+                </video>
+              </div>
+
+              {/* Quote & Social Proof */}
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
+                <p className="text-slate-700 font-semibold leading-relaxed italic">
+                  &ldquo;For us, this bootcamp was not just about teaching Deaf children how to use a computer. It was about giving them the space to learn in a way they understand, try things for themselves and grow in confidence.&rdquo;
+                </p>
+                <p className="text-teal-950 font-bold leading-relaxed">
+                  &ldquo;In Nigerian Sign Language, our learners share what they enjoyed, what they learned and what they want to explore next.&rdquo;
+                </p>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center justify-between pt-1 text-xs">
+                <a
+                  href="https://www.linkedin.com/posts/techinclusiondeaf_tidi-deafkidstechbootcamp-deafchildrenintech-activity-7505180214138740736-Xv_1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-teal-700 hover:text-teal-900 font-black inline-flex items-center gap-1 hover:underline"
+                >
+                  <span>View original post on LinkedIn</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => setShowTestimonialModal(false)}
+                  className="px-5 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs transition"
+                >
+                  Back to Demo
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Corporate Legal Footer */}

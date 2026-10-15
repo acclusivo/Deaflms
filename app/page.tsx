@@ -28,6 +28,7 @@ import {
 } from '@/lib/approved-vocabulary';
 import { AccessibleSignVideoPlayer } from '@/components/common/AccessibleSignVideoPlayer';
 import { SignyAITutorModal, openClarifyModal } from '@/components/student/SignyAITutorModal';
+import { CommunityTestimonialSection } from '@/components/common/CommunityTestimonialSection';
 
 export default function LandingPage() {
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState<boolean>(false);
@@ -153,6 +154,22 @@ export default function LandingPage() {
                     <Play className="w-4 h-4 fill-slate-800 text-slate-800" />
                     <span>See how it works</span>
                   </button>
+                </div>
+
+                {/* Direct Testimonial Quick Pitch Button */}
+                <div className="pt-1">
+                  <a
+                    href="#community-testimonial"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-teal-50 hover:bg-teal-100/90 text-teal-900 border border-teal-200 text-xs font-black transition interactive-target shadow-2xs group"
+                  >
+                    <span className="w-6 h-6 rounded-lg bg-teal-700 text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition">
+                      <Play className="w-3 h-3 fill-white ml-0.5" />
+                    </span>
+                    <span>Watch Deaf Learners Testimonial (2 min)</span>
+                    <span className="px-2 py-0.5 rounded-md bg-white border border-teal-200 text-[10px] text-teal-800 font-extrabold uppercase">
+                      TIDI Bootcamp
+                    </span>
+                  </a>
                 </div>
 
                 {/* Returning Learner Saved Preference Status */}
@@ -304,6 +321,11 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        {/* ========================================================================= */}
+        {/* COMMUNITY IMPACT & REAL DEAF LEARNERS TESTIMONIAL VIDEO (TIDI BOOTCAMP) */}
+        {/* ========================================================================= */}
+        <CommunityTestimonialSection id="community-testimonial" />
 
         {/* ========================================================================= */}
         {/* 2. THE 4 COMPUTER WORDS PREVIEW */}
