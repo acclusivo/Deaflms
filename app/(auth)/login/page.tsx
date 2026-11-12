@@ -37,41 +37,9 @@ function LoginForm() {
     return '/student/dashboard';
   };
 
-  const fillDemoAccount = (role: UserRole) => {
+  const handleSelectRole = (role: UserRole) => {
     setSelectedRole(role);
     setErrorMsg('');
-    if (role === 'admin') {
-      setEmail('admin@deaflms.org');
-      setPassword('admin123');
-    } else if (role === 'teacher') {
-      setEmail('teacher@deaflms.org');
-      setPassword('teacher123');
-    } else if (role === 'parent') {
-      setEmail('parent@deaflms.org');
-      setPassword('parent123');
-    } else {
-      setEmail('student@deaflms.org');
-      setPassword('learner123');
-    }
-  };
-
-  const handleSelectRolePreset = (role: UserRole) => {
-    setSelectedRole(role);
-    setErrorMsg('');
-    // Auto-fill standard demo credentials if empty or matching default domain
-    if (role === 'admin') {
-      setEmail('admin@deaflms.org');
-      setPassword('admin123');
-    } else if (role === 'teacher' && (!email || email.includes('@deaflms.org'))) {
-      setEmail('teacher@deaflms.org');
-      setPassword('teacher123');
-    } else if (role === 'parent' && (!email || email.includes('@deaflms.org'))) {
-      setEmail('parent@deaflms.org');
-      setPassword('parent123');
-    } else if (role === 'student' && (!email || email.includes('@deaflms.org'))) {
-      setEmail('student@deaflms.org');
-      setPassword('learner123');
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -148,7 +116,7 @@ function LoginForm() {
                 <div className="grid grid-cols-4 gap-1 p-1 bg-slate-100 rounded-xl border border-slate-200">
                   <button
                     type="button"
-                    onClick={() => handleSelectRolePreset('student')}
+                    onClick={() => handleSelectRole('student')}
                     className={`py-2 text-[11px] font-black rounded-lg transition flex flex-col items-center gap-1 ${
                       selectedRole === 'student'
                         ? 'bg-teal-700 text-white shadow-xs'
@@ -161,7 +129,7 @@ function LoginForm() {
 
                   <button
                     type="button"
-                    onClick={() => handleSelectRolePreset('teacher')}
+                    onClick={() => handleSelectRole('teacher')}
                     className={`py-2 text-[11px] font-black rounded-lg transition flex flex-col items-center gap-1 ${
                       selectedRole === 'teacher'
                         ? 'bg-slate-800 text-white shadow-xs'
@@ -174,7 +142,7 @@ function LoginForm() {
 
                   <button
                     type="button"
-                    onClick={() => handleSelectRolePreset('parent')}
+                    onClick={() => handleSelectRole('parent')}
                     className={`py-2 text-[11px] font-black rounded-lg transition flex flex-col items-center gap-1 ${
                       selectedRole === 'parent'
                         ? 'bg-indigo-700 text-white shadow-xs'
@@ -187,7 +155,7 @@ function LoginForm() {
 
                   <button
                     type="button"
-                    onClick={() => handleSelectRolePreset('admin')}
+                    onClick={() => handleSelectRole('admin')}
                     className={`py-2 text-[11px] font-black rounded-lg transition flex flex-col items-center gap-1 ${
                       selectedRole === 'admin'
                         ? 'bg-amber-800 text-white shadow-xs'
@@ -217,15 +185,7 @@ function LoginForm() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder={
-                      selectedRole === 'teacher'
-                        ? 'teacher@deaflms.org'
-                        : selectedRole === 'parent'
-                        ? 'parent@deaflms.org'
-                        : selectedRole === 'admin'
-                        ? 'admin@deaflms.org'
-                        : 'student@deaflms.org'
-                    }
+                    placeholder="name@example.com"
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-teal-700 focus:outline-none transition"
                   />
                 </div>
@@ -257,89 +217,6 @@ function LoginForm() {
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
-
-            {/* Quick Demo Credentials Assistant */}
-            <div className="pt-3 border-t border-slate-100 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider">
-                  ⚡ Quick Demo Accounts
-                </span>
-                <span className="text-[10px] text-teal-700 font-bold">1-Click Auto-Fill</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => fillDemoAccount('admin')}
-                  className={`p-2.5 rounded-xl border text-left transition flex items-center justify-between ${
-                    selectedRole === 'admin'
-                      ? 'border-amber-400 bg-amber-50 ring-2 ring-amber-300'
-                      : 'border-slate-200 bg-slate-50 hover:bg-amber-50 hover:border-amber-200'
-                  }`}
-                >
-                  <div>
-                    <div className="font-black text-amber-950 text-[11px] flex items-center gap-1">
-                      <span>🛡️</span> Admin
-                    </div>
-                    <div className="text-[10px] text-slate-500 font-medium">admin@deaflms.org</div>
-                  </div>
-                  <span className="text-[10px] font-black text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded">Fill</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => fillDemoAccount('teacher')}
-                  className={`p-2.5 rounded-xl border text-left transition flex items-center justify-between ${
-                    selectedRole === 'teacher'
-                      ? 'border-slate-500 bg-slate-100 ring-2 ring-slate-300'
-                      : 'border-slate-200 bg-slate-50 hover:bg-slate-100'
-                  }`}
-                >
-                  <div>
-                    <div className="font-black text-slate-900 text-[11px] flex items-center gap-1">
-                      <span>📚</span> Teacher
-                    </div>
-                    <div className="text-[10px] text-slate-500 font-medium">teacher@deaflms.org</div>
-                  </div>
-                  <span className="text-[10px] font-black text-slate-800 bg-slate-200 px-1.5 py-0.5 rounded">Fill</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => fillDemoAccount('student')}
-                  className={`p-2.5 rounded-xl border text-left transition flex items-center justify-between ${
-                    selectedRole === 'student'
-                      ? 'border-teal-400 bg-teal-50 ring-2 ring-teal-300'
-                      : 'border-slate-200 bg-slate-50 hover:bg-teal-50 hover:border-teal-200'
-                  }`}
-                >
-                  <div>
-                    <div className="font-black text-teal-950 text-[11px] flex items-center gap-1">
-                      <span>🎓</span> Learner
-                    </div>
-                    <div className="text-[10px] text-slate-500 font-medium">student@deaflms.org</div>
-                  </div>
-                  <span className="text-[10px] font-black text-teal-800 bg-teal-100 px-1.5 py-0.5 rounded">Fill</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => fillDemoAccount('parent')}
-                  className={`p-2.5 rounded-xl border text-left transition flex items-center justify-between ${
-                    selectedRole === 'parent'
-                      ? 'border-indigo-400 bg-indigo-50 ring-2 ring-indigo-300'
-                      : 'border-slate-200 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200'
-                  }`}
-                >
-                  <div>
-                    <div className="font-black text-indigo-950 text-[11px] flex items-center gap-1">
-                      <span>👥</span> Parent
-                    </div>
-                    <div className="text-[10px] text-slate-500 font-medium">parent@deaflms.org</div>
-                  </div>
-                  <span className="text-[10px] font-black text-indigo-800 bg-indigo-100 px-1.5 py-0.5 rounded">Fill</span>
-                </button>
-              </div>
-            </div>
 
             <div className="pt-2 text-center text-xs text-slate-500 font-medium">
               Don&apos;t have an account yet?{' '}

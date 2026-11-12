@@ -298,7 +298,7 @@ function SignUpContent() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@school.org"
+                    placeholder="name@example.com"
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-teal-700 focus:outline-none transition"
                   />
                 </div>
