@@ -1,28 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, ShieldCheck, Scale, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Navbar } from '@/components/common/Navbar';
 
 export const metadata = {
-  title: 'Terms of Service | Deaf LMS',
-  description: 'Fair, transparent, and child-safe terms of service for Deaf LMS users and institutions.',
+  title: 'Terms of Service | DeafLMS',
+  description: 'Fair, transparent, and child-safe terms of service for DeafLMS users and institutions.',
 };
 
 export default function TermsOfServicePage() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-indigo-500 selection:text-white">
-      {/* Top Header Bar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 transition"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
-          <span className="text-xs font-bold text-slate-400">Effective Date: September 2026</span>
-        </div>
-      </header>
+    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-teal-700 selection:text-white">
+      {/* Shared Navigation Header */}
+      <Navbar />
 
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-10 space-y-8">
         <div className="space-y-3">

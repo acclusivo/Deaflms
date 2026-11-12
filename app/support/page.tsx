@@ -1,28 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, HelpCircle, Laptop, BookOpen, HandMetal, Users, Mail, CheckCircle2 } from 'lucide-react';
+import { Navbar } from '@/components/common/Navbar';
 
 export const metadata = {
-  title: 'Help & Support | Deaf LMS',
+  title: 'Help & Support | DeafLMS',
   description: 'Visual guides, FAQ, and technical support for deaf learners, parents, and facilitators.',
 };
 
 export default function SupportPage() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-indigo-500 selection:text-white">
-      {/* Header Bar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 transition"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
-          <span className="text-xs font-bold text-slate-400">Deaf LMS Support Center</span>
-        </div>
-      </header>
+    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-teal-700 selection:text-white">
+      {/* Shared Navigation Header */}
+      <Navbar />
 
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-10 space-y-10">
         <div className="space-y-3 text-center max-w-2xl mx-auto">

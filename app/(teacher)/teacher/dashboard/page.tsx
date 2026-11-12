@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Navbar } from '@/components/common/Navbar';
 import {
   getCourses,
   getLearnerHelpRequests,
@@ -95,9 +94,7 @@ export default function TeacherDashboardPage() {
   const dialectInfo = dialectNames[currentDialect] || dialectNames['NSL'];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 selection:bg-teal-700 selection:text-white">
-      <Navbar currentRole="teacher" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-8">
         
         {/* Welcome Header — Personalized to Educator */}
@@ -167,15 +164,22 @@ export default function TeacherDashboardPage() {
 
           {/* Queue Items List */}
           <div className="space-y-4">
-            {helpRequests.map((req) => (
-              <div
-                key={req.id}
-                className={`p-5 rounded-2xl border-2 transition space-y-4 ${
-                  req.status === 'waiting_for_facilitator'
-                    ? 'bg-amber-50/60 border-amber-300 ring-2 ring-amber-100'
-                    : 'bg-slate-50 border-slate-200 opacity-80'
-                }`}
-              >
+            {helpRequests.length === 0 ? (
+              <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+                <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
+                <h3 className="text-sm font-black text-slate-800">No Pending Help Requests</h3>
+                <p className="text-xs text-slate-500 font-medium">All student practice sessions are running smoothly. Live assistance requests will appear here when learners ask for support.</p>
+              </div>
+            ) : (
+              helpRequests.map((req) => (
+                <div
+                  key={req.id}
+                  className={`p-5 rounded-2xl border-2 transition space-y-4 ${
+                    req.status === 'waiting_for_facilitator'
+                      ? 'bg-amber-50/60 border-amber-300 ring-2 ring-amber-100'
+                      : 'bg-slate-50 border-slate-200 opacity-80'
+                  }`}
+                >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2">
@@ -246,7 +250,7 @@ export default function TeacherDashboardPage() {
                   </div>
                 </div>
               </div>
-            ))}
+            )))}
           </div>
         </section>
 

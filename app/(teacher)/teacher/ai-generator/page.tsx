@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Navbar } from '@/components/common/Navbar';
 import { VideoUploader } from '@/components/teacher/VideoUploader';
 import { AILessonGeneration } from '@/lib/types';
 import { createCourse } from '@/lib/api';
@@ -64,9 +63,7 @@ export default function TeacherAIGeneratorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar currentRole="teacher" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-8">
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-700 to-indigo-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
@@ -104,17 +101,17 @@ export default function TeacherAIGeneratorPage() {
 
             <div className="space-y-1.5">
               <label className="text-xs font-black uppercase tracking-wider text-slate-700">
-                Target Grade Level:
+                Target Age Segment:
               </label>
               <select
                 value={gradeLevel}
                 onChange={(e) => setGradeLevel(e.target.value)}
                 className="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3 px-4 text-sm font-bold text-slate-900 focus:border-indigo-600 focus:bg-white transition"
               >
-                <option value="Grade K-2">Grade K-2</option>
-                <option value="Grade 3-5">Grade 3-5</option>
-                <option value="Grade 6-8">Grade 6-8</option>
-                <option value="Grade 9-12">Grade 9-12</option>
+                <option value="Ages 6-8">Ages 6–8 (Foundational &amp; Signs)</option>
+                <option value="Ages 9-12">Ages 9–12 (Digital Literacy &amp; Hardware)</option>
+                <option value="Ages 13-17">Ages 13–17 (Youth Tech &amp; STEM)</option>
+                <option value="Ages 18+">Ages 18+ (Web Engineering &amp; Career)</option>
               </select>
             </div>
           </div>

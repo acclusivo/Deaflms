@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Navbar } from '@/components/common/Navbar';
 import { ComputerHotspotGame } from '@/components/student/ComputerHotspotGame';
 import { KeyboardTrainer } from '@/components/student/KeyboardTrainer';
 import { VisualReward } from '@/components/common/VisualReward';
@@ -18,9 +17,7 @@ export default function DigitalLiteracyHubPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar currentRole="student" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 space-y-8">
         {/* Page Hero Header */}
         <div className="bg-gradient-to-r from-indigo-700 via-indigo-800 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">

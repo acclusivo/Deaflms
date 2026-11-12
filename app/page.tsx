@@ -1,271 +1,229 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
-  Play,
   CheckCircle2,
-  AlertCircle,
-  Eye,
-  RotateCcw,
-  Sparkles,
-  BookOpen,
-  Camera,
-  Hand,
-  CheckSquare,
-  HelpCircle,
+  Code,
+  Sliders,
+  Video,
+  ShieldCheck,
+  Building2,
+  ChevronDown,
+  Clock,
   Keyboard,
   LogIn,
-  ShieldCheck,
-  Check,
 } from 'lucide-react';
-import {
-  APPROVED_COMPUTER_WORDS,
-  ONBOARDING_VIDEO_SOURCE,
-  ONBOARDING_SIGNED_MESSAGE,
-  AI_ROLE_BOUNDARY_STATEMENT,
-} from '@/lib/approved-vocabulary';
 import { AccessibleSignVideoPlayer } from '@/components/common/AccessibleSignVideoPlayer';
-import { SignyAITutorModal, openClarifyModal } from '@/components/student/SignyAITutorModal';
-import { CommunityTestimonialSection } from '@/components/common/CommunityTestimonialSection';
+import { SignyAITutorModal } from '@/components/student/SignyAITutorModal';
+import { Navbar } from '@/components/common/Navbar';
+
+import { AgeSegment } from '@/lib/types';
+
+interface CourseCard {
+  id: string;
+  ageSegment: AgeSegment;
+  title: string;
+  description: string;
+  audience: string;
+  duration: string;
+  lessonCount: number;
+  priceNgn: number;
+  isFree: boolean;
+  thumbnailUrl: string;
+  ctaHref: string;
+}
+
+const COURSES: CourseCard[] = [
+  {
+    id: 'course-reading-storybook-1',
+    ageSegment: '6-8',
+    title: 'Visual Storybook: The Clever Fox',
+    description: 'Dual-pane illustrated storybook with synchronized sign language video and tap-to-sign vocabulary.',
+    audience: 'Ages 6–8 • Early Literacy',
+    duration: '30 mins',
+    lessonCount: 3,
+    priceNgn: 0,
+    isFree: true,
+    thumbnailUrl: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&auto=format&fit=crop&q=80',
+    ctaHref: '/student/storybook/storybook-clever-fox',
+  },
+  {
+    id: 'course-digital-literacy-1',
+    ageSegment: '9-12',
+    title: 'Computer Hardware & Digital Basics',
+    description: 'A visual introduction to computer parts, mouse and keyboard navigation, and safe web browsing.',
+    audience: 'Ages 9–12 • Digital Basics',
+    duration: '45 mins',
+    lessonCount: 5,
+    priceNgn: 0,
+    isFree: true,
+    thumbnailUrl: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=80',
+    ctaHref: '/signup?course=course-digital-literacy-1&track=9-12',
+  },
+  {
+    id: 'course-hearing-nsl-1',
+    ageSegment: '13-17',
+    title: 'Applied Visual Communication & Signs',
+    description: 'Master everyday conversational signs, fingerspelling alphabet, interaction, and visual grammar.',
+    audience: 'Ages 13–17 • Applied Tech',
+    duration: '1 hour',
+    lessonCount: 6,
+    priceNgn: 4000,
+    isFree: false,
+    thumbnailUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&auto=format&fit=crop&q=80',
+    ctaHref: '/signup?course=course-hearing-nsl-1&track=13-17',
+  },
+  {
+    id: 'course-frontend-web-1',
+    ageSegment: '18+',
+    title: 'Frontend Web Development & Engineering',
+    description: 'Learn modern HTML5, CSS layout, and web fundamentals with native sign language video and live in-browser coding.',
+    audience: 'Ages 18+ • Engineering Career',
+    duration: '2 hours',
+    lessonCount: 7,
+    priceNgn: 5000,
+    isFree: false,
+    thumbnailUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop&q=80',
+    ctaHref: '/signup?course=course-frontend-web-1&track=18+',
+  },
+];
+
+const FAQS = [
+  {
+    q: 'Do I need previous coding experience?',
+    a: 'No. The Frontend Web Development course starts from absolute basics. Every concept is explained visually in Nigerian Sign Language with live code examples.',
+  },
+  {
+    q: 'How does the free Lesson 1 work?',
+    a: 'You can start Lesson 1 on any course without entering payment details. You get full access to the video lesson, technical vocabulary, and code sandbox.',
+  },
+  {
+    q: 'How do I pay to unlock Lesson 2 and above?',
+    a: 'You can pay the one-time ₦5,000 fee via Selar (cards, USSD, Apple Pay) or direct bank transfer to our Zenith Bank account. Access unlocks immediately upon confirmation.',
+  },
+  {
+    q: 'Which sign language is used?',
+    a: 'All lessons use Nigerian Sign Language (NSL) taught by certified native Deaf educators.',
+  },
+];
 
 export default function LandingPage() {
-  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState<boolean>(false);
-  const [showWatchModal, setShowWatchModal] = useState<boolean>(false);
-  const [onboardingFinished, setOnboardingFinished] = useState<boolean>(false);
-  const onboardingCardRef = useRef<HTMLDivElement>(null);
+  const [selectedFilter, setSelectedFilter] = useState<'all' | '6-8' | '9-12' | '13-17' | '18+'>('all');
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const coursesRef = useRef<HTMLDivElement>(null);
 
-  // Check returning learner preference from device storage
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('deaflms_onboarding_completed');
-      if (stored === 'true') {
-        setHasCompletedOnboarding(true);
-      }
-    } catch {
-      // Graceful fallback if localStorage is disabled
-    }
-  }, []);
-
-  const handleVideoCompleted = () => {
-    setOnboardingFinished(true);
-    setHasCompletedOnboarding(true);
-    try {
-      localStorage.setItem('deaflms_onboarding_completed', 'true');
-    } catch { }
+  const scrollToCourses = () => {
+    coursesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const handleSkipGuide = () => {
-    setOnboardingFinished(true);
-    setHasCompletedOnboarding(true);
-    try {
-      localStorage.setItem('deaflms_onboarding_completed', 'true');
-    } catch { }
-  };
-
-  const handleReplayGuide = () => {
-    setOnboardingFinished(false);
-  };
-
-  const scrollToVideoCard = () => {
-    if (onboardingCardRef.current) {
-      onboardingCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
+  const filteredCourses = COURSES.filter((c) => {
+    if (selectedFilter === 'all') return true;
+    return c.ageSegment === selectedFilter;
+  });
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 selection:bg-teal-700 selection:text-white">
-      {/* Top Navigation Header */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-          {/* Brand Logo & Status Tag */}
-          <Link href="/" className="flex items-center gap-3 interactive-target">
+    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 antialiased selection:bg-teal-700 selection:text-white">
 
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-black tracking-tight text-slate-900">
-                Deaf<span className="text-teal-700">LMS</span>
-              </span>
-            </div>
-          </Link>
-
-          {/* Action Links & Demo CTA */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/keyboard-trainer"
-              className="hidden sm:inline-flex px-3.5 py-2 rounded-xl text-slate-700 hover:text-teal-800 hover:bg-slate-100 font-bold text-xs transition interactive-target items-center gap-1.5"
-            >
-              <Keyboard className="w-3.5 h-3.5 text-teal-700" />
-              <span>Keyboard Trainer</span>
-            </Link>
-            <Link
-              href="/login"
-              className="px-4 py-2.5 rounded-xl text-slate-700 hover:text-teal-800 hover:bg-slate-100 font-bold text-xs transition flex items-center gap-1.5 interactive-target border border-slate-200"
-            >
-              <LogIn className="w-4 h-4 text-teal-700" />
-              <span>Sign In</span>
-            </Link>
-
-            <Link
-              href="/demo?pitch=true"
-              className="px-5 py-2.5 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs sm:text-sm shadow-md shadow-teal-100 transition interactive-target flex items-center gap-2 ring-2 ring-teal-400"
-            >
-              <span>Try a lesson</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* 1. Shared Navigation Header */}
+      <Navbar />
 
       <main className="flex-1">
-        {/* ========================================================================= */}
-        {/* P0 HERO SECTION: SIGNED ONBOARDING AS HOMEPAGE ENTRY POINT */}
-        {/* Two-column on large screens, linear heading -> video -> demo on mobile */}
-        {/* ========================================================================= */}
-        <section className="relative overflow-hidden pt-8 pb-14 sm:pt-14 sm:pb-20 border-b border-slate-200 bg-gradient-to-b from-white via-teal-50/20 to-slate-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-              {/* Left Column (Copy & Primary / Secondary CTAs) */}
-              <div className="lg:col-span-6 space-y-6 text-left order-1">
+        {/* 2. Hero Section */}
+        <section className="pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-slate-200 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+              {/* Left Column: Human Value Proposition */}
+              <div className="lg:col-span-6 space-y-6">
+                {/* <span className="inline-block px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-semibold">
+                  Deaf-Led Education • Nigeria
+                </span> */}
+
                 <div className="space-y-3">
-                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                    Learn through pictures, signs and practice.
+                  <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
+                    Learn tech in Nigerian Sign Language.
                   </h1>
-                  <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed max-w-xl">
-                    Visual STEM lessons for Deaf and hard-of-hearing learners.
+                  <p className="text-base text-slate-600 leading-relaxed max-w-lg">
+                    Video lessons taught by native Deaf educators with live in-browser coding practice. Start Lesson 1 free on any course.
                   </p>
                 </div>
 
-                {/* Primary & Secondary Action Buttons */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-                  <Link
-                    href="/demo?pitch=true"
-                    className="px-7 py-4 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-base shadow-lg shadow-teal-700/20 transition interactive-target flex items-center justify-center gap-2"
-                  >
-                    <span>Try a lesson</span>
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                   <button
-                    onClick={scrollToVideoCard}
-                    className="px-6 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-800 font-black text-base border-2 border-slate-300 transition interactive-target flex items-center justify-center gap-2"
+                    onClick={scrollToCourses}
+                    className="px-6 py-3.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                   >
-                    <Play className="w-4 h-4 fill-slate-800 text-slate-800" />
-                    <span>See how it works</span>
+                    <span>Choose a Course</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
-                </div>
 
-                {/* Direct Testimonial Quick Pitch Button */}
-                <div className="pt-1">
-                  <a
-                    href="#community-testimonial"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-teal-50 hover:bg-teal-100/90 text-teal-900 border border-teal-200 text-xs font-black transition interactive-target shadow-2xs group"
+                  {/* <Link
+                    href="/keyboard-trainer"
+                    className="px-5 py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-sm transition flex items-center justify-center gap-2"
                   >
-                    <span className="w-6 h-6 rounded-lg bg-teal-700 text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition">
-                      <Play className="w-3 h-3 fill-white ml-0.5" />
-                    </span>
-                    <span>Watch Deaf Learners Testimonial (2 min)</span>
-                    <span className="px-2 py-0.5 rounded-md bg-white border border-teal-200 text-[10px] text-teal-800 font-extrabold uppercase">
-                      TIDI Bootcamp
-                    </span>
-                  </a>
+                    <Keyboard className="w-4 h-4 text-teal-800" />
+                    <span>Try Keyboard Trainer</span>
+                  </Link> */}
                 </div>
 
-                {/* Returning Learner Saved Preference Status */}
-                {/* {hasCompletedOnboarding && (
-                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between text-xs font-bold text-emerald-900">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>You previously watched the signed guide. Ready to jump straight to lessons!</span>
-                    </div>
+                {/* Minimal Trust Strip */}
+                {/* <div className="pt-4 flex items-center gap-6 text-xs text-slate-500 font-medium">
+                  <div>
+                    <strong className="text-slate-900 font-bold block text-sm">580+</strong>
+                    <span>Deaf learners</span>
+                  </div>
+                  <div className="w-px h-6 bg-slate-200" />
+                  <div>
+                    <strong className="text-slate-900 font-bold block text-sm">100%</strong>
+                    <span>Visual instruction</span>
+                  </div>
+                  <div className="w-px h-6 bg-slate-200" />
+                  <div>
+                    <strong className="text-slate-900 font-bold block text-sm">₦0</strong>
+                    <span>Lesson 1 free</span>
+                  </div>
+                </div> */}
+              </div>
+
+              {/* Right Column: Live Lesson Demo */}
+              <div className="lg:col-span-6">
+                <div className="bg-slate-950 rounded-2xl p-4 sm:p-5 border border-slate-800 shadow-xl text-white space-y-4">
+                  <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800">
+                    <span className="font-semibold text-slate-200">Live Lesson Preview</span>
+                    <span className="text-[11px] font-mono text-teal-400">Lesson 1: Free Access</span>
+                  </div>
+
+                  <div className="rounded-xl overflow-hidden aspect-video bg-slate-900 border border-slate-800">
+                    <AccessibleSignVideoPlayer
+                      source={{
+                        provider: 'mux',
+                        src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                        fallbackSrc: '/videos/frontend-nsl-lesson-1.mp4',
+                        muxPlaybackId: 'rsjNCUwsOkAlOqacIFB4DSueCNQD9gew00lzy2x101uTI',
+                        posterUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&auto=format&fit=crop&q=80',
+                        title: 'Lesson 1: Introduction to HTML in NSL',
+                        signLanguage: 'Nigerian Sign Language (NSL)',
+                        durationSeconds: 240,
+                        reviewedBy: 'Acclusivo NSL Review Board',
+                        reviewStatus: 'approved',
+                      }}
+                      showTitle={false}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs pt-1 text-slate-400">
+                    <span>Includes live code editor &amp; slow-motion controls</span>
                     <Link
-                      href="/demo?pitch=true"
-                      className="text-teal-800 font-black underline hover:text-teal-950 shrink-0 ml-2"
+                      href="/signup?course=course-frontend-web-1&track=18+"
+                      className="text-teal-400 hover:text-teal-300 font-semibold flex items-center gap-1"
                     >
-                      Open Demo →
+                      <span>Start this lesson</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
-                )} */}
-
-                {/* AI Boundary & Philosophy Callout */}
-                <div className="pt-2 p-4 bg-slate-100/80 rounded-2xl border border-slate-200 text-xs space-y-2">
-                  <div className="flex items-center gap-2 text-slate-700 font-extrabold uppercase text-[11px]">
-                    <ShieldCheck className="w-4 h-4 text-teal-700 shrink-0" />
-                    <span>Verified Educator Safeguard:</span>
-                  </div>
-                  <p className="text-slate-600 font-medium leading-relaxed">
-                    {AI_ROLE_BOUNDARY_STATEMENT}
-                  </p>
-                  <div className="pt-1 flex items-center justify-between">
-                    <button
-                      type="button"
-                      onClick={() => openClarifyModal('webcam')}
-                      className="px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-900 font-bold text-xs border border-teal-200 transition flex items-center gap-1.5 interactive-target"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Test Safe AI Clarification</span>
-                    </button>
-                    <span className="text-[10px] text-slate-500 font-semibold">Strict safety boundary</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Focused Sign-Language Onboarding Video Card */}
-              <div ref={onboardingCardRef} className="lg:col-span-6 order-2">
-                <div className="space-y-4">
-                  {/* Reusable AccessibleSignVideoPlayer for Homepage Onboarding */}
-                  <AccessibleSignVideoPlayer
-                    source={ONBOARDING_VIDEO_SOURCE}
-                    showSkip={true}
-                    onSkip={handleSkipGuide}
-                    onEnded={handleVideoCompleted}
-                    onStartDemoClick={() => {
-                      window.location.href = '/demo?pitch=true';
-                    }}
-                  />
-
-                  {/* Completion State Card: "You are ready" */}
-                  {onboardingFinished ? (
-                    <div className="p-5 bg-emerald-50 border-2 border-emerald-300 rounded-3xl space-y-3 animate-fade-in text-left">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2.5">
-
-                        </div>
-
-                      </div>
-
-
-                    </div>
-                  ) : (
-                    /* 7 Short Visual Step Indicators */
-                    <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-black text-slate-800 uppercase tracking-wide">
-                          7 Visual Learning Steps:
-                        </span>
-                        <span className="text-[11px] text-teal-800 font-bold">
-                          100% Visual • Zero Sound Required
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5 text-center">
-                        {ONBOARDING_SIGNED_MESSAGE.visualSteps.map((step) => (
-                          <div
-                            key={step.number}
-                            className="p-2 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center justify-center gap-1"
-                          >
-                            <span className="w-5 h-5 rounded-full bg-teal-100 text-teal-800 font-black text-[10px] flex items-center justify-center">
-                              {step.number}
-                            </span>
-                            <span className="text-[10px] font-black uppercase text-slate-900 leading-tight">
-                              {step.label}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -273,142 +231,337 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ========================================================================= */}
-        {/* 1. CORE LEARNING MODEL: THE SEVEN-STEP VISUAL SEQUENCE */}
-        {/* ========================================================================= */}
-        <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
-          <div className="max-w-3xl space-y-2">
-            <span className="text-xs font-black uppercase tracking-wider text-teal-800">
-              Pedagogical Foundation
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              The Seven-Step Visual Learning Model
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
-              Tested with a Deaf Primary 4 learner: recognizing a word sign is not the same as understanding its concept. We separate the vocabulary sign from a Deaf facilitator&apos;s signed explanation.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 bg-white rounded-3xl border-2 border-slate-200 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-black">
-                1
-              </div>
-              <h3 className="text-lg font-black text-slate-900">Vocabulary Sign Video</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Demonstrates how to sign one individual word in Nigerian Sign Language with clear handshape and spatial grammar.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white rounded-3xl border-2 border-slate-200 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-black">
-                2
-              </div>
-              <h3 className="text-lg font-black text-slate-900">Signed Meaning Video</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                A Deaf facilitator explains the concept using familiar local signs, visual pointing, a real object and a relatable everyday example.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white rounded-3xl border-2 border-slate-200 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-black">
-                3
-              </div>
-              <h3 className="text-lg font-black text-slate-900">Visual Story &amp; Supervised Help</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                A reviewed 3-frame story provides contextual reinforcement. When a child needs guidance, parent-approved facilitator help is one tap away.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================================= */}
-        {/* COMMUNITY IMPACT & REAL DEAF LEARNERS TESTIMONIAL VIDEO (TIDI BOOTCAMP) */}
-        {/* ========================================================================= */}
-        <CommunityTestimonialSection id="community-testimonial" />
-
-        {/* ========================================================================= */}
-        {/* 2. THE 4 COMPUTER WORDS PREVIEW */}
-        {/* ========================================================================= */}
-        <section className="py-16 bg-slate-100/70 border-y border-slate-200">
+        {/* 3. Three Core Pillars (Clean & Human) */}
+        <section id="how-it-works" className="py-16 border-b border-slate-200 bg-slate-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div className="space-y-2 max-w-2xl">
-                <span className="text-xs font-black uppercase tracking-wider text-teal-800">
-                  Approved Foundation Catalog
-                </span>
-                <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                  The Four Approved Computer Words
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 font-medium">
-                  Reviewed by Deaf educators in Abuja, Nigeria for clear signing space and chest visibility.
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                Built specifically for visual learners.
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600">
+                Most platforms simply put delayed captions over spoken video. DeafLMS is built around visual comprehension.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center font-bold">
+                  <Video className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900">Native Sign Instruction</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Every lesson is delivered by certified Deaf instructors in Nigerian Sign Language, with fingerspelled technical terms shown clearly on screen.
                 </p>
               </div>
 
-              <Link
-                href="/demo?pitch=true"
-                className="px-6 py-3 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs transition flex items-center gap-2 self-start md:self-auto interactive-target shadow-sm"
-              >
-                <span>Launch 60-Second Demo</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center font-bold">
+                  <Sliders className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900">Motion Speed Controls</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Slow down any video to 0.5x or 0.75x to study rapid handshapes and technical signs without audio pitch distortion.
+                </p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center font-bold">
+                  <Code className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900">In-Browser Code Lab</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Write HTML and CSS in a split-screen editor right beside the signing instructor. No complex software installation required.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Course Catalog */}
+        <section ref={coursesRef} id="courses" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-8 scroll-mt-20">
+
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-5">
+            <div className="space-y-1">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                Available Courses
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600">
+                Choose a course. Lesson 1 is completely free on all tracks.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {Object.values(APPROVED_COMPUTER_WORDS).map((item) => (
+            {/* Filter Pills: Age Segments */}
+            <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 self-start sm:self-auto">
+              {[
+                { id: 'all', label: 'All Ages' },
+                { id: '6-8', label: 'Ages 6–8' },
+                { id: '9-12', label: 'Ages 9–12' },
+                { id: '13-17', label: 'Ages 13–17' },
+                { id: '18+', label: 'Ages 18+' },
+              ].map((filter) => (
+                <button
+                  key={filter.id}
+                  type="button"
+                  onClick={() => setSelectedFilter(filter.id as any)}
+                  className={`py-1.5 px-3 rounded-lg text-xs font-semibold transition cursor-pointer ${selectedFilter === filter.id
+                    ? 'bg-teal-700 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Course Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredCourses.map((course) => {
+              const isTechTrack = course.id === 'course-frontend-web-1';
+
+              return (
                 <div
-                  key={item.id}
-                  className="bg-white rounded-3xl border-2 border-slate-200 overflow-hidden shadow-xs hover:border-teal-500 transition group flex flex-col justify-between"
+                  key={course.id}
+                  className={`bg-white rounded-2xl border overflow-hidden shadow-xs hover:shadow-md transition flex flex-col justify-between ${isTechTrack ? 'border-teal-700 ring-1 ring-teal-700/20' : 'border-slate-200'
+                    }`}
                 >
                   <div>
-                    <div className="aspect-video bg-slate-100 overflow-hidden border-b border-slate-200 relative">
+                    {/* Image Banner */}
+                    <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
                       <img
-                        src={item.imageUrl}
-                        alt={item.word}
-                        className="w-full h-full object-cover group-hover:scale-105 transition"
+                        src={course.thumbnailUrl}
+                        alt={course.title}
+                        className="w-full h-full object-cover"
                       />
-                      <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-slate-900/80 text-white text-[10px] font-black uppercase backdrop-blur-sm">
-                        {item.word}
-                      </span>
-                    </div>
-                    <div className="p-5 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-black text-slate-900">{item.word}</h3>
-                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
-                          {item.signLanguage} Approved
+                      <div className="absolute top-3 left-3">
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/90 text-slate-800 shadow-xs">
+                          {course.audience}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-600 font-medium line-clamp-3 leading-relaxed">
-                        {item.simpleMeaning}
+                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-xs font-semibold">
+                        <span className="bg-slate-950/70 px-2 py-0.5 rounded backdrop-blur-xs flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-teal-300" />
+                          <span>{course.duration} • {course.lessonCount} Lessons</span>
+                        </span>
+                        <span className="bg-emerald-600 px-2 py-0.5 rounded text-[11px]">
+                          {course.isFree ? 'Free Forever' : 'Lesson 1 Free'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5 sm:p-6 space-y-2">
+                      <h3 className="text-lg font-bold text-slate-900 leading-snug">
+                        {course.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {course.description}
                       </p>
                     </div>
                   </div>
 
-                  <div className="p-4 pt-0 border-t border-slate-100 mt-2">
-                    <span className="text-[11px] text-slate-400 font-semibold block pt-2">
-                      Spelling: {item.fingerspell}
-                    </span>
+                  {/* Footer & CTA */}
+                  <div className="p-5 sm:p-6 pt-0 border-t border-slate-100 mt-2 space-y-3">
+                    <div className="flex items-center justify-between pt-3 text-xs">
+                      <div>
+                        {course.isFree ? (
+                          <span className="font-bold text-emerald-700">100% Free</span>
+                        ) : (
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-base font-bold text-slate-900">
+                              ₦{course.priceNgn.toLocaleString()}
+                            </span>
+                            <span className="text-slate-400 font-medium">for full track</span>
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-slate-500 font-medium">
+                        {course.isFree ? 'No account required' : 'Free Lesson 1 • Upgrade anytime'}
+                      </span>
+                    </div>
+
+                    <Link
+                      href={course.ctaHref}
+                      className="w-full py-2.5 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2"
+                    >
+                      <span>Start Free Lesson 1</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
                   </div>
                 </div>
-              ))}
+              );
+            })}
+          </div>
+
+        </section>
+
+        {/* 5. Pricing & Payment Options */}
+        <section id="pricing" className="py-16 max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
+
+          <div className="text-center space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Simple, transparent pricing.
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600">
+              Start with Lesson 1 for free. Pay once when you are ready to continue.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Free Tier */}
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-5 flex flex-col justify-between">
+              <div className="space-y-3">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Free Preview</span>
+                <div className="space-y-1">
+                  <h3 className="text-xl font-bold text-slate-900">Lesson 1 Free</h3>
+                  <div className="text-3xl font-black text-slate-900">₦0</div>
+                </div>
+
+                <ul className="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Full access to Lesson 1 on all courses</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>In-browser HTML &amp; CSS code sandbox</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>AnySign fingerspelling keyboard trainer</span>
+                  </li>
+                </ul>
+              </div>
+
+              <button
+                onClick={scrollToCourses}
+                className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition cursor-pointer"
+              >
+                Start Free Lesson 1
+              </button>
             </div>
+
+            {/* Paid Full Course Pass */}
+            <div className="p-6 rounded-2xl bg-teal-900 text-white border border-teal-800 shadow-md space-y-5 flex flex-col justify-between">
+              <div className="space-y-3">
+                <span className="text-[11px] font-bold text-teal-300 uppercase tracking-wider">Full Course Pass</span>
+                <div className="space-y-1">
+                  <h3 className="text-xl font-bold text-white">Frontend Web Dev</h3>
+                  <div className="text-3xl font-black text-white">₦5,000</div>
+                  <p className="text-xs text-teal-200">One-time payment • Lifetime access</p>
+                </div>
+
+                <ul className="space-y-2 text-xs text-teal-100 pt-2 border-t border-teal-800">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-teal-300 shrink-0" />
+                    <span>All 7 video lessons &amp; code challenges</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-teal-300 shrink-0" />
+                    <span>VS Code setup and high-contrast tips</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-teal-300 shrink-0" />
+                    <span>Certificate of completion in NSL</span>
+                  </li>
+                </ul>
+              </div>
+
+              <Link
+                href="/signup?course=course-frontend-web-1&track=18+"
+                className="w-full py-2.5 rounded-xl bg-white hover:bg-teal-50 text-slate-900 font-bold text-xs transition text-center"
+              >
+                Enroll in Track
+              </Link>
+            </div>
+
+          </div>
+
+          {/* Payment Details Note */}
+          <div className="p-4 bg-slate-100 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-600">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-teal-700 shrink-0" />
+              <span><strong>Selar:</strong> Instant Card, USSD &amp; Apple Pay</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-teal-700 shrink-0" />
+              <span><strong>Zenith Bank:</strong> Acclusivo Technologies Ltd (1224567890)</span>
+            </div>
+          </div>
+
+        </section>
+
+        {/* 7. FAQs (Concise & Clear) */}
+        <section className="py-12 max-w-3xl mx-auto px-4 sm:px-6 space-y-6">
+          <div className="text-center space-y-1">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div className="space-y-2.5">
+            {FAQS.map((faq, idx) => {
+              const isOpen = activeFaq === idx;
+              return (
+                <div key={idx} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setActiveFaq(isOpen ? null : idx)}
+                    className="w-full p-4 text-left font-semibold text-xs sm:text-sm text-slate-900 flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="px-4 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        {/* Safe AI Clarification Modal & Floating Launcher */}
+        {/* Safe AI Clarification Modal */}
         <SignyAITutorModal />
+
       </main>
 
+      {/* 8. Clean Corporate Footer */}
+      <footer className="bg-white border-t border-slate-200 py-10 text-xs text-slate-500">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded bg-teal-800 text-white flex items-center justify-center font-bold text-xs">
+                DL
+              </div>
+              <span className="font-bold text-slate-900 text-sm">DeafLMS</span>
+            </div>
 
-      {/* Corporate Legal Footer */}
-      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
-        <p className="text-slate-700 font-semibold">
-          DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
-        </p>
-        <p className="text-slate-500">
-          &copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.
-        </p>
+            <div className="flex items-center gap-4 text-xs">
+              <button onClick={scrollToCourses} className="hover:text-teal-800 cursor-pointer">
+                Courses
+              </button>
+              <Link href="/keyboard-trainer" className="hover:text-teal-800">
+                Keyboard Trainer
+              </Link>
+              <Link href="/login" className="hover:text-teal-800">
+                Sign In
+              </Link>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400 text-center sm:text-left">
+            <p>&copy; {new Date().getFullYear()} DeafLMS. All rights reserved.</p>
+            <p>100% visual instruction in Nigerian Sign Language (NSL).</p>
+          </div>
+        </div>
       </footer>
+
     </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Navbar } from '@/components/common/Navbar';
 import { getPlatformKPIs, getCountrySignLanguages, updateCountrySignLanguageStatus } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
 import { CountrySignLanguageSupport, SignLanguageDialect } from '@/lib/types';
@@ -24,16 +23,19 @@ import {
   AlertCircle,
   Eye,
   Lock,
+  Layers,
+  CreditCard,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
-  const { user } = useAuth();
+  const { user, getPendingTeachers, approveTeacher, rejectTeacher } = useAuth();
   const [kpis, setKpis] = useState<any>(null);
   const [signLanguages, setSignLanguages] = useState<CountrySignLanguageSupport[]>([]);
   const [filterMode, setFilterMode] = useState<'all' | 'active' | 'locked'>('all');
   const [selectedCountry, setSelectedCountry] = useState<CountrySignLanguageSupport | null>(null);
   const [updatingCode, setUpdatingCode] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [pendingTeachersList, setPendingTeachersList] = useState<any[]>([]);
 
   useEffect(() => {
     async function load() {
@@ -41,9 +43,30 @@ export default function AdminDashboardPage() {
       setKpis(data);
       const langs = await getCountrySignLanguages();
       setSignLanguages(langs);
+      if (getPendingTeachers) {
+        setPendingTeachersList(getPendingTeachers());
+      }
     }
     load();
-  }, []);
+  }, [getPendingTeachers]);
+
+  const handleApproveTeacher = async (email: string) => {
+    await approveTeacher(email);
+    if (getPendingTeachers) {
+      setPendingTeachersList(getPendingTeachers());
+    }
+    setStatusMessage(`Approved educator account for ${email}. Access is now active.`);
+    setTimeout(() => setStatusMessage(null), 3500);
+  };
+
+  const handleRejectTeacher = async (email: string) => {
+    await rejectTeacher(email);
+    if (getPendingTeachers) {
+      setPendingTeachersList(getPendingTeachers());
+    }
+    setStatusMessage(`Application for ${email} declined.`);
+    setTimeout(() => setStatusMessage(null), 3500);
+  };
 
   const handleStatusChange = async (code: SignLanguageDialect, newStatus: 'active' | 'pilot' | 'in_review' | 'planned') => {
     if (code !== 'NSL') {
@@ -78,9 +101,7 @@ export default function AdminDashboardPage() {
   ).length;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900">
-      <Navbar currentRole="admin" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-8">
         
         {/* Admin Header — Clean, Professional, Credible */}
@@ -90,8 +111,9 @@ export default function AdminDashboardPage() {
               <span className="text-xs font-black uppercase tracking-wider text-amber-900 bg-amber-50 px-3 py-1 rounded-md border border-amber-200">
                 Institutional Oversight Console
               </span>
-              <span className="text-xs font-bold text-slate-500">
-                Demonstration Environment
+              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live Production Environment
               </span>
             </div>
 
@@ -114,7 +136,7 @@ export default function AdminDashboardPage() {
               </div>
               <div className="text-3xl font-black text-slate-900">{kpis.totalStudents}</div>
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Enrolled Learners (Demo)
+                Active Enrolled Learners
               </div>
             </div>
 
@@ -124,7 +146,7 @@ export default function AdminDashboardPage() {
               </div>
               <div className="text-3xl font-black text-slate-900">{kpis.totalTeachers}</div>
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Deaf Educators (Demo)
+                Accredited Deaf Educators
               </div>
             </div>
 
@@ -149,6 +171,100 @@ export default function AdminDashboardPage() {
             </div>
           </div>
         )}
+
+        {/* ========================================================================= */}
+        {/* EDUCATOR SIGN-UP & VERIFICATION APPROVAL QUEUE                             */}
+        {/* ========================================================================= */}
+        <section className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-xs space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shrink-0 shadow-sm">
+                <Users className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+                    Teacher Sign-Up &amp; Verification Queue
+                  </h2>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[11px] font-black uppercase">
+                    {pendingTeachersList.length} Pending
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium pt-0.5">
+                  Teachers cannot access Facilitator Studio without administrative approval. Inspect credentials and activate below.
+                </p>
+              </div>
+            </div>
+
+            <Link
+              href="/admin/users"
+              className="text-xs font-bold text-amber-900 hover:text-amber-950 underline self-start sm:self-auto"
+            >
+              Manage Full User Roster →
+            </Link>
+          </div>
+
+          {pendingTeachersList.length === 0 ? (
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
+              <CheckCircle2 className="w-6 h-6 text-emerald-600 mx-auto" />
+              <div className="text-sm font-black text-slate-800">No Pending Teacher Applications</div>
+              <p className="text-xs text-slate-500">All registered educators are reviewed and verified.</p>
+            </div>
+          ) : (
+            <div className="divide-y divide-slate-100 overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="text-slate-400 font-black uppercase text-[10px] pb-2">
+                    <th className="py-2 px-3">Educator</th>
+                    <th className="py-2 px-3">School / Organization</th>
+                    <th className="py-2 px-3">Specialization</th>
+                    <th className="py-2 px-3">Status</th>
+                    <th className="py-2 px-3 text-right">Approval Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 font-medium">
+                  {pendingTeachersList.map((item) => (
+                    <tr key={item.email} className="hover:bg-slate-50/80 transition">
+                      <td className="py-3 px-3">
+                        <strong className="font-black text-slate-900 block">{item.profile.displayName}</strong>
+                        <span className="text-[11px] text-slate-400">{item.email}</span>
+                      </td>
+                      <td className="py-3 px-3 text-slate-700">
+                        {item.profile.schoolOrOrganization || 'Abuja Model Deaf Academy'}
+                      </td>
+                      <td className="py-3 px-3 text-slate-700">
+                        {item.profile.gradeLevel || 'STEM & Digital Literacy'}
+                      </td>
+                      <td className="py-3 px-3">
+                        <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-black text-[10px] uppercase border border-amber-300">
+                          Pending Approval
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <div className="inline-flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleApproveTeacher(item.email)}
+                            className="px-3 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs transition shadow-xs interactive-target"
+                          >
+                            Approve Access ✓
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleRejectTeacher(item.email)}
+                            className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs transition interactive-target"
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
 
         {/* ========================================================================= */}
         {/* MULTINATIONAL & LOCAL SIGN LANGUAGE GOVERNANCE CONSOLE */}
@@ -508,53 +624,149 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
+        {/* ========================================================================= */}
+        {/* PRIMARY FEATURED: CONTENT MANAGEMENT SYSTEM (SANITY CMS) */}
+        {/* Integrated inside DeafLMS Admin for curriculum & sign video authoring */}
+        {/* ========================================================================= */}
+        <section className="bg-gradient-to-br from-slate-900 to-teal-950 text-white rounded-3xl p-6 sm:p-8 border-2 border-teal-800/60 shadow-xl space-y-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[10px] font-black uppercase tracking-wider bg-teal-900/80 text-teal-300 border border-teal-700 px-2.5 py-1 rounded-md flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3 text-teal-300" />
+                  Sanity CMS Integration Active
+                </span>
+                <span className="text-[10px] font-bold text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700">
+                  Route: /admin/content
+                </span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                Educational Content Management
+              </h2>
+
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                Author, update, review, and publish learning paths, courses, modules, lessons, vocabulary, and authentic Nigerian Sign Language video assets directly within DeafLMS without visiting an external website.
+              </p>
+
+              {/* 4-Step Authoring Workflow Guide */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-[11px]">
+                <div className="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
+                  <span className="text-teal-400 font-black block">1. Open Studio</span>
+                  <span className="text-slate-400 block text-[10px]">Select Content Management</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
+                  <span className="text-teal-400 font-black block">2. Create &amp; Edit</span>
+                  <span className="text-slate-400 block text-[10px]">Paths, courses &amp; lessons</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
+                  <span className="text-teal-400 font-black block">3. Attach NSL Videos</span>
+                  <span className="text-slate-400 block text-[10px]">Reviewed sign assets</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
+                  <span className="text-teal-400 font-black block">4. Publish</span>
+                  <span className="text-slate-400 block text-[10px]">Live to learner views</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0 relative z-10">
+              <Link
+                href="/admin/content"
+                className="px-6 py-4 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-sm shadow-lg shadow-teal-500/20 transition interactive-target flex items-center justify-center gap-2"
+              >
+                <Layers className="w-4 h-4 text-slate-950" />
+                <span>Launch Content Studio →</span>
+              </Link>
+
+              <Link
+                href="/admin/courses"
+                className="px-6 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition border border-slate-700 flex items-center justify-center gap-2"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-teal-400" />
+                <span>View Courses Overview</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Administrative Management Pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
-            href="/admin/users"
-            className="bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-slate-400 transition group space-y-3 interactive-target"
+            href="/admin/content"
+            className="bg-white p-5 rounded-3xl border-2 border-teal-600/40 hover:border-teal-600 transition group space-y-3 interactive-target shadow-xs"
           >
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
-                <Users className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center border border-teal-200">
+                <Layers className="w-5 h-5 text-teal-700" />
               </div>
-              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-slate-800 transition" />
+              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-teal-700 transition" />
             </div>
-            <h3 className="text-lg font-black text-slate-900">User &amp; Educator Rosters</h3>
+            <div>
+              <span className="text-[10px] font-black uppercase text-teal-700 tracking-wider">Sanity Studio</span>
+              <h3 className="text-base font-black text-slate-900">Content Management</h3>
+            </div>
             <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Assign roles, manage country sign language preferences, and oversee student cohorts.
+              Create, edit, and publish learning paths, courses, modules, and verified sign videos.
+            </p>
+          </Link>
+
+          <Link
+            href="/admin/payments"
+            className="bg-white p-5 rounded-3xl border-2 border-amber-500/40 hover:border-amber-500 transition group space-y-3 interactive-target shadow-xs"
+          >
+            <div className="flex items-center justify-between">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center border border-amber-200">
+                <CreditCard className="w-5 h-5 text-amber-700" />
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700 transition" />
+            </div>
+            <div>
+              <span className="text-[10px] font-black uppercase text-amber-700 tracking-wider">Dual Gateway</span>
+              <h3 className="text-base font-black text-slate-900">Payment Verification</h3>
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed font-medium">
+              Reconcile manual bank transfers, inspect receipts, and track Selar automated enrolments.
             </p>
           </Link>
 
           <Link
             href="/admin/courses"
-            className="bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-slate-400 transition group space-y-3 interactive-target"
+            className="bg-white p-5 rounded-3xl border-2 border-slate-200 hover:border-slate-400 transition group space-y-3 interactive-target shadow-xs"
           >
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-teal-700" />
+              <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center border border-slate-200">
+                <BookOpen className="w-5 h-5 text-slate-700" />
               </div>
               <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-slate-800 transition" />
             </div>
-            <h3 className="text-lg font-black text-slate-900">Curriculum &amp; Content Review</h3>
+            <div>
+              <span className="text-[10px] font-black uppercase text-slate-500 tracking-wider">Catalog</span>
+              <h3 className="text-base font-black text-slate-900">Curriculum Standards</h3>
+            </div>
             <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Review draft vocabulary, ensure Nigerian and multinational sign standards, and approve new lessons.
+              Audit course tiers (Free vs Paid), instructional languages, and accessibility ratings.
             </p>
           </Link>
 
           <Link
-            href="/user-testing"
-            className="bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-slate-400 transition group space-y-3 interactive-target"
+            href="/admin/users"
+            className="bg-white p-5 rounded-3xl border-2 border-slate-200 hover:border-slate-400 transition group space-y-3 interactive-target shadow-xs"
           >
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-emerald-700" />
+              <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center border border-slate-200">
+                <Users className="w-5 h-5" />
               </div>
               <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-slate-800 transition" />
             </div>
-            <h3 className="text-lg font-black text-slate-900">Child Safeguarding Logs</h3>
+            <div>
+              <span className="text-[10px] font-black uppercase text-slate-500 tracking-wider">Rosters</span>
+              <h3 className="text-base font-black text-slate-900">User &amp; Educator Rosters</h3>
+            </div>
             <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Inspect parent-approved support sessions, verify zero unauthorized recording, and audit user discovery notes.
+              Assign roles, manage country sign language preferences, and oversee student cohorts.
             </p>
           </Link>
         </div>

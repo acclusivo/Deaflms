@@ -2,15 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Navbar } from '@/components/common/Navbar';
 import { isSupabaseConfigured } from '@/lib/supabase/client';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Sparkles, HardDrive, ShieldCheck, Database } from 'lucide-react';
 
 export default function AdminSettingsPage() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar currentRole="admin" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-8">
         <div className="flex items-center gap-3">
           <Link

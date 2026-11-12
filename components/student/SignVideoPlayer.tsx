@@ -18,6 +18,21 @@ export function extractYouTubeId(url: string): string | null {
   return match && match[2].length === 11 ? match[2] : null;
 }
 
+export function extractMuxPlaybackId(urlOrId: string): string | null {
+  if (!urlOrId) return null;
+  const trimmed = urlOrId.trim();
+  // Matches player.mux.com/{playbackId} or stream.mux.com/{playbackId}.m3u8
+  const match = trimmed.match(/(?:stream|player)\.mux\.com\/([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return match[1].replace('.m3u8', '');
+  }
+  // Matches raw Mux playback ID (alphanumeric string, no slashes or dots)
+  if (/^[a-zA-Z0-9_-]{10,50}$/.test(trimmed) && !trimmed.includes('.') && !trimmed.includes('/')) {
+    return trimmed;
+  }
+  return null;
+}
+
 export const SignVideoPlayer: React.FC<SignVideoPlayerProps> = ({
   videoUrl,
   title,
@@ -25,6 +40,7 @@ export const SignVideoPlayer: React.FC<SignVideoPlayerProps> = ({
   autoPlay = false,
 }) => {
   const youtubeId = extractYouTubeId(videoUrl);
+  const muxPlaybackId = extractMuxPlaybackId(videoUrl);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(autoPlay);
@@ -81,14 +97,22 @@ export const SignVideoPlayer: React.FC<SignVideoPlayerProps> = ({
             <h3 className="font-bold text-white tracking-wide truncate">{title}</h3>
           </div>
           <span className="text-[11px] font-semibold text-slate-300">
-            Sign Language Video
+            {muxPlaybackId ? 'Mux Stream • NSL Demonstration' : 'Sign Language Video'}
           </span>
         </div>
       )}
 
       {/* Video Display Area */}
       <div className="relative aspect-video bg-black flex items-center justify-center">
-        {youtubeId ? (
+        {muxPlaybackId ? (
+          <iframe
+            src={`https://player.mux.com/${muxPlaybackId}?metadata-video-title=${encodeURIComponent(title || 'NSL Lesson')}`}
+            title={title || 'Mux Sign Video Demonstration'}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full border-0"
+          />
+        ) : youtubeId ? (
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${youtubeId}?enablejsapi=1&rel=0&modestbranding=1&playsinline=1`}
             title={title || 'Sign Video'}
@@ -124,7 +148,7 @@ export const SignVideoPlayer: React.FC<SignVideoPlayerProps> = ({
       </div>
 
       {/* Controls Bar for native video */}
-      {!youtubeId && (
+      {!youtubeId && !muxPlaybackId && (
         <div className="p-3 bg-slate-950 flex flex-col gap-2 border-t border-slate-800">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">

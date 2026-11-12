@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Navbar } from '@/components/common/Navbar';
 import { getCourses } from '@/lib/api';
 import { Course } from '@/lib/types';
-import { ArrowLeft, BookOpen, CheckCircle2, ShieldCheck, Eye } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle2, ShieldCheck, Eye, Layers } from 'lucide-react';
 
 export default function AdminCoursesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -19,25 +18,33 @@ export default function AdminCoursesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar currentRole="admin" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-6">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/admin/dashboard"
-            className="w-10 h-10 rounded-2xl bg-white border border-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-100 transition shadow-sm"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
-              Curriculum Moderation & Standards
-            </h1>
-            <p className="text-xs text-slate-500 font-bold">
-              Review published courses for DHH visual accessibility, sign clarity, and K-12 curriculum alignment.
-            </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin/dashboard"
+              className="w-10 h-10 rounded-2xl bg-white border border-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-100 transition shadow-sm"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
+                Curriculum Standards &amp; Courses
+              </h1>
+              <p className="text-xs text-slate-500 font-bold">
+                Review published courses across Child, Adult, and Hearing tracks.
+              </p>
+            </div>
           </div>
+
+          <Link
+            href="/admin/content"
+            className="px-5 py-3 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs shadow-md shadow-teal-700/20 transition interactive-target flex items-center gap-2 self-start sm:self-auto"
+          >
+            <Layers className="w-4 h-4" />
+            <span>Open Sanity Studio →</span>
+          </Link>
         </div>
 
         {/* Courses Table */}

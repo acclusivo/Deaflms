@@ -1,4 +1,21 @@
-export type UserRole = 'student' | 'teacher' | 'admin';
+export type UserRole = 'student' | 'teacher' | 'parent' | 'admin';
+
+export type AgeSegment = '6-8' | '9-12' | '13-17' | '18+';
+
+export type EducationStage =
+  | 'primary'              // Primary School (Basic 1–6)
+  | 'jss'                  // Junior Secondary School (JSS 1–3)
+  | 'ss'                   // Senior Secondary School (SS 1–3)
+  | 'tertiary'             // Tertiary Education (University / Polytechnic / Colleges)
+  | 'no_formal_school'     // No Formal School (Community / Self-Taught)
+  | 'employed'             // Employed (Workplace Communication & Skills)
+  | 'professional';        // Professional (Tech & Advanced Practice)
+
+export type AdaptiveInterfaceMode =
+  | 'storybook'    // Visual Storybook & Picture Cards (Early Visual Literacy • Primary)
+  | 'explorer'     // Interactive Stepper & Hardware Trainer (Digital Basics • JSS)
+  | 'youth_tech'   // Visual Coding & STEM Logic (Youth Tech • SS)
+  | 'workbench';   // Professional Code IDE & Career Workbench (Advanced • Tertiary/Pro)
 
 export type SignLanguageDialect =
   | 'NSL'     // Nigerian Sign Language (Active Priority 1)
@@ -42,7 +59,13 @@ export interface UserProfile {
   email: string;
   displayName: string;
   role: UserRole;
+  ageSegment?: AgeSegment;
+  customAge?: number;
+  approvalStatus?: 'approved' | 'pending' | 'rejected';
+  schoolOrOrganization?: string;
   gradeLevel?: string;
+  educationStage?: EducationStage;
+  interfaceMode?: AdaptiveInterfaceMode;
   avatarUrl: string;
   totalStars?: number;
   badgesUnlocked?: string[];
@@ -52,32 +75,84 @@ export interface UserProfile {
   experienceLevel?: string;
   membershipTier?: MembershipTier;
   subscription?: UserSubscription;
+  enrolledCourseIds?: string[];
+}
+
+export type PaymentMethod = 'selar_instant' | 'manual_bank_transfer';
+export type PaymentStatus = 'pending' | 'confirmed' | 'rejected';
+
+export interface PaymentRecord {
+  id: string;
+  userId: string;
+  userEmail: string;
+  userName: string;
+  courseId: string;
+  courseTitle: string;
+  amountNgn: number;
+  method: PaymentMethod;
+  reference: string;
+  status: PaymentStatus;
+  selarTransactionId?: string;
+  bankName?: string;
+  senderName?: string;
+  transferDate?: string;
+  proofUrl?: string;
+  adminNotes?: string;
+  reviewedBy?: string;
+  reviewedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CourseEnrollment {
+  id: string;
+  userId: string;
+  courseId: string;
+  courseTitle: string;
+  enrolledAt: string;
+  status: 'active' | 'expired' | 'canceled';
+  paymentId?: string;
+  activatedVia: 'free_tier' | 'selar_instant' | 'manual_admin_approval';
 }
 
 export type CourseCategory = 
   | 'Reading & Literacy'
   | 'Digital Literacy'
   | 'STEM'
-  | 'Everyday Signs';
+  | 'Everyday Signs'
+  | 'Frontend Web Development'
+  | 'Conversational NSL';
 
 export interface Course {
   id: string;
   title: string;
   description: string;
-  gradeLevel: string; // e.g. "K-2", "3-5", "6-8"
+  gradeLevel: string; // e.g. "Ages 6-8", "Ages 9-12", "Ages 18+"
   category: CourseCategory;
+  ageSegment?: AgeSegment | 'all';
+  minAge?: number;
+  maxAge?: number;
+  targetAudience?: string;
   thumbnailUrl: string;
   teacherId?: string;
   teacherName?: string;
   isPublished: boolean;
+  isFreeTier?: boolean;
+  priceNgn?: number;
   lessonsCount: number;
+  modulesCount?: number;
   durationMinutes: number;
   iconName: string;
   signLanguage?: SignLanguageDialect | string;
   country?: string;
 }
 
-export type LessonType = 'standard_lesson' | 'interactive_storybook' | 'digital_simulation';
+export type LessonType = 
+  | 'standard_lesson' 
+  | 'interactive_storybook' 
+  | 'digital_simulation'
+  | 'web_coding_lab'
+  | 'conversational_sign';
 
 export interface StoryPage {
   pageNumber: number;
@@ -178,7 +253,10 @@ export interface Lesson {
   lessonType: LessonType;
   description: string;
   signVideoUrl: string;
+  muxPlaybackId?: string;
+  isFreeBasic1?: boolean;
   durationSeconds: number;
+  durationMinutes?: number;
   storyPages?: StoryPage[];
   vocabularyItems?: VocabularyItem[];
   worksheets?: Worksheet[];
@@ -246,6 +324,7 @@ export type VideoProvider = 'mux' | 'supabase' | 'local' | 'youtube';
 export interface AccessibleVideoSource {
   provider: VideoProvider;
   playbackId?: string;
+  muxPlaybackId?: string;
   src?: string;
   fallbackSrc?: string;
   posterUrl: string;

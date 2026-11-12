@@ -1,21 +1,23 @@
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+*/node_modules/
+.pnp
 .pnp.js
 
 # testing
-/coverage
+coverage/
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
+# build & caches
+.next/
+out/
+build/
+dist/
+.sanity/
 
 # misc
 .DS_Store
 *.pem
+*.local
 
 # debug
 npm-debug.log*
@@ -31,5 +33,5 @@ yarn-error.log*
 next-env.d.ts
 
 # temp folders
-/output/
-/tmp/
+output/
+tmp/

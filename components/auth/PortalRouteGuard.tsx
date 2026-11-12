@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 interface PortalRouteGuardProps {
-  allowedRole: UserRole;
+  allowedRole: UserRole | UserRole[];
   children: React.ReactNode;
 }
 
@@ -77,14 +77,25 @@ export const PortalRouteGuard: React.FC<PortalRouteGuardProps> = ({
     );
   }
 
+  const isRoleAllowed = Array.isArray(allowedRole)
+    ? allowedRole.includes(user.role)
+    : user.role === allowedRole;
+
   // Unauthorized / Role Mismatch State (Strict Portal Isolation)
-  if (user.role !== allowedRole) {
+  if (!isRoleAllowed) {
     const roleLabels: Record<UserRole, { name: string; portal: string; icon: React.ReactNode; color: string; path: string }> = {
       student: {
         name: 'Student Learner',
         portal: 'Student Learner Portal',
         icon: <GraduationCap className="w-4 h-4 text-teal-700" />,
         color: 'text-teal-900 bg-teal-50 border-teal-200',
+        path: '/student/dashboard',
+      },
+      parent: {
+        name: 'Parent / Family Supervisor',
+        portal: 'Parent & Learner Portal',
+        icon: <ShieldCheck className="w-4 h-4 text-teal-700" />,
+        color: 'text-indigo-900 bg-indigo-50 border-indigo-200',
         path: '/student/dashboard',
       },
       teacher: {
@@ -103,8 +114,9 @@ export const PortalRouteGuard: React.FC<PortalRouteGuardProps> = ({
       },
     };
 
+    const primaryRequiredRole: UserRole = Array.isArray(allowedRole) ? allowedRole[0] : allowedRole;
     const currentRoleInfo = roleLabels[user.role] || roleLabels.student;
-    const requiredRoleInfo = roleLabels[allowedRole] || roleLabels.student;
+    const requiredRoleInfo = roleLabels[primaryRequiredRole] || roleLabels.student;
 
     return (
       <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center p-4 selection:bg-rose-500 selection:text-white">

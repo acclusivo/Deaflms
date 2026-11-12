@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getWorksheetById, submitWorksheetProgress } from '@/lib/api';
 import { Worksheet } from '@/lib/types';
-import { Navbar } from '@/components/common/Navbar';
 import { PictureToSignGame } from '@/components/student/PictureToSignGame';
 import { SignToTextGame } from '@/components/student/SignToTextGame';
 import { FingerspellBuilder } from '@/components/student/FingerspellBuilder';
@@ -48,13 +47,10 @@ export default function WorksheetRunnerPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="flex items-center gap-3 text-indigo-600 font-bold">
-            <Loader2 className="w-6 h-6 animate-spin" />
-            Loading Worksheet...
-          </div>
+      <div className="flex-1 flex items-center justify-center p-12">
+        <div className="flex items-center gap-3 text-indigo-600 font-bold">
+          <Loader2 className="w-6 h-6 animate-spin" />
+          Loading Worksheet...
         </div>
       </div>
     );
@@ -62,26 +58,21 @@ export default function WorksheetRunnerPage() {
 
   if (!worksheet) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
-        <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center p-4">
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Worksheet not found</h2>
-          <Link
-            href="/student/dashboard"
-            className="text-sm font-bold text-indigo-600 hover:underline flex items-center gap-1.5"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Dashboard
-          </Link>
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-2">Worksheet not found</h2>
+        <Link
+          href="/student/dashboard"
+          className="text-sm font-bold text-indigo-600 hover:underline flex items-center gap-1.5"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Dashboard
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar />
-
+    <div className="w-full">
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8">
         {/* Navigation & Header */}
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">

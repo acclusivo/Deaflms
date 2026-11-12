@@ -3,7 +3,7 @@ import './globals.css';
 import { AuthProvider } from '@/lib/auth-context';
 
 export const metadata: Metadata = {
-  title: 'Deaf LMS — K-12 Visual Learning & Digital Literacy Platform',
+  title: 'DeafLMS — Visual Sign & Digital Literacy Platform',
   description: 'An accessibility-first Learning Management System for Deaf and Hard-of-Hearing students, educators, and administrators.',
 };
 

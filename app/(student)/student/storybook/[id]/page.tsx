@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getLessonById } from '@/lib/api';
 import { Lesson } from '@/lib/types';
-import { Navbar } from '@/components/common/Navbar';
 import { StorybookReader } from '@/components/student/StorybookReader';
 import { VisualReward } from '@/components/common/VisualReward';
 import { ArrowLeft, Loader2, Play } from 'lucide-react';
@@ -30,13 +29,10 @@ export default function StorybookPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
-        <Navbar currentRole="student" />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="flex items-center gap-3 text-indigo-600 font-bold">
-            <Loader2 className="w-6 h-6 animate-spin" />
-            Opening Storybook...
-          </div>
+      <div className="flex-1 flex items-center justify-center p-12">
+        <div className="flex items-center gap-3 text-indigo-600 font-bold">
+          <Loader2 className="w-6 h-6 animate-spin" />
+          Opening Storybook...
         </div>
       </div>
     );
@@ -44,26 +40,21 @@ export default function StorybookPage() {
 
   if (!lesson || !lesson.storyPages) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
-        <Navbar currentRole="student" />
-        <div className="flex-1 flex flex-col items-center justify-center p-4">
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Storybook not found</h2>
-          <Link
-            href="/student/dashboard"
-            className="text-sm font-bold text-indigo-600 hover:underline flex items-center gap-1.5"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Dashboard
-          </Link>
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-2">Storybook not found</h2>
+        <Link
+          href="/student/dashboard"
+          className="text-sm font-bold text-indigo-600 hover:underline flex items-center gap-1.5"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Dashboard
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar currentRole="student" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 space-y-6">
         <div className="flex items-center justify-between">
           <Link

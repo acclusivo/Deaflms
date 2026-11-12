@@ -14,6 +14,11 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role, size = 'md' }) => {
       bg: 'bg-teal-50 text-teal-900 border-teal-200',
       icon: <GraduationCap className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-teal-700'} />,
     },
+    parent: {
+      label: 'Parent Portal',
+      bg: 'bg-indigo-50 text-indigo-900 border-indigo-200',
+      icon: <ShieldCheck className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-indigo-700'} />,
+    },
     teacher: {
       label: 'Facilitator Studio',
       bg: 'bg-slate-100 text-slate-800 border-slate-300',

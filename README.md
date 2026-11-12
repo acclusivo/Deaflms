@@ -66,7 +66,6 @@
 * [`/demo`](http://localhost:3000/demo) — 90-second four-word competition learner journey with restart capability.
 * [`/keyboard-trainer`](http://localhost:3000/keyboard-trainer) — Attached Colourful Hand Virtual Keyboard Trainer with bilateral touch typing curriculum (ASDF → JKL; → GH → Vocab) and AnySign ASL handshapes.
 * [`/facilitator-results`](http://localhost:3000/facilitator-results) — Sample educator diagnostic dashboard showing error stages without medical claims.
-* [`/user-testing`](http://localhost:3000/user-testing) — Observed user testing logs and product iterations.
 * [`/pricing`](http://localhost:3000/pricing) — Transparent proposed pricing tiers and pilot partnership inquiry.
 * [`/accessibility`](http://localhost:3000/accessibility) — Accessibility commitment designed toward WCAG 2.2 AA.
 * [`/privacy`](http://localhost:3000/privacy) — Child privacy pledge (zero collection of audiological or biometric records).

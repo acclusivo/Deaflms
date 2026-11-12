@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { AccessibleVideoSource } from '@/lib/types';
 import { extractYouTubeId } from '@/lib/approved-vocabulary';
+import { extractMuxPlaybackId } from '@/components/student/SignVideoPlayer';
 
 interface AccessibleSignVideoPlayerProps {
   source: AccessibleVideoSource;
@@ -71,6 +72,8 @@ export const AccessibleSignVideoPlayer: React.FC<AccessibleSignVideoPlayerProps>
   const youtubeId = source.provider === 'youtube' || source.src?.includes('youtube')
     ? extractYouTubeId(source.src || source.fallbackSrc)
     : null;
+
+  const muxPlaybackId = source.muxPlaybackId || source.playbackId || (source.src ? extractMuxPlaybackId(source.src) : null);
 
   // Handle HTML5 video events
   const handleTimeUpdate = () => {
@@ -256,8 +259,17 @@ export const AccessibleSignVideoPlayer: React.FC<AccessibleSignVideoPlayerProps>
               )}
             </div> */}
           </div>
+        ) : muxPlaybackId ? (
+          /* Case 2a: Mux Responsive Player Embed */
+          <iframe
+            src={`https://player.mux.com/${muxPlaybackId}?metadata-video-title=${encodeURIComponent(source.title || 'NSL Demonstration')}`}
+            title={source.title}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full border-0 object-contain"
+          />
         ) : youtubeId ? (
-          /* Case 2: YouTube Embed without brand covering (playsinline) */
+          /* Case 2b: YouTube Embed without brand covering (playsinline) */
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1&playsinline=1`}
             title={source.title}

@@ -36,6 +36,7 @@ export const FREE_BASIC_1_LESSON_IDS = [
   'lesson-web-1',
   'lesson-everyday-1',
   'lesson-storybook-1',
+  'lesson-frontend-1', // Lesson 1: Introduction to HTML (100% Free Preview for anyone)
 ] as const;
 
 export const PLANS_CATALOG: Record<MembershipTier, PlanDefinition> = {
@@ -139,7 +140,8 @@ export const PLANS_CATALOG: Record<MembershipTier, PlanDefinition> = {
  */
 export function checkLessonAccess(
   user: UserProfile | null,
-  lessonId: string
+  lessonId: string,
+  courseId?: string
 ): {
   allowed: boolean;
   tier: MembershipTier;
@@ -147,6 +149,15 @@ export function checkLessonAccess(
   reason?: string;
 } {
   const isFreeDesignated = (FREE_BASIC_1_LESSON_IDS as readonly string[]).includes(lessonId);
+
+  // If user has enrolled in this course directly (via Selar or Bank Transfer), grant full access
+  if (courseId && user?.enrolledCourseIds && user.enrolledCourseIds.includes(courseId)) {
+    return {
+      allowed: true,
+      tier: 'family_supporter',
+      isDesignatedFreeLesson: isFreeDesignated,
+    };
+  }
 
   // If user has an active paid subscription, grant full access
   const isPaidActive =
@@ -176,6 +187,6 @@ export function checkLessonAccess(
     tier: 'free_basic_1',
     isDesignatedFreeLesson: false,
     reason:
-      'This lesson is part of the Intermediate & Advanced Curriculum. Your Free Basic 1 plan includes the 5 core foundational lessons.',
+      'This lesson is part of the Career or Supporter Track. You can unlock full access instantly via Selar or Direct Bank Transfer.',
   };
 }

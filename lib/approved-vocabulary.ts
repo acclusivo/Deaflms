@@ -428,7 +428,7 @@ export const INITIAL_HELP_REQUESTS: LearnerHelpRequest[] = [
 /**
  * In-Memory Help Request Store
  */
-let inMemoryHelpRequests: LearnerHelpRequest[] = [...INITIAL_HELP_REQUESTS];
+let inMemoryHelpRequests: LearnerHelpRequest[] = [];
 
 export function getHelpRequests(): LearnerHelpRequest[] {
   return inMemoryHelpRequests;

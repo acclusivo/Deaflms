@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Navbar } from '@/components/common/Navbar';
 import { VideoUploader } from '@/components/teacher/VideoUploader';
 import { LearnerPreviewModal } from '@/components/teacher/LearnerPreviewModal';
 import { createOrUpdateVocabularyContent } from '@/lib/api';
@@ -138,9 +137,7 @@ export default function NewVocabularyAuthoringPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar currentRole="teacher" />
-
+    <div className="w-full">
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-8">
         {/* Navigation & Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

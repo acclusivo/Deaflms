@@ -7,6 +7,7 @@ import { useAuth } from '@/lib/auth-context';
 import { PLANS_CATALOG, PlanDefinition } from '@/lib/plans';
 import { MembershipTier } from '@/lib/types';
 import { ArrowLeft, Check, Sparkles, ShieldCheck, HeartHandshake, Lock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Navbar } from '@/components/common/Navbar';
 
 export default function PricingPage() {
   const router = useRouter();
@@ -37,21 +38,8 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-indigo-500 selection:text-white">
-      {/* Header Bar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 transition"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
-            <span>Transparent Pricing • Zero Hidden Trials</span>
-          </div>
-        </div>
-      </header>
+      {/* Shared Navigation Header */}
+      <Navbar />
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12">
         {/* Title Header */}

@@ -9,7 +9,7 @@ import { Keyboard, ArrowLeft, Sparkles, CheckCircle2, ShieldCheck, Laptop } from
 export default function KeyboardTrainerPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 selection:bg-teal-700 selection:text-white">
-      <Navbar currentRole="student" />
+      <Navbar />
 
       {/* Top Breadcrumb & Quick Action Bar */}
       <div className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6">

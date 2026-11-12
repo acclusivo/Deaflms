@@ -14,6 +14,7 @@ import {
   Sparkles,
   Info,
 } from 'lucide-react';
+import { Navbar } from '@/components/common/Navbar';
 
 interface LearnerResultRow {
   word: string;
@@ -83,38 +84,8 @@ export default function FacilitatorResultsPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 selection:bg-teal-700 selection:text-white">
-      {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition interactive-target"
-              aria-label="Back to Homepage"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </Link>
-            <div>
-              <span className="text-base font-black tracking-tight text-slate-900">
-                Deaf<span className="text-teal-700">LMS</span> Facilitator Studio
-              </span>
-              <span className="text-[10px] text-slate-500 font-bold block">
-                Sample Learning Activity &amp; Diagnostic Overview
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Link
-              href="/demo"
-              className="px-4 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs transition flex items-center gap-1.5 shadow-sm interactive-target"
-            >
-              <span>Try 90s Demo</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* Shared Navigation Header */}
+      <Navbar currentRole="teacher" />
 
       {/* Main Container */}
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 space-y-6">
@@ -222,19 +193,13 @@ export default function FacilitatorResultsPage() {
         <div className="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="space-y-1">
             <span className="text-sm font-black text-slate-900 block">
-              Want to see real learner discovery evidence?
+              Ready to explore lessons?
             </span>
             <p className="text-xs text-slate-500 font-medium">
-              Inspect observed testing logs from Deaf learner sessions without invented results.
+              Start learning with native sign language instruction and in-browser exercises.
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <Link
-              href="/user-testing"
-              className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition interactive-target"
-            >
-              View User Testing Evidence →
-            </Link>
             <Link
               href="/demo"
               className="px-5 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs transition shadow-sm interactive-target"
