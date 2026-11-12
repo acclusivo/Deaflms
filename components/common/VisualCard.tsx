@@ -16,9 +16,9 @@ export const VisualCard: React.FC<VisualCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-3xl border-2 border-slate-200 p-6 shadow-sm ${
+      className={`bg-white rounded-3xl border-2 border-[#E5EAF3] p-6 shadow-sm ${
         hoverEffect
-          ? 'hover:border-indigo-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer'
+          ? 'hover:border-[#1B4EA7] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer'
           : ''
       } ${className}`}
     >

@@ -290,7 +290,7 @@ function CheckoutContent() {
         <div className="space-y-2 pt-2">
           <Link
             href="/student/lessons/lesson-frontend-2"
-            className="w-full py-4 px-6 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2"
+            className="w-full py-4 px-6 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2"
           >
             <BookOpen className="w-4 h-4" />
             <span>Proceed to Lesson 2: VS Code Setup →</span>
@@ -353,12 +353,12 @@ function CheckoutContent() {
           </div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-teal-50 border border-teal-200 text-xs text-teal-900 space-y-1">
+        <div className="p-3.5 rounded-xl bg-[#F0F4FA] border border-[#ABB8D7]/40 text-xs text-[#00177D] space-y-1">
           <div className="font-bold flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-teal-700 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-[#1B4EA7] shrink-0" />
             Verification Window
           </div>
-          <p className="text-teal-800 text-[11px] leading-relaxed">
+          <p className="text-[#1F2937] text-[11px] leading-relaxed">
             Manual transfers are reconciled within 1-2 hours during business hours. You can track this verification status anytime from your account.
           </p>
         </div>
@@ -366,7 +366,7 @@ function CheckoutContent() {
         <div className="space-y-2 pt-2">
           <Link
             href="/student/payments"
-            className="w-full py-4 px-6 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2"
+            className="w-full py-4 px-6 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2"
           >
             <span>Track Verification Status in My Account →</span>
           </Link>
@@ -399,17 +399,17 @@ function CheckoutContent() {
       </div>
 
       {/* Course Summary Card */}
-      <div className="p-5 rounded-2xl bg-teal-50/70 border border-teal-200 space-y-3">
+      <div className="p-5 rounded-2xl bg-[#F0F4FA] border border-[#E5EAF3] space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-wider text-teal-800 bg-teal-100/80 px-2.5 py-0.5 rounded-md">
+            <span className="text-[10px] font-black uppercase tracking-wider text-[#00177D] bg-white border border-[#ABB8D7]/40 px-2.5 py-0.5 rounded-md">
               {course?.category || 'Ages 18+ Career Track'}
             </span>
             <h2 className="text-xl font-black text-slate-900 mt-1">{itemName}</h2>
           </div>
           <div className="sm:text-right shrink-0">
-            <div className="text-2xl font-black text-slate-900">₦{priceNgn.toLocaleString()}</div>
-            <span className="text-[11px] text-teal-800 font-bold block">One-Time Full Access</span>
+            <div className="text-2xl font-black text-[#00177D]">₦{priceNgn.toLocaleString()}</div>
+            <span className="text-[11px] text-[#1B4EA7] font-bold block">One-Time Full Access</span>
           </div>
         </div>
 
@@ -418,21 +418,21 @@ function CheckoutContent() {
         </p>
 
         {/* Benefits list */}
-        <div className="pt-2 border-t border-teal-200/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+        <div className="pt-2 border-t border-[#E5EAF3] grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-teal-700 shrink-0" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#1B4EA7] shrink-0" />
             <span>Certified NSL Instruction Videos</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-teal-700 shrink-0" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#1B4EA7] shrink-0" />
             <span>Interactive Visual Code Exercises</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-teal-700 shrink-0" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#1B4EA7] shrink-0" />
             <span>Lifetime Access to Course Updates</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-teal-700 shrink-0" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#1B4EA7] shrink-0" />
             <span>DeafLMS Completion Certificate</span>
           </div>
         </div>
@@ -482,7 +482,7 @@ function CheckoutContent() {
             }`}
           >
             <div className="flex items-center gap-1.5">
-              <Building2 className={`w-4 h-4 ${activeTab === 'manual' ? 'text-teal-700' : 'text-slate-400'}`} />
+              <Building2 className={`w-4 h-4 ${activeTab === 'manual' ? 'text-[#1B4EA7]' : 'text-slate-400'}`} />
               <span>Bank Transfer</span>
             </div>
             <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">
@@ -541,7 +541,7 @@ function CheckoutContent() {
                       type="button"
                       disabled={selarProcessing}
                       onClick={() => handleSelarInstantCheckout(false)}
-                      className="font-black text-teal-800 hover:text-teal-950 underline flex items-center gap-1.5 text-xs self-start sm:self-auto"
+                      className="font-black text-[#1B4EA7] hover:text-[#00177D] underline flex items-center gap-1.5 text-xs self-start sm:self-auto"
                     >
                       {selarProcessing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />}
                       <span>Activate My Enrolment Now →</span>
@@ -559,7 +559,7 @@ function CheckoutContent() {
                   type="button"
                   disabled={selarProcessing}
                   onClick={() => handleSelarInstantCheckout(true)}
-                  className="w-full py-4 px-6 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-sm shadow-lg shadow-teal-700/20 transition interactive-target flex items-center justify-center gap-2 disabled:opacity-60"
+                  className="w-full py-4 px-6 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-sm shadow-lg shadow-[#1B4EA7]/20 transition interactive-target flex items-center justify-center gap-2 disabled:opacity-60"
                 >
                   {selarProcessing ? (
                     <>
@@ -604,7 +604,7 @@ function CheckoutContent() {
                 </span>
                 <h3 className="text-base font-black text-slate-900">{OFFICIAL_BANK_DETAILS.bankName}</h3>
               </div>
-              <span className="text-[10px] font-black uppercase text-teal-800 bg-teal-50 border border-teal-200 px-2 py-0.5 rounded">
+              <span className="text-[10px] font-black uppercase text-[#1B4EA7] bg-[#F0F4FA] border border-[#ABB8D7]/40 px-2 py-0.5 rounded">
                 Verified Account
               </span>
             </div>
@@ -681,7 +681,7 @@ function CheckoutContent() {
           {/* Form to submit proof */}
           <form onSubmit={handleManualSubmit} className="space-y-4 pt-1">
             <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-teal-700" />
+              <FileText className="w-4 h-4 text-[#1B4EA7]" />
               <h3 className="text-xs font-black uppercase tracking-wider text-slate-800">
                 Step 2: Submit Your Transfer Proof
               </h3>
@@ -696,7 +696,7 @@ function CheckoutContent() {
                   value={senderName}
                   onChange={(e) => setSenderName(e.target.value)}
                   placeholder="e.g. Amina Bello"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700 text-slate-900 font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1B4EA7]/20 focus:border-[#1B4EA7] text-slate-900 font-medium"
                 />
               </div>
 
@@ -705,7 +705,7 @@ function CheckoutContent() {
                 <select
                   value={bankName}
                   onChange={(e) => setBankName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700 text-slate-900 font-medium bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1B4EA7]/20 focus:border-[#1B4EA7] text-slate-900 font-medium bg-white"
                 >
                   <option value="GTBank">Guaranty Trust Bank (GTBank)</option>
                   <option value="Access Bank">Access Bank</option>
@@ -728,7 +728,7 @@ function CheckoutContent() {
                   required
                   value={transferDate}
                   onChange={(e) => setTransferDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700 text-slate-900 font-medium bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1B4EA7]/20 focus:border-[#1B4EA7] text-slate-900 font-medium bg-white"
                 />
               </div>
 
@@ -739,7 +739,7 @@ function CheckoutContent() {
                   value={proofUrl}
                   onChange={(e) => setProofUrl(e.target.value)}
                   placeholder="https://... receipt image link"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700 text-slate-900 font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1B4EA7]/20 focus:border-[#1B4EA7] text-slate-900 font-medium"
                 />
               </div>
             </div>
@@ -747,7 +747,7 @@ function CheckoutContent() {
             <button
               type="submit"
               disabled={submittingManual}
-              className="w-full py-4 px-6 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black text-sm shadow-md transition interactive-target flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full py-4 px-6 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-sm shadow-md transition interactive-target flex items-center justify-center gap-2 disabled:opacity-60"
             >
               {submittingManual ? (
                 <>
@@ -770,11 +770,11 @@ function CheckoutContent() {
 
 export default function CheckoutPage() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 selection:bg-teal-700 selection:text-white">
+    <div className="min-h-screen bg-[#F5F7FC] flex flex-col items-center justify-center p-4 selection:bg-[#1B4EA7] selection:text-white">
       <Suspense
         fallback={
-          <div className="p-8 bg-white rounded-3xl border border-slate-200 shadow-md text-center">
-            <Loader2 className="w-6 h-6 animate-spin text-teal-700 mx-auto" />
+          <div className="p-8 bg-white rounded-3xl border border-[#E5EAF3] shadow-md text-center">
+            <Loader2 className="w-6 h-6 animate-spin text-[#1B4EA7] mx-auto" />
             <span className="text-xs font-bold text-slate-500 mt-2 block">Loading Secure Checkout...</span>
           </div>
         }

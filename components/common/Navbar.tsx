@@ -74,14 +74,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
     student: {
       homeHref: '/student/dashboard',
       badge: 'Learner',
-      badgeClass: 'bg-teal-50 text-teal-900 border-teal-200',
-      avatarBg: 'bg-teal-700 text-white',
+      badgeClass: 'bg-[#E6F4F6] text-[#065A63] border-[#CCEEF1]',
+      avatarBg: 'bg-[#1B4EA7] text-white',
     },
     parent: {
       homeHref: '/student/dashboard',
       badge: 'Parent',
-      badgeClass: 'bg-indigo-50 text-indigo-900 border-indigo-200',
-      avatarBg: 'bg-indigo-700 text-white',
+      badgeClass: 'bg-[#EEF2FF] text-[#3847AF] border-[#C7D2FE]',
+      avatarBg: 'bg-[#3847AF] text-white',
     },
     teacher: {
       homeHref: '/teacher/dashboard',
@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
   }[activeRole];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5EAF3]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
 
@@ -107,18 +107,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
             href={isDashboard ? portalConfig.homeHref : '/'}
             className="flex items-center gap-2.5 group interactive-target"
           >
-            {/* <div className="w-9 h-9 rounded-xl bg-teal-800 text-white flex items-center justify-center font-black text-sm shadow-xs transition group-hover:bg-teal-900 shrink-0">
-              DL
-            </div> */}
             <div className="flex items-center gap-1.5">
               <span className="text-xl font-black tracking-tight text-slate-900">
-                Deaf<span className="text-teal-700">LMS</span>
+                Deaf<span className="text-[#1B4EA7]">LMS</span>
               </span>
-              {/* {isDashboard && (
-                <span className={`px-2 py-0.5 text-[10px] font-black uppercase rounded-md border ${portalConfig.badgeClass} hidden sm:inline-block`}>
-                  {portalConfig.badge}
-                </span>
-              )} */}
             </div>
           </Link>
 
@@ -130,45 +122,34 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
               <>
                 <Link
                   href="/#courses"
-                  className="px-3.5 py-2 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition interactive-target"
+                  className="px-3.5 py-2 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-900 hover:bg-[#F0F4FA] transition interactive-target"
                 >
                   Courses
                 </Link>
                 <Link
                   href="/#how-it-works"
-                  className="px-3.5 py-2 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition interactive-target"
+                  className="px-3.5 py-2 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-900 hover:bg-[#F0F4FA] transition interactive-target"
                 >
                   How It Works
                 </Link>
                 <Link
                   href="/pricing"
                   className={`px-3.5 py-2 rounded-xl font-bold text-sm transition interactive-target ${pathname === '/pricing'
-                    ? 'bg-teal-50 text-teal-900 border border-teal-300'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    ? 'bg-[#F0F4FA] text-[#1B4EA7] border border-[#ABB8D7]'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-[#F0F4FA]'
                     }`}
                 >
                   Pricing
                 </Link>
                 {/* <Link
-                  href="/keyboard-trainer"
-                  className={`px-3.5 py-2 rounded-xl font-bold text-sm transition flex items-center gap-1.5 interactive-target ${
-                    pathname === '/keyboard-trainer'
-                      ? 'bg-teal-50 text-teal-900 border border-teal-300'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  <Keyboard className="w-4 h-4 text-teal-700" />
-                  <span>Keyboard Trainer</span>
-                </Link> */}
-                <Link
                   href="/support"
                   className={`px-3.5 py-2 rounded-xl font-bold text-sm transition interactive-target ${pathname === '/support'
-                    ? 'bg-teal-50 text-teal-900 border border-teal-300'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    ? 'bg-[#F0F4FA] text-[#1B4EA7] border border-[#ABB8D7]'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-[#F0F4FA]'
                     }`}
                 >
                   Support
-                </Link>
+                </Link> */}
               </>
             )}
 
@@ -290,16 +271,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
                   <Activity className="w-4 h-4 text-teal-700" />
                   <span>Activity</span>
                 </Link>
-                <Link
+                {/* <Link
                   href="/support"
                   className={`px-3.5 py-2 rounded-xl font-bold text-sm transition flex items-center gap-1.5 interactive-target ${pathname === '/support'
                     ? 'bg-teal-50 text-teal-900 border border-teal-300'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                 >
-                  {/* <Heart className="w-4 h-4 text-teal-700" /> */}
                   <span>Support</span>
-                </Link>
+                </Link> */}
               </>
             )}
 
@@ -384,7 +364,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
                 {!isDashboard && (
                   <Link
                     href={getDashboardUrl(user.role)}
-                    className="hidden sm:flex px-3 py-1.5 rounded-xl bg-teal-800 hover:bg-teal-900 text-white font-bold text-xs items-center gap-1.5 transition shadow-xs"
+                    className="hidden sm:flex px-3 py-1.5 rounded-xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-bold text-xs items-center gap-1.5 transition shadow-xs"
                   >
                     <span>My Dashboard</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -393,7 +373,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
 
                 <Link
                   href="/profile"
-                  className={`w-9 h-9 rounded-xl font-black text-xs flex items-center justify-center ${portalConfig.avatarBg} shrink-0 hover:ring-2 hover:ring-teal-400 transition cursor-pointer interactive-target`}
+                  className={`w-9 h-9 rounded-xl font-black text-xs flex items-center justify-center ${portalConfig.avatarBg} shrink-0 hover:ring-2 hover:ring-[#1B4EA7] transition cursor-pointer interactive-target`}
                   title={`Profile & Baseline Settings (${user.displayName || user.email})`}
                 >
                   {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
@@ -412,7 +392,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5 interactive-target"
+                  className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#1B4EA7] hover:text-[#00177D] hover:bg-[#F0F4FA] transition flex items-center gap-1.5 interactive-target"
                 >
                   <LogIn className="w-3.5 h-3.5" />
                   <span>Sign In</span>
@@ -420,7 +400,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
                 {!isDashboard && (
                   <Link
                     href="/#courses"
-                    className="hidden sm:inline-flex px-4 py-2 rounded-xl bg-teal-800 hover:bg-teal-900 text-white text-xs font-bold transition shadow-xs interactive-target"
+                    className="hidden sm:inline-flex px-4 py-3 rounded-x bg-[#1B4EA7] hover:bg-[#00177D] text-white text-xs font-bold transition shadow-xs"
                   >
                     Explore Courses
                   </Link>
@@ -466,27 +446,27 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, stars = 24 }) => {
                 >
                   Pricing
                 </Link>
-                <Link
+                {/* <Link
                   href="/keyboard-trainer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block px-3.5 py-2.5 rounded-xl font-bold text-sm text-slate-700 hover:bg-slate-100"
                 >
                   Keyboard Trainer
-                </Link>
-                <Link
+                </Link> */}
+                {/* <Link
                   href="/support"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block px-3.5 py-2.5 rounded-xl font-bold text-sm text-slate-700 hover:bg-slate-100"
                 >
                   Support
-                </Link>
+                </Link> */}
                 {user && (
                   <Link
                     href={getDashboardUrl(user.role)}
                     onClick={() => setMobileMenuOpen(false)}
                     className="block px-3.5 py-2.5 rounded-xl font-bold text-sm text-teal-800 bg-teal-50"
                   >
-                    Go to Portal Dashboard →
+                    Go to Portal Dashboard
                   </Link>
                 )}
               </>

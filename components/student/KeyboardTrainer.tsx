@@ -215,7 +215,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-black uppercase tracking-wider text-teal-800 bg-teal-50 border border-teal-200 px-2.5 py-0.5 rounded-full">
+              <span className="text-[11px] font-black uppercase tracking-wider text-[#087F8C] bg-[#E6F4F6] border border-[#087F8C]/30 px-2.5 py-0.5 rounded-full">
                 Progressive Skill Sequence
               </span>
               <span className="text-[11px] font-bold text-slate-500">
@@ -241,7 +241,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                 onClick={() => handleSelectStage(stg.id)}
                 className={`p-3 rounded-2xl border-2 text-left transition-all interactive-target flex flex-col justify-between gap-1.5 ${
                   isSelected
-                    ? 'bg-teal-700 text-white border-teal-700 shadow-md shadow-teal-200 scale-102'
+                    ? 'bg-[#1B4EA7] text-white border-[#1B4EA7] shadow-md shadow-[#1B4EA7]/20 scale-102'
                     : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
                 }`}
                 aria-label={`Select stage ${stg.title}`}
@@ -279,7 +279,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                 onClick={() => handleSelectDrill(idx)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-black transition interactive-target flex items-center gap-1.5 ${
                   isCurrentDrill
-                    ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-200'
+                    ? 'bg-[#3847AF] text-white shadow-sm ring-2 ring-[#3847AF]/20'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
                 }`}
               >
@@ -298,7 +298,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
         {/* Header & Controls Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-teal-700 text-white flex items-center justify-center shadow-md shadow-teal-100 shrink-0 font-black">
+            <div className="w-12 h-12 rounded-2xl bg-[#1B4EA7] text-white flex items-center justify-center shadow-md shadow-[#1B4EA7]/20 shrink-0 font-black">
               <KeyboardIcon className="w-6 h-6" />
             </div>
             <div>
@@ -306,7 +306,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                 <h3 className="font-black text-slate-900 text-lg sm:text-xl">
                   {currentDrill.title}
                 </h3>
-                <span className="text-[10px] font-black uppercase tracking-wider bg-teal-100 text-teal-800 px-2 py-0.5 rounded-md border border-teal-200">
+                <span className="text-[10px] font-black uppercase tracking-wider bg-[#E6F4F6] text-[#087F8C] px-2 py-0.5 rounded-md border border-[#087F8C]/30">
                   Target: {currentDrill.targetSequence}
                 </span>
                 {targetFinger && (
@@ -331,7 +331,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
               onClick={() => setShowFingerColors((v) => !v)}
               className={`px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border shadow-xs interactive-target ${
                 showFingerColors
-                  ? 'bg-teal-50 border-teal-300 text-teal-800'
+                  ? 'bg-[#E6F4F6] border-[#087F8C]/40 text-[#087F8C]'
                   : 'bg-slate-100 border-slate-200 text-slate-600'
               }`}
               title="Toggle color-coded finger guides on keycaps"
@@ -379,7 +379,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
         {/* Display Mode Switcher */}
         <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-200 text-xs">
           <div className="flex items-center gap-2 font-bold text-slate-700">
-            <Layers className="w-4 h-4 text-teal-700" />
+            <Layers className="w-4 h-4 text-[#1B4EA7]" />
             <span>Keycap Content:</span>
           </div>
 
@@ -388,7 +388,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
               onClick={() => setDisplayMode('both')}
               className={`px-3 py-1.5 rounded-lg font-bold text-xs transition ${
                 displayMode === 'both'
-                  ? 'bg-teal-700 text-white shadow-sm'
+                  ? 'bg-[#1B4EA7] text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -398,7 +398,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
               onClick={() => setDisplayMode('signs_only')}
               className={`px-3 py-1.5 rounded-lg font-bold text-xs transition ${
                 displayMode === 'signs_only'
-                  ? 'bg-teal-700 text-white shadow-sm'
+                  ? 'bg-[#1B4EA7] text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -408,7 +408,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
               onClick={() => setDisplayMode('letters_only')}
               className={`px-3 py-1.5 rounded-lg font-bold text-xs transition ${
                 displayMode === 'letters_only'
-                  ? 'bg-teal-700 text-white shadow-sm'
+                  ? 'bg-[#1B4EA7] text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -553,10 +553,10 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
           </div>
 
           {/* Current Sign Spotlight Card */}
-          <div className="bg-gradient-to-br from-teal-50 via-white to-amber-50/70 border-2 border-teal-200 text-slate-900 rounded-3xl p-5 sm:p-6 flex flex-col items-center justify-between text-center space-y-4 shadow-lg relative overflow-hidden">
+          <div className="bg-[#F0F4FA] border-2 border-[#E5EAF3] text-slate-900 rounded-3xl p-5 sm:p-6 flex flex-col items-center justify-between text-center space-y-4 shadow-lg relative overflow-hidden">
             <div className="w-full flex items-center justify-between">
-              <span className="text-[11px] font-black uppercase tracking-wider text-teal-800 bg-teal-100/80 border border-teal-200 px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Target Sign Spotlight
+              <span className="text-[11px] font-black uppercase tracking-wider text-[#00177D] bg-white border border-[#ABB8D7]/40 px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#F4B942]" /> Target Sign Spotlight
               </span>
               {targetFinger && (
                 <span
@@ -569,7 +569,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
             </div>
 
             {/* Spotlight Showcase Stage */}
-            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-white border-4 border-amber-400 shadow-xl flex items-center justify-center p-3 ring-6 ring-amber-100/80 relative">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-white border-4 border-[#F4B942] shadow-xl flex items-center justify-center p-3 ring-6 ring-[#F4B942]/20 relative">
               {nextTargetChar ? (
                 <SignHandshapeIcon letter={nextTargetChar} size="2xl" />
               ) : (
@@ -581,7 +581,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
             <div className="space-y-1">
               <div className="text-2xl font-black text-slate-900">
                 Letter{' '}
-                <span className="text-teal-700 underline decoration-amber-400 decoration-4">
+                <span className="text-[#1B4EA7] underline decoration-[#F4B942] decoration-4">
                   {nextTargetChar || '✓'}
                 </span>
               </div>
@@ -599,9 +599,9 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
             {nextTargetChar && (
               <button
                 onClick={() => setIsUploadModalOpen(true)}
-                className="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-50 text-teal-800 text-xs font-black transition flex items-center justify-center gap-1.5 border border-teal-200 interactive-target shadow-2xs"
+                className="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-50 text-[#1B4EA7] text-xs font-black transition flex items-center justify-center gap-1.5 border border-[#ABB8D7]/40 interactive-target shadow-2xs"
               >
-                <Camera className="w-3.5 h-3.5 text-teal-700" />
+                <Camera className="w-3.5 h-3.5 text-[#1B4EA7]" />
                 <span>Upload custom photo for &quot;{nextTargetChar}&quot;</span>
               </button>
             )}
@@ -624,7 +624,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                 boardTheme === 'light' ? 'text-slate-800' : 'text-slate-200'
               }`}
             >
-              <KeyboardIcon className="w-4 h-4 text-teal-700" />
+              <KeyboardIcon className="w-4 h-4 text-[#1B4EA7]" />
               Deaf QWERTY Visual Trainer (Color-Coded Home Row & Fingerspelling)
             </span>
             <span
@@ -632,7 +632,7 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                 boardTheme === 'light' ? 'text-slate-500' : 'text-slate-400'
               }`}
             >
-              <ZoomIn className="w-3.5 h-3.5 text-teal-600" />
+              <ZoomIn className="w-3.5 h-3.5 text-[#1B4EA7]" />
               Type on screen or physical laptop keys
             </span>
           </div>
@@ -660,9 +660,9 @@ export const KeyboardTrainer: React.FC<KeyboardTrainerProps> = ({ onComplete }) 
                       isTargetKey
                         ? 'bg-amber-300 border-4 border-amber-500 text-slate-950 ring-4 ring-amber-200/90 scale-105 z-20 shadow-amber-400/60 shadow-xl animate-pulse'
                         : isActive
-                        ? 'bg-teal-700 border-2 border-teal-800 text-white scale-95 z-10'
+                        ? 'bg-[#1B4EA7] border-2 border-[#00177D] text-white scale-95 z-10'
                         : boardTheme === 'light'
-                        ? 'bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-300 hover:border-teal-500'
+                        ? 'bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-300 hover:border-[#1B4EA7]'
                         : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
                     }`}
                     style={{

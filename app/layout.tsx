@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-indigo-500 selection:text-white">
+      <body className="min-h-full flex flex-col bg-[#F5F7FC] text-[#1F2937] antialiased selection:bg-[#1B4EA7] selection:text-white">
         <AuthProvider>
           {children}
         </AuthProvider>

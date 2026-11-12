@@ -37,33 +37,33 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#F5F7FC] flex flex-col selection:bg-[#1B4EA7] selection:text-white">
       {/* Shared Navigation Header */}
       <Navbar />
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12">
         {/* Title Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-black uppercase tracking-wider">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6F4F6] border border-[#CCEEF1] text-[#065A63] text-xs font-black uppercase tracking-wider">
+            <CheckCircle2 className="w-4 h-4 text-[#087F8C]" />
             <span>Foundational Signs are Always Free</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-black text-[#00177D] tracking-tight">
             Fair Plans for Deaf Learners, Families &amp; Schools
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+          <p className="text-sm sm:text-base text-[#64748B] font-medium leading-relaxed">
             We never place basic communication behind a paywall. Start immediately with Free Basic 1, and support our mission when you&apos;re ready for the full K-12 STEM library.
           </p>
         </div>
 
         {/* Development Checkout Review Notice */}
         {checkoutNotice && (
-          <div className="p-4 rounded-3xl bg-indigo-50 border-2 border-indigo-300 text-indigo-950 max-w-xl mx-auto space-y-3 shadow-md animate-fade-in">
-            <div className="flex items-center gap-2 text-sm font-black text-indigo-900">
-              <Sparkles className="w-4 h-4 text-amber-500" />
+          <div className="p-4 rounded-3xl bg-[#EEF2FF] border border-[#C7D2FE] text-[#1F2937] max-w-xl mx-auto space-y-3 shadow-md animate-fade-in">
+            <div className="flex items-center gap-2 text-sm font-black text-[#00177D]">
+              <Sparkles className="w-4 h-4 text-[#F4B942]" />
               <span>Checkout Review &amp; Integration Boundary</span>
             </div>
-            <p className="text-xs text-indigo-800 font-medium leading-relaxed">
+            <p className="text-xs text-[#64748B] font-medium leading-relaxed">
               {checkoutNotice} In production, this completes via secure Paystack / Stripe webhooks. Test activation is available below.
             </p>
             <div className="flex items-center gap-2 pt-1">
@@ -74,13 +74,13 @@ export default function PricingPage() {
                   );
                   setCheckoutNotice(null);
                 }}
-                className="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700 transition"
+                className="px-4 py-2 rounded-xl bg-[#1B4EA7] text-white font-bold text-xs hover:bg-[#00177D] transition"
               >
                 Confirm Test Activation
               </button>
               <button
                 onClick={() => setCheckoutNotice(null)}
-                className="px-3 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-300 transition"
+                className="px-3 py-2 rounded-xl bg-[#F5F7FC] text-[#64748B] font-bold text-xs hover:bg-[#E5EAF3] border border-[#E5EAF3] transition"
               >
                 Cancel
               </button>
@@ -97,58 +97,58 @@ export default function PricingPage() {
                 key={plan.id}
                 className={`rounded-3xl p-7 flex flex-col justify-between transition-all relative ${
                   plan.highlighted
-                    ? 'bg-white border-3 border-indigo-600 shadow-xl shadow-indigo-100 ring-4 ring-indigo-50 scale-[1.02]'
-                    : 'bg-white border-2 border-slate-200 shadow-sm hover:border-slate-300'
+                    ? 'bg-white border-2 border-[#1B4EA7] shadow-xl shadow-[#1B4EA7]/10 ring-4 ring-[#1B4EA7]/10 scale-[1.02]'
+                    : 'bg-white border border-[#E5EAF3] shadow-xs hover:border-[#1B4EA7]'
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[11px] font-black uppercase px-3 py-0.5 rounded-full shadow-sm">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#1B4EA7] text-white text-[11px] font-black uppercase px-3 py-0.5 rounded-full shadow-sm">
                     Most Popular for Families
                   </div>
                 )}
 
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <span className="text-[11px] font-black uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md inline-block">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-[#1B4EA7] bg-[#F0F4FA] px-2.5 py-0.5 rounded-md inline-block">
                       {plan.badge}
                     </span>
-                    <h2 className="text-xl font-black text-slate-900">{plan.name}</h2>
-                    <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                    <h2 className="text-xl font-black text-[#1F2937]">{plan.name}</h2>
+                    <p className="text-xs text-[#64748B] font-medium leading-relaxed">
                       {plan.tagline}
                     </p>
                   </div>
 
                   {/* Price Display */}
-                  <div className="py-2 border-y border-slate-100">
-                    <div className="text-3xl font-black text-slate-900">{plan.price.formatted}</div>
-                    <div className="text-xs font-bold text-slate-400 mt-0.5">
+                  <div className="py-2 border-y border-[#E5EAF3]">
+                    <div className="text-3xl font-black text-[#00177D]">{plan.price.formatted}</div>
+                    <div className="text-xs font-bold text-[#64748B] mt-0.5">
                       {plan.price.billingInterval}
                     </div>
                   </div>
 
                   {/* Feature Checklist */}
                   <div className="space-y-2.5 pt-2">
-                    <span className="text-xs font-black uppercase tracking-wider text-slate-700 block">
+                    <span className="text-xs font-black uppercase tracking-wider text-[#1F2937] block">
                       Plan Capabilities:
                     </span>
                     <ul className="space-y-2">
                       {plan.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2.5 text-xs">
                           {feat.included ? (
-                            <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                            <Check className="w-4 h-4 text-[#15803D] shrink-0 mt-0.5" />
                           ) : (
-                            <Lock className="w-4 h-4 text-slate-300 shrink-0 mt-0.5" />
+                            <Lock className="w-4 h-4 text-[#ABB8D7] shrink-0 mt-0.5" />
                           )}
                           <span
                             className={
                               feat.included
-                                ? 'text-slate-700 font-medium'
-                                : 'text-slate-400 font-normal line-through'
+                                ? 'text-[#1F2937] font-medium'
+                                : 'text-[#64748B] font-normal line-through'
                             }
                           >
                             {feat.label}
                             {feat.note && (
-                              <span className="ml-1 text-[10px] font-bold text-slate-400 no-underline">
+                              <span className="ml-1 text-[10px] font-bold text-[#64748B] no-underline">
                                 ({feat.note})
                               </span>
                             )}
@@ -164,9 +164,9 @@ export default function PricingPage() {
                   {isCurrentPlan ? (
                     <button
                       disabled
-                      className="w-full py-3.5 px-4 rounded-2xl bg-slate-100 text-slate-500 font-black text-xs cursor-default flex items-center justify-center gap-1.5"
+                      className="w-full py-3.5 px-4 rounded-2xl bg-[#F5F7FC] text-[#64748B] font-black text-xs cursor-default flex items-center justify-center gap-1.5 border border-[#E5EAF3]"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      <CheckCircle2 className="w-4 h-4 text-[#15803D]" />
                       Current Active Plan
                     </button>
                   ) : (
@@ -174,8 +174,8 @@ export default function PricingPage() {
                       onClick={() => handleSelectPlan(plan)}
                       className={`w-full py-3.5 px-4 rounded-2xl font-black text-xs transition interactive-target flex items-center justify-center gap-2 shadow-md ${
                         plan.highlighted
-                          ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-200'
-                          : 'bg-slate-900 hover:bg-slate-800 text-white'
+                          ? 'bg-[#1B4EA7] hover:bg-[#00177D] text-white shadow-[#1B4EA7]/20'
+                          : 'bg-[#00177D] hover:bg-[#1B4EA7] text-white'
                       }`}
                     >
                       <span>{plan.ctaText}</span>
@@ -189,37 +189,37 @@ export default function PricingPage() {
         </div>
 
         {/* Transparency Pledge Card */}
-        <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-600 text-xs font-medium">
+        <div className="p-6 rounded-3xl bg-white border border-[#E5EAF3] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-[#64748B] text-xs font-medium">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 font-black">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-[#15803D] flex items-center justify-center shrink-0 font-black">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-bold text-slate-900 block text-sm">Our Honest Pricing Pledge</span>
+              <span className="font-bold text-[#1F2937] block text-sm">Our Honest Pricing Pledge</span>
               <span>No preselected upgrades • No countdown timers • Immediate one-click cancellation • Free access preserved on downgrade</span>
             </div>
           </div>
-          <Link href="/support" className="text-indigo-600 font-bold hover:underline shrink-0">
+          <Link href="/support" className="text-[#1B4EA7] font-bold hover:underline shrink-0">
             Have Billing Questions? Contact Support →
           </Link>
         </div>
 
         {/* Buyer Section & Pilot Invitation per Section 17 */}
-        <div className="p-6 rounded-3xl bg-teal-50 border-2 border-teal-200 text-teal-950 space-y-3">
+        <div className="p-6 rounded-3xl bg-[#E6F4F6] border border-[#CCEEF1] text-[#065A63] space-y-3">
           <div className="flex items-center gap-2 font-black text-sm">
-            <Sparkles className="w-4 h-4 text-teal-700" />
+            <Sparkles className="w-4 h-4 text-[#087F8C]" />
             <span>Customer &amp; Buyer Model</span>
           </div>
           <p className="text-xs font-semibold leading-relaxed">
             Learners use DeafLMS. Schools, NGOs, sponsors or families may pay for access. All prices displayed are proposed prices currently being tested with potential institutional and pilot partners.
           </p>
           <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <span className="text-xs font-bold text-teal-900">
+            <span className="text-xs font-bold text-[#065A63]">
               We are seeking schools and organisations to test the prototype with Deaf learners.
             </span>
             <a
               href="mailto:pilots@acclusivo.com?subject=Pilot%20Inquiry"
-              className="px-4 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs transition text-center shrink-0 interactive-target"
+              className="px-4 py-2 rounded-xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-xs transition text-center shrink-0 interactive-target"
             >
               Inquire for Pilot Cohorts
             </a>
@@ -227,20 +227,20 @@ export default function PricingPage() {
         </div>
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs font-medium text-slate-500 space-y-2">
-        <p className="text-slate-600 font-semibold">
+      <footer className="bg-white border-t border-[#E5EAF3] py-6 px-4 text-center text-xs font-medium text-[#64748B] space-y-2">
+        <p className="text-[#1F2937] font-semibold">
           DeafLMS is a product of Acclusivo, owned by Tech Inclusion Enterprise Ltd, Abuja, Nigeria.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
-          <span>&copy; 2026 Tech Inclusion Enterprise Ltd. All rights reserved.</span>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-[#64748B]">
+          <span>&copy; {new Date().getFullYear()} Tech Inclusion Enterprise Ltd. All rights reserved.</span>
           <span>•</span>
-          <Link href="/privacy" className="hover:text-teal-700 transition">Privacy Policy</Link>
+          <Link href="/privacy" className="hover:text-[#1B4EA7] transition">Privacy Policy</Link>
           <span>•</span>
-          <Link href="/terms" className="hover:text-teal-700 transition">Terms of Service</Link>
+          <Link href="/terms" className="hover:text-[#1B4EA7] transition">Terms of Service</Link>
           <span>•</span>
-          <Link href="/accessibility" className="hover:text-teal-700 transition">Accessibility</Link>
+          <Link href="/accessibility" className="hover:text-[#1B4EA7] transition">Accessibility</Link>
           <span>•</span>
-          <Link href="/support" className="hover:text-teal-700 transition">Support</Link>
+          <Link href="/support" className="hover:text-[#1B4EA7] transition">Support</Link>
         </div>
       </footer>
     </div>

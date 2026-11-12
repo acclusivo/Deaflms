@@ -216,7 +216,7 @@ export default function LessonVideoPage() {
         </p>
         <Link
           href="/student/tracks/deaf-adult"
-          className="px-6 py-3 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-sm transition"
+          className="px-6 py-3 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-bold text-sm transition"
         >
           Back to Syllabus
         </Link>
@@ -247,41 +247,41 @@ export default function LessonVideoPage() {
         <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-8 sm:py-12 space-y-8">
           <Link
             href="/student/tracks/deaf-adult"
-            className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3.5 py-2 rounded-xl transition shadow-xs"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#64748B] hover:text-[#1F2937] bg-white border border-[#E5EAF3] px-3.5 py-2 rounded-xl transition shadow-xs"
           >
-            <ArrowLeft className="w-4 h-4 text-teal-700" />
+            <ArrowLeft className="w-4 h-4 text-[#1B4EA7]" />
             <span>Back to Syllabus</span>
           </Link>
 
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-200 shadow-xl space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E5EAF3] shadow-xl space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-black shrink-0 border border-amber-300">
-                <Lock className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-2xl bg-[#FEF7E8] text-[#8F6010] flex items-center justify-center font-black shrink-0 border border-[#F4B942]/40">
+                <Lock className="w-6 h-6 text-[#8F6010]" />
               </div>
               <div>
-                <span className="text-[11px] font-black uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-md border border-amber-200">
+                <span className="text-[11px] font-black uppercase tracking-wider text-[#8F6010] bg-[#FEF7E8] px-2.5 py-0.5 rounded-md border border-[#F4B942]/40">
                   Full Course Enrolment Required
                 </span>
-                <h1 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+                <h1 className="text-xl sm:text-2xl font-black text-[#00177D] mt-1">
                   {lesson.title}
                 </h1>
               </div>
             </div>
 
-            <p className="text-sm text-slate-600 font-medium leading-relaxed">
+            <p className="text-sm text-[#64748B] font-medium leading-relaxed">
               Lesson 1 (Introduction to HTML) is 100% free. To advance to <strong>{lesson.title}</strong> and unlock all 7 Frontend Web Development modules in Nigerian Sign Language, upgrade to full course access.
             </p>
 
             {/* Pricing Box */}
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-slate-900 to-teal-950 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#00177D] via-[#1B4EA7] to-[#00177D] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-bold text-teal-300 uppercase tracking-wider block">
+                <span className="text-xs font-bold text-[#F4B942] uppercase tracking-wider block">
                   One-Time Lifetime Access
                 </span>
                 <div className="text-3xl font-black text-white mt-0.5">
-                  ₦5,000 <span className="text-sm font-bold text-slate-300">($8 USD)</span>
+                  ₦5,000 <span className="text-sm font-bold text-[#ABB8D7]">($8 USD)</span>
                 </div>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-sky-100 mt-1">
                   Includes all 7 NSL video lessons, live browser coding lab, and certificate.
                 </p>
               </div>
@@ -289,7 +289,7 @@ export default function LessonVideoPage() {
               <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                 <Link
                   href="/checkout?course=course-frontend-web-1"
-                  className="px-6 py-3.5 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
+                  className="px-6 py-3.5 rounded-2xl bg-[#F4B942] hover:bg-[#e0a838] text-[#1F2937] font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
                 >
                   <CreditCard className="w-4 h-4" />
                   <span>Pay via Selar (Card / Transfer)</span>
@@ -299,43 +299,43 @@ export default function LessonVideoPage() {
                   type="button"
                   onClick={handleConfirmPayment}
                   disabled={confirmingPayment}
-                  className="px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
+                  className="px-6 py-3.5 rounded-2xl bg-white hover:bg-[#F5F7FC] text-[#00177D] font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
                 >
-                  <Zap className="w-4 h-4 text-amber-500" />
+                  <Zap className="w-4 h-4 text-[#F4B942]" />
                   <span>{confirmingPayment ? 'Unlocking...' : 'Confirm & Unlock Now'}</span>
                 </button>
               </div>
             </div>
 
             {/* Bank Transfer Details Fallback */}
-            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+            <div className="p-5 bg-[#F5F7FC] rounded-2xl border border-[#E5EAF3] space-y-3">
               <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-teal-700" />
-                <span className="text-xs font-black text-slate-900">
+                <Building2 className="w-4 h-4 text-[#1B4EA7]" />
+                <span className="text-xs font-black text-[#1F2937]">
                   Official Acclusivo Nigerian Bank Account (Alternative to Selar):
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                <div className="p-3 bg-white rounded-xl border border-slate-200">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block">Bank Name</span>
-                  <span className="font-extrabold text-slate-800">{OFFICIAL_BANK_DETAILS.bankName}</span>
+                <div className="p-3 bg-white rounded-xl border border-[#E5EAF3]">
+                  <span className="text-[10px] font-bold text-[#64748B] uppercase block">Bank Name</span>
+                  <span className="font-extrabold text-[#1F2937]">{OFFICIAL_BANK_DETAILS.bankName}</span>
                 </div>
-                <div className="p-3 bg-white rounded-xl border border-slate-200">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block">Account Name</span>
-                  <span className="font-extrabold text-slate-800">{OFFICIAL_BANK_DETAILS.accountName}</span>
+                <div className="p-3 bg-white rounded-xl border border-[#E5EAF3]">
+                  <span className="text-[10px] font-bold text-[#64748B] uppercase block">Account Name</span>
+                  <span className="font-extrabold text-[#1F2937]">{OFFICIAL_BANK_DETAILS.accountName}</span>
                 </div>
-                <div className="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                <div className="p-3 bg-white rounded-xl border border-[#E5EAF3] flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Account Number</span>
-                    <span className="font-mono font-black text-teal-800">{OFFICIAL_BANK_DETAILS.accountNumber}</span>
+                    <span className="text-[10px] font-bold text-[#64748B] uppercase block">Account Number</span>
+                    <span className="font-mono font-black text-[#00177D]">{OFFICIAL_BANK_DETAILS.accountNumber}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleCopy(OFFICIAL_BANK_DETAILS.accountNumber, 'acc')}
-                    className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1"
+                    className="p-1.5 rounded-lg bg-[#F5F7FC] hover:bg-[#E5EAF3] text-[#1F2937] text-xs font-bold transition flex items-center gap-1"
                   >
-                    {copiedBankField === 'acc' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedBankField === 'acc' ? <Check className="w-3.5 h-3.5 text-[#15803D]" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedBankField === 'acc' ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
@@ -345,13 +345,13 @@ export default function LessonVideoPage() {
             <div className="pt-2 flex justify-between items-center text-xs">
               <Link
                 href="/student/lessons/lesson-frontend-1"
-                className="text-teal-700 font-bold hover:underline"
+                className="text-[#1B4EA7] font-bold hover:underline"
               >
                 ← Return to Free Lesson 1 (HTML Basics)
               </Link>
               <Link
                 href="/student/tracks/deaf-adult"
-                className="text-slate-500 font-bold hover:text-slate-800"
+                className="text-[#64748B] font-bold hover:text-[#1F2937]"
               >
                 View Full Syllabus
               </Link>
@@ -394,32 +394,31 @@ export default function LessonVideoPage() {
     return (
       <div className="w-full">
         <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 sm:py-8 space-y-6">
-          
-          {/* Top Breadcrumb & Status Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+                 {/* Top Breadcrumb & Status Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E5EAF3] pb-4">
             <Link
               href="/student/tracks/deaf-adult"
-              className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3.5 py-2 rounded-xl transition interactive-target shadow-xs self-start"
+              className="inline-flex items-center gap-2 text-xs font-bold text-[#64748B] hover:text-[#1F2937] bg-white border border-[#E5EAF3] px-3.5 py-2 rounded-xl transition interactive-target shadow-xs self-start"
             >
-              <ArrowLeft className="w-4 h-4 text-teal-700" />
+              <ArrowLeft className="w-4 h-4 text-[#1B4EA7]" />
               <span>Back to Course Syllabus</span>
             </Link>
 
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-black uppercase text-teal-900 bg-teal-50 px-3 py-1 rounded-lg border border-teal-200">
+              <span className="text-xs font-black uppercase text-[#065A63] bg-[#E6F4F6] px-3 py-1 rounded-lg border border-[#CCEEF1]">
                 Lesson {frontendFlowInfo.order} of 7 • Nigerian Sign Language
               </span>
 
               {isLesson1 ? (
-                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-lg border border-emerald-200">
+                <span className="text-xs font-black uppercase tracking-wider text-[#15803D] bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">
                   100% Free Lesson
                 </span>
               ) : isEnrolledInFrontend ? (
-                <span className="text-xs font-black uppercase tracking-wider text-teal-800 bg-teal-100 px-3 py-1 rounded-lg border border-teal-200">
+                <span className="text-xs font-black uppercase tracking-wider text-[#065A63] bg-[#E6F4F6] px-3 py-1 rounded-lg border border-[#CCEEF1]">
                   Full Course Unlocked
                 </span>
               ) : (
-                <span className="text-xs font-black uppercase tracking-wider text-amber-800 bg-amber-100 px-3 py-1 rounded-lg border border-amber-200">
+                <span className="text-xs font-black uppercase tracking-wider text-[#8F6010] bg-[#FEF7E8] px-3 py-1 rounded-lg border border-[#F4B942]/40">
                   Preview
                 </span>
               )}
@@ -428,13 +427,13 @@ export default function LessonVideoPage() {
 
           {/* Lesson Header Title */}
           <div className="space-y-1">
-            <span className="text-xs font-black uppercase tracking-wider text-teal-700">
+            <span className="text-xs font-black uppercase tracking-wider text-[#1B4EA7]">
               Frontend Web Development in Nigerian Sign Language
             </span>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#00177D] tracking-tight">
               {lesson.title}
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed max-w-3xl">
+            <p className="text-xs sm:text-sm text-[#64748B] font-medium leading-relaxed max-w-3xl">
               {lesson.description}
             </p>
           </div>
@@ -443,13 +442,13 @@ export default function LessonVideoPage() {
           <div className="space-y-8">
             
             {/* 1. Mux Video Player */}
-            <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-slate-200 shadow-xs space-y-4">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-[#E5EAF3] shadow-xs space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black uppercase text-slate-700 flex items-center gap-1.5">
-                  <Play className="w-4 h-4 text-teal-700 fill-current" />
+                <span className="text-xs font-black uppercase text-[#1F2937] flex items-center gap-1.5">
+                  <Play className="w-4 h-4 text-[#1B4EA7] fill-current" />
                   <span>NSL Visual Video Instruction</span>
                 </span>
-                <span className="text-[11px] font-bold text-slate-500">
+                <span className="text-[11px] font-bold text-[#64748B]">
                   Mux High-Resolution Streaming • Slow-Mo Supported
                 </span>
               </div>
@@ -474,26 +473,26 @@ export default function LessonVideoPage() {
 
               {/* Technical Glossary Cards */}
               {lesson.vocabularyItems && lesson.vocabularyItems.length > 0 && (
-                <div className="pt-2 border-t border-slate-100">
-                  <span className="text-xs font-black uppercase tracking-wider text-slate-700 block mb-2">
+                <div className="pt-2 border-t border-[#E5EAF3]">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#1F2937] block mb-2">
                     Key Technical Signs in this Lesson:
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {lesson.vocabularyItems.map((v) => (
-                      <div key={v.id} className="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-start gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-teal-100 text-teal-900 font-black text-xs flex items-center justify-center shrink-0">
+                      <div key={v.id} className="p-3 bg-[#F5F7FC] rounded-2xl border border-[#E5EAF3] flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#E6F4F6] text-[#087F8C] font-black text-xs flex items-center justify-center shrink-0">
                           {v.textWord.charAt(0)}
                         </div>
                         <div className="space-y-0.5">
                           <div className="flex items-center gap-2">
-                            <span className="font-black text-slate-900 text-xs sm:text-sm">{v.textWord}</span>
+                            <span className="font-black text-[#1F2937] text-xs sm:text-sm">{v.textWord}</span>
                             {v.fingerspellText && (
-                              <span className="font-mono text-[10px] font-bold text-teal-800 bg-white px-1.5 py-0.5 rounded border border-slate-200">
+                              <span className="font-mono text-[10px] font-bold text-[#087F8C] bg-white px-1.5 py-0.5 rounded border border-[#E5EAF3]">
                                 {v.fingerspellText}
                               </span>
                             )}
                           </div>
-                          <p className="text-[11px] text-slate-600 leading-snug">{v.descriptionTips}</p>
+                          <p className="text-[11px] text-[#64748B] leading-snug">{v.descriptionTips}</p>
                         </div>
                       </div>
                     ))}
@@ -506,14 +505,14 @@ export default function LessonVideoPage() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-black uppercase text-teal-700 tracking-wider">
+                  <span className="text-xs font-black uppercase text-[#1B4EA7] tracking-wider">
                     Hands-On Practice
                   </span>
-                  <h2 className="text-xl font-black text-slate-900">
+                  <h2 className="text-xl font-black text-[#00177D]">
                     Live Browser Code Sandbox
                   </h2>
                 </div>
-                <span className="text-xs font-bold text-slate-500 hidden sm:block">
+                <span className="text-xs font-bold text-[#64748B] hidden sm:block">
                   Live code execution • 100% Client-Side Safe
                 </span>
               </div>
@@ -525,10 +524,10 @@ export default function LessonVideoPage() {
             </div>
 
             {/* 3. Bottom Advancement Bar */}
-            <div className="p-6 bg-white rounded-3xl border-2 border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-6 bg-white rounded-3xl border border-[#E5EAF3] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="space-y-0.5 text-center sm:text-left">
-                <span className="text-xs font-bold text-slate-400">Lesson Progression</span>
-                <h3 className="font-black text-slate-900 text-base">
+                <span className="text-xs font-bold text-[#64748B]">Lesson Progression</span>
+                <h3 className="font-black text-[#1F2937] text-base">
                   {frontendFlowInfo.nextTitle
                     ? `Up Next: ${frontendFlowInfo.nextTitle}`
                     : '🎉 You have completed all 7 lessons!'}
@@ -538,7 +537,7 @@ export default function LessonVideoPage() {
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <Link
                   href="/student/tracks/deaf-adult"
-                  className="px-5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition"
+                  className="px-5 py-3 rounded-2xl bg-[#F5F7FC] hover:bg-[#E5EAF3] text-[#1F2937] font-bold text-xs border border-[#E5EAF3] transition"
                 >
                   Syllabus
                 </Link>
@@ -546,7 +545,7 @@ export default function LessonVideoPage() {
                 <button
                   type="button"
                   onClick={handleProceedToNext}
-                  className="flex-1 sm:flex-initial px-8 py-3.5 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-sm shadow-md shadow-teal-700/20 transition interactive-target flex items-center justify-center gap-2"
+                  className="flex-1 sm:flex-initial px-8 py-3.5 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-sm shadow-md transition interactive-target flex items-center justify-center gap-2"
                 >
                   <span>
                     {isLesson1 && !isEnrolledInFrontend
@@ -571,19 +570,19 @@ export default function LessonVideoPage() {
               aria-modal="true"
               className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs animate-fade-in"
             >
-              <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full border-2 border-slate-300 shadow-2xl space-y-6">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full border border-[#E5EAF3] shadow-2xl space-y-6">
                 
                 {/* Modal Header */}
-                <div className="flex items-start justify-between border-b border-slate-100 pb-4">
+                <div className="flex items-start justify-between border-b border-[#E5EAF3] pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-800 border border-teal-200 flex items-center justify-center font-black shrink-0">
-                      <Sparkles className="w-6 h-6 text-amber-500" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#FEF7E8] text-[#8F6010] border border-[#F4B942]/40 flex items-center justify-center font-black shrink-0">
+                      <Sparkles className="w-6 h-6 text-[#F4B942]" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md border border-emerald-200">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-[#15803D] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                         Lesson 1 Completed!
                       </span>
-                      <h2 className="text-xl font-black text-slate-900 mt-1">
+                      <h2 className="text-xl font-black text-[#00177D] mt-1">
                         Advance to Lesson 2: VS Code Setup
                       </h2>
                     </div>
@@ -591,26 +590,26 @@ export default function LessonVideoPage() {
 
                   <button
                     onClick={() => setShowUpgradeModal(false)}
-                    className="p-2 text-slate-400 hover:text-slate-800 rounded-xl"
+                    className="p-2 text-[#64748B] hover:text-[#1F2937] rounded-xl"
                   >
                     ✕
                   </button>
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#64748B] font-medium leading-relaxed">
                   Congratulations on finishing your free preview of HTML Fundamentals! To proceed to <strong>Lesson 2: Setting up VS Code for Deaf Developers</strong> and unlock all 7 modules + certification, upgrade to full course access.
                 </p>
 
                 {/* Price Display Card */}
-                <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-950 to-teal-950 text-white flex items-center justify-between">
+                <div className="p-5 rounded-2xl bg-gradient-to-r from-[#00177D] via-[#1B4EA7] to-[#00177D] text-white flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider block">
+                    <span className="text-[10px] font-bold text-[#F4B942] uppercase tracking-wider block">
                       Lifetime Enrolment
                     </span>
                     <span className="text-3xl font-black text-white">₦5,000</span>
-                    <span className="text-xs font-bold text-slate-300 ml-1.5">($8 USD)</span>
+                    <span className="text-xs font-bold text-[#ABB8D7] ml-1.5">($8 USD)</span>
                   </div>
-                  <span className="text-[11px] font-bold text-teal-300 bg-teal-900/80 px-2.5 py-1 rounded-lg border border-teal-700">
+                  <span className="text-[11px] font-bold text-white bg-white/20 px-2.5 py-1 rounded-lg border border-white/25">
                     All 7 Modules Included
                   </span>
                 </div>
@@ -619,7 +618,7 @@ export default function LessonVideoPage() {
                 <div className="space-y-3">
                   <Link
                     href="/checkout?course=course-frontend-web-1"
-                    className="w-full py-3.5 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
+                    className="w-full py-3.5 px-4 rounded-xl bg-[#F4B942] hover:bg-[#e0a838] text-[#1F2937] font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
                   >
                     <CreditCard className="w-4 h-4" />
                     <span>Pay ₦5,000 via Selar (Instant Card / USSD / Bank)</span>
@@ -630,33 +629,33 @@ export default function LessonVideoPage() {
                     type="button"
                     onClick={handleConfirmPayment}
                     disabled={confirmingPayment}
-                    className="w-full py-3.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
+                    className="w-full py-3.5 px-4 rounded-xl bg-[#00177D] hover:bg-[#1B4EA7] text-white font-black text-xs shadow-md transition flex items-center justify-center gap-2 interactive-target"
                   >
-                    <Zap className="w-4 h-4 text-amber-400" />
+                    <Zap className="w-4 h-4 text-[#F4B942]" />
                     <span>{confirmingPayment ? 'Confirming Payment...' : 'Confirm Payment & Proceed to Lesson 2'}</span>
                   </button>
                 </div>
 
                 {/* Direct Nigerian Bank Transfer Details */}
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-black text-slate-800">
-                    <Building2 className="w-4 h-4 text-teal-700" />
+                <div className="p-4 bg-[#F5F7FC] rounded-2xl border border-[#E5EAF3] space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-[#1F2937]">
+                    <Building2 className="w-4 h-4 text-[#1B4EA7]" />
                     <span>Direct Nigerian Bank Transfer Account:</span>
                   </div>
-                  <div className="text-xs text-slate-600 flex flex-wrap items-center justify-between gap-2 pt-1">
+                  <div className="text-xs text-[#64748B] flex flex-wrap items-center justify-between gap-2 pt-1">
                     <div>
-                      <strong className="text-slate-900">{OFFICIAL_BANK_DETAILS.bankName}</strong> • {OFFICIAL_BANK_DETAILS.accountName}
+                      <strong className="text-[#1F2937]">{OFFICIAL_BANK_DETAILS.bankName}</strong> • {OFFICIAL_BANK_DETAILS.accountName}
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-black text-teal-800 text-sm">
+                      <span className="font-mono font-black text-[#00177D] text-sm">
                         {OFFICIAL_BANK_DETAILS.accountNumber}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleCopy(OFFICIAL_BANK_DETAILS.accountNumber, 'modal_acc')}
-                        className="px-2 py-1 bg-white border border-slate-300 rounded text-[11px] font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-1"
+                        className="px-2 py-1 bg-white border border-[#E5EAF3] rounded text-[11px] font-bold text-[#1F2937] hover:bg-[#F5F7FC] flex items-center gap-1"
                       >
-                        {copiedBankField === 'modal_acc' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                        {copiedBankField === 'modal_acc' ? <Check className="w-3 h-3 text-[#15803D]" /> : <Copy className="w-3 h-3" />}
                         <span>{copiedBankField === 'modal_acc' ? 'Copied' : 'Copy'}</span>
                       </button>
                     </div>
@@ -667,13 +666,13 @@ export default function LessonVideoPage() {
                   <button
                     type="button"
                     onClick={() => setShowUpgradeModal(false)}
-                    className="text-slate-500 font-bold hover:text-slate-800"
+                    className="text-[#64748B] font-bold hover:text-[#1F2937]"
                   >
                     Stay on Lesson 1
                   </button>
                   <Link
                     href="/student/tracks/deaf-adult"
-                    className="text-teal-700 font-bold hover:underline"
+                    className="text-[#1B4EA7] font-bold hover:underline"
                   >
                     Review Course Syllabus →
                   </Link>
@@ -738,17 +737,17 @@ export default function LessonVideoPage() {
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-6 sm:py-8 space-y-6">
         
         {/* Top Breadcrumb & Step Progress */}
-        <div className="flex items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div className="flex items-center justify-between gap-4 border-b border-[#E5EAF3] pb-4">
           <Link
             href={course ? `/student/courses/${course.id}` : '/student/dashboard'}
-            className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3.5 py-2 rounded-xl transition interactive-target"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#64748B] hover:text-[#1F2937] bg-white border border-[#E5EAF3] px-3.5 py-2 rounded-xl transition interactive-target shadow-xs"
           >
-            <ArrowLeft className="w-4 h-4 text-teal-700" />
+            <ArrowLeft className="w-4 h-4 text-[#1B4EA7]" />
             <span>Back to Lessons</span>
           </Link>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-black uppercase text-teal-900 bg-teal-50 px-3 py-1 rounded-lg border border-teal-200">
+            <span className="text-xs font-black uppercase text-[#065A63] bg-[#E6F4F6] px-3 py-1 rounded-lg border border-[#CCEEF1]">
               Step {currentStep} of {totalKidsSteps}
             </span>
           </div>
@@ -756,20 +755,20 @@ export default function LessonVideoPage() {
 
         {/* STEP 1: SEE THE PICTURE */}
         {currentStep === 1 && (
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-200 shadow-sm space-y-6 text-center">
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E5EAF3] shadow-sm space-y-6 text-center">
             <div className="space-y-2">
-              <span className="text-xs font-black uppercase tracking-wider text-teal-800">
+              <span className="text-xs font-black uppercase tracking-wider text-[#1B4EA7]">
                 Step 1 of 4 • Look at the picture
               </span>
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
+              <h1 className="text-2xl sm:text-3xl font-black text-[#00177D]">
                 What do you think this is?
               </h1>
-              <p className="text-sm text-slate-600 font-medium">
+              <p className="text-sm text-[#64748B] font-medium">
                 Look closely at the object near the computer.
               </p>
             </div>
 
-            <div className="max-w-md mx-auto aspect-video rounded-2xl overflow-hidden bg-slate-100 border-2 border-slate-200 shadow-xs">
+            <div className="max-w-md mx-auto aspect-video rounded-2xl overflow-hidden bg-slate-100 border border-[#E5EAF3] shadow-xs">
               <img
                 src={vocabItem.imageUrl}
                 alt={vocabItem.word}
@@ -780,7 +779,7 @@ export default function LessonVideoPage() {
             <div className="pt-4 flex justify-center">
               <button
                 onClick={() => setCurrentStep(2)}
-                className="px-8 py-4 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-base shadow-md shadow-teal-700/20 transition interactive-target flex items-center gap-2"
+                className="px-8 py-4 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-base shadow-md transition interactive-target flex items-center gap-2"
               >
                 <span>Watch the sign</span>
                 <ArrowRight className="w-5 h-5" />
@@ -791,15 +790,15 @@ export default function LessonVideoPage() {
 
         {/* STEP 2: WATCH SIGNED MEANING */}
         {currentStep === 2 && (
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-200 shadow-sm space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E5EAF3] shadow-sm space-y-6">
             <div className="space-y-1 text-center sm:text-left">
-              <span className="text-xs font-black uppercase tracking-wider text-teal-800">
+              <span className="text-xs font-black uppercase tracking-wider text-[#1B4EA7]">
                 Step 2 of 4 • Signed Meaning
               </span>
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
+              <h1 className="text-2xl sm:text-3xl font-black text-[#00177D]">
                 What does WEBCAM mean?
               </h1>
-              <p className="text-xs sm:text-sm text-slate-600 font-medium">
+              <p className="text-xs sm:text-sm text-[#64748B] font-medium">
                 Watch the Deaf facilitator explain the concept.
               </p>
             </div>
@@ -820,61 +819,61 @@ export default function LessonVideoPage() {
               />
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="p-4 bg-[#F5F7FC] rounded-2xl border border-[#E5EAF3] flex flex-wrap items-center justify-between gap-3 text-xs">
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   onClick={() => setCurrentStep(2)}
-                  className="px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-slate-800 font-bold hover:bg-slate-100 transition flex items-center gap-1.5 interactive-target"
+                  className="px-3.5 py-2 rounded-xl bg-white border border-[#E5EAF3] text-[#1F2937] font-bold hover:bg-[#F5F7FC] transition flex items-center gap-1.5 interactive-target"
                 >
-                  <RotateCcw className="w-3.5 h-3.5 text-slate-700" />
+                  <RotateCcw className="w-3.5 h-3.5 text-[#64748B]" />
                   <span>Watch again</span>
                 </button>
 
                 <button
                   onClick={() => setShowVisualStory(!showVisualStory)}
-                  className="px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-slate-800 font-bold hover:bg-slate-100 transition flex items-center gap-1.5 interactive-target"
+                  className="px-3.5 py-2 rounded-xl bg-white border border-[#E5EAF3] text-[#1F2937] font-bold hover:bg-[#F5F7FC] transition flex items-center gap-1.5 interactive-target"
                 >
-                  <Eye className="w-3.5 h-3.5 text-teal-700" />
+                  <Eye className="w-3.5 h-3.5 text-[#1B4EA7]" />
                   <span>See another example</span>
                 </button>
 
                 <button
                   onClick={() => openClarifyModal(vocabItem.word)}
-                  className="px-3.5 py-2 rounded-xl bg-teal-50 border border-teal-300 text-teal-900 font-bold hover:bg-teal-100 transition flex items-center gap-1.5 interactive-target"
-                  title="Open Safe AI Clarification"
+                  className="px-3.5 py-2 rounded-xl bg-[#EEF2FF] border border-[#C7D2FE] text-[#3847AF] font-bold hover:bg-[#E0E7FF] transition flex items-center gap-1.5 interactive-target"
+                  title="Open Ayo AI Tutor Clarification"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-teal-700" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#3847AF]" />
                   <span>AI Clarification</span>
                 </button>
               </div>
 
               <button
                 onClick={() => setShowHelpModal(true)}
-                className="px-3.5 py-2 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 font-bold hover:bg-amber-100 transition flex items-center gap-1.5 interactive-target"
+                className="px-3.5 py-2 rounded-xl bg-[#FEF7E8] border border-[#F4B942]/40 text-[#8F6010] font-bold hover:bg-[#FDEFD3] transition flex items-center gap-1.5 interactive-target"
               >
-                <HelpCircle className="w-3.5 h-3.5 text-amber-800" />
+                <HelpCircle className="w-3.5 h-3.5 text-[#8F6010]" />
                 <span>Ask a facilitator</span>
               </button>
             </div>
 
             {showVisualStory && (
-              <div className="p-5 bg-teal-50 border border-teal-200 rounded-2xl space-y-4">
+              <div className="p-5 bg-[#E6F4F6] border border-[#CCEEF1] rounded-2xl space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black uppercase text-teal-900">
+                  <span className="text-xs font-black uppercase text-[#065A63]">
                     Visual Example (Frame {visualStoryIndex + 1} of 3)
                   </span>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setVisualStoryIndex((prev) => Math.max(0, prev - 1))}
                       disabled={visualStoryIndex === 0}
-                      className="px-2.5 py-1 rounded bg-white border text-xs font-bold disabled:opacity-40"
+                      className="px-2.5 py-1 rounded bg-white border border-[#CCEEF1] text-xs font-bold text-[#065A63] disabled:opacity-40"
                     >
                       Previous
                     </button>
                     <button
                       onClick={() => setVisualStoryIndex((prev) => Math.min(2, prev + 1))}
                       disabled={visualStoryIndex === 2}
-                      className="px-2.5 py-1 rounded bg-white border text-xs font-bold disabled:opacity-40"
+                      className="px-2.5 py-1 rounded bg-white border border-[#CCEEF1] text-xs font-bold text-[#065A63] disabled:opacity-40"
                     >
                       Next
                     </button>
@@ -883,14 +882,14 @@ export default function LessonVideoPage() {
 
                 {vocabItem.visualStoryFrames && vocabItem.visualStoryFrames[visualStoryIndex] && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                    <div className="aspect-video bg-white rounded-xl overflow-hidden border border-teal-200">
+                    <div className="aspect-video bg-white rounded-xl overflow-hidden border border-[#CCEEF1]">
                       <img
                         src={vocabItem.visualStoryFrames[visualStoryIndex].imageUrl}
                         alt={vocabItem.visualStoryFrames[visualStoryIndex].altText}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <p className="text-sm font-bold text-teal-950">
+                    <p className="text-sm font-bold text-[#065A63]">
                       &ldquo;{vocabItem.visualStoryFrames[visualStoryIndex].caption}&rdquo;
                     </p>
                   </div>
@@ -901,13 +900,13 @@ export default function LessonVideoPage() {
             <div className="pt-2 flex justify-between items-center">
               <button
                 onClick={() => setCurrentStep(1)}
-                className="px-5 py-3 rounded-2xl bg-slate-100 text-slate-700 font-bold text-sm hover:bg-slate-200 transition interactive-target"
+                className="px-5 py-3 rounded-2xl bg-[#F5F7FC] text-[#1F2937] font-bold text-sm hover:bg-[#E5EAF3] border border-[#E5EAF3] transition interactive-target"
               >
                 Back
               </button>
               <button
                 onClick={() => setCurrentStep(3)}
-                className="px-8 py-4 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-base shadow-md shadow-teal-700/20 transition interactive-target flex items-center gap-2"
+                className="px-8 py-4 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-base shadow-md transition interactive-target flex items-center gap-2"
               >
                 <span>Try it</span>
                 <ArrowRight className="w-5 h-5" />
@@ -918,15 +917,15 @@ export default function LessonVideoPage() {
 
         {/* STEP 3: PRACTISE FINGERSPELLING */}
         {currentStep === 3 && (
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-200 shadow-sm space-y-8 text-center">
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E5EAF3] shadow-sm space-y-8 text-center">
             <div className="space-y-1">
-              <span className="text-xs font-black uppercase tracking-wider text-teal-800">
+              <span className="text-xs font-black uppercase tracking-wider text-[#1B4EA7]">
                 Step 3 of 4 • Practice
               </span>
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
+              <h1 className="text-2xl sm:text-3xl font-black text-[#00177D]">
                 Spell the word: WEBCAM
               </h1>
-              <p className="text-xs sm:text-sm text-slate-600 font-medium">
+              <p className="text-xs sm:text-sm text-[#64748B] font-medium">
                 Tap each letter in order.
               </p>
             </div>
@@ -937,10 +936,10 @@ export default function LessonVideoPage() {
                 return (
                   <div
                     key={index}
-                    className={`w-12 h-14 rounded-2xl border-2 flex items-center justify-center font-mono font-black text-xl transition ${
+                    className={`w-12 h-14 rounded-2xl border flex items-center justify-center font-mono font-black text-xl transition ${
                       filled
-                        ? 'bg-teal-700 text-white border-teal-800 shadow-sm'
-                        : 'bg-slate-50 border-dashed border-slate-300 text-slate-300'
+                        ? 'bg-[#087F8C] text-white border-[#065A63] shadow-sm'
+                        : 'bg-[#F5F7FC] border-dashed border-[#ABB8D7] text-[#64748B]'
                     }`}
                   >
                     {filled || '_'}
@@ -955,7 +954,7 @@ export default function LessonVideoPage() {
                   key={letter}
                   onClick={() => handleLetterTap(letter)}
                   disabled={practiceLetters.length === targetLetters.length}
-                  className="w-12 h-12 rounded-xl bg-slate-100 hover:bg-teal-50 border-2 border-slate-300 hover:border-teal-400 font-mono font-black text-lg text-slate-900 transition interactive-target"
+                  className="w-12 h-12 rounded-xl bg-[#F5F7FC] hover:bg-[#E6F4F6] border border-[#E5EAF3] hover:border-[#087F8C] font-mono font-black text-lg text-[#1F2937] transition interactive-target"
                 >
                   {letter}
                 </button>
@@ -963,14 +962,14 @@ export default function LessonVideoPage() {
             </div>
 
             {practiceLetters.length === targetLetters.length ? (
-              <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs font-black text-emerald-900 max-w-sm mx-auto flex items-center justify-center gap-2">
-                <Check className="w-4 h-4 text-emerald-700" />
+              <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs font-black text-[#15803D] max-w-sm mx-auto flex items-center justify-center gap-2">
+                <Check className="w-4 h-4 text-[#15803D]" />
                 <span>Great practice! You spelled WEBCAM.</span>
               </div>
             ) : (
               <button
                 onClick={handleResetPractice}
-                className="text-xs text-slate-500 font-bold underline hover:text-slate-800"
+                className="text-xs text-[#64748B] font-bold underline hover:text-[#1F2937]"
               >
                 Reset letters
               </button>
@@ -979,13 +978,13 @@ export default function LessonVideoPage() {
             <div className="pt-4 flex justify-between items-center">
               <button
                 onClick={() => setCurrentStep(2)}
-                className="px-5 py-3 rounded-2xl bg-slate-100 text-slate-700 font-bold text-sm hover:bg-slate-200 transition interactive-target"
+                className="px-5 py-3 rounded-2xl bg-[#F5F7FC] text-[#1F2937] font-bold text-sm hover:bg-[#E5EAF3] border border-[#E5EAF3] transition interactive-target"
               >
                 Back
               </button>
               <button
                 onClick={() => setCurrentStep(4)}
-                className="px-8 py-4 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-base shadow-md shadow-teal-700/20 transition interactive-target flex items-center gap-2"
+                className="px-8 py-4 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-base shadow-md transition interactive-target flex items-center gap-2"
               >
                 <span>Answer question</span>
                 <ArrowRight className="w-5 h-5" />
@@ -996,15 +995,15 @@ export default function LessonVideoPage() {
 
         {/* STEP 4: ANSWER ONE VISUAL QUESTION */}
         {currentStep === 4 && (
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-200 shadow-sm space-y-8">
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E5EAF3] shadow-sm space-y-8">
             <div className="space-y-1 text-center sm:text-left">
-              <span className="text-xs font-black uppercase tracking-wider text-teal-800">
+              <span className="text-xs font-black uppercase tracking-wider text-[#1B4EA7]">
                 Step 4 of 4 • Visual Question
               </span>
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
+              <h1 className="text-2xl sm:text-3xl font-black text-[#00177D]">
                 What helps the facilitator see the child?
               </h1>
-              <p className="text-xs sm:text-sm text-slate-600 font-medium">
+              <p className="text-xs sm:text-sm text-[#64748B] font-medium">
                 Tap one picture.
               </p>
             </div>
@@ -1020,32 +1019,32 @@ export default function LessonVideoPage() {
                   <button
                     key={card.id}
                     onClick={() => handleAnswerClick(card.id)}
-                    className={`p-3 rounded-2xl border-2 text-center transition flex flex-col justify-between gap-3 interactive-target ${
+                    className={`p-3 rounded-2xl border text-center transition flex flex-col justify-between gap-3 interactive-target ${
                       isSelected
                         ? isAnswerCorrect
-                          ? 'border-emerald-600 bg-emerald-50 ring-2 ring-emerald-200'
-                          : 'border-red-500 bg-red-50 ring-2 ring-red-100'
-                        : 'border-slate-200 bg-white hover:border-slate-400'
+                          ? 'border-[#15803D] bg-emerald-50 ring-2 ring-emerald-200'
+                          : 'border-[#B91C1C] bg-red-50 ring-2 ring-red-100'
+                        : 'border-[#E5EAF3] bg-white hover:border-[#1B4EA7]'
                     }`}
                   >
-                    <div className="aspect-video w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                    <div className="aspect-video w-full rounded-xl overflow-hidden bg-slate-100 border border-[#E5EAF3]">
                       <img src={card.img} alt={card.label} className="w-full h-full object-cover" />
                     </div>
-                    <span className="font-black text-base text-slate-900">{card.label}</span>
+                    <span className="font-black text-base text-[#1F2937]">{card.label}</span>
                   </button>
                 );
               })}
             </div>
 
             {isAnswerCorrect === false && (
-              <div className="p-4 bg-red-50 border border-red-300 rounded-2xl text-xs font-bold text-red-900 flex items-center justify-between gap-3">
+              <div className="p-4 bg-red-50 border border-red-300 rounded-2xl text-xs font-bold text-[#B91C1C] flex items-center justify-between gap-3">
                 <span>Not yet. Look for the small camera.</span>
                 <button
                   onClick={() => {
                     setSelectedAnswer(null);
                     setIsAnswerCorrect(null);
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-white border border-red-300 text-red-800 text-xs font-black hover:bg-red-100 transition interactive-target"
+                  className="px-3 py-1.5 rounded-xl bg-white border border-red-300 text-[#B91C1C] text-xs font-black hover:bg-red-100 transition interactive-target"
                 >
                   Try again
                 </button>
@@ -1053,12 +1052,12 @@ export default function LessonVideoPage() {
             )}
 
             {isAnswerCorrect === true && (
-              <div className="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl text-xs font-bold text-emerald-950 space-y-2">
+              <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs font-bold text-[#15803D] space-y-2">
                 <div className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-emerald-700" />
+                  <Check className="w-5 h-5 text-[#15803D]" />
                   <span className="text-sm font-black">Yes! The webcam helps them see each other.</span>
                 </div>
-                <p className="text-emerald-800 font-medium">
+                <p className="text-[#15803D] font-medium">
                   You completed all 4 steps of this visual lesson.
                 </p>
               </div>
@@ -1067,7 +1066,7 @@ export default function LessonVideoPage() {
             <div className="pt-4 flex justify-between items-center">
               <button
                 onClick={() => setCurrentStep(3)}
-                className="px-5 py-3 rounded-2xl bg-slate-100 text-slate-700 font-bold text-sm hover:bg-slate-200 transition interactive-target"
+                className="px-5 py-3 rounded-2xl bg-[#F5F7FC] text-[#1F2937] font-bold text-sm hover:bg-[#E5EAF3] border border-[#E5EAF3] transition interactive-target"
               >
                 Back
               </button>
@@ -1075,7 +1074,7 @@ export default function LessonVideoPage() {
               {isAnswerCorrect === true ? (
                 <button
                   onClick={() => router.push('/student/dashboard')}
-                  className="px-8 py-4 rounded-2xl bg-teal-700 hover:bg-teal-800 text-white font-black text-base shadow-md shadow-teal-700/20 transition interactive-target flex items-center gap-2"
+                  className="px-8 py-4 rounded-2xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-base shadow-md transition interactive-target flex items-center gap-2"
                 >
                   <span>You finished this lesson</span>
                   <ArrowRight className="w-5 h-5" />
@@ -1083,7 +1082,7 @@ export default function LessonVideoPage() {
               ) : (
                 <button
                   onClick={() => setShowHelpModal(true)}
-                  className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition interactive-target"
+                  className="px-4 py-2.5 rounded-xl bg-[#F5F7FC] hover:bg-[#E5EAF3] text-[#1F2937] font-bold text-xs border border-[#E5EAF3] transition interactive-target"
                 >
                   Ask a facilitator
                 </button>
@@ -1100,22 +1099,22 @@ export default function LessonVideoPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/75 backdrop-blur-xs"
         >
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border-2 border-slate-300 shadow-2xl space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-[#E5EAF3] shadow-2xl space-y-5">
+            <div className="flex items-center justify-between border-b border-[#E5EAF3] pb-3">
               <div className="flex items-center gap-2">
-                <div className="w-9 h-9 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black">
-                  <HelpCircle className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-xl bg-[#FEF7E8] text-[#8F6010] border border-[#F4B942]/40 flex items-center justify-center font-black">
+                  <HelpCircle className="w-5 h-5 text-[#8F6010]" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black text-slate-900">Ask a facilitator</h3>
-                  <span className="text-[11px] text-slate-500 font-bold block">
+                  <h3 className="text-lg font-black text-[#00177D]">Ask a facilitator</h3>
+                  <span className="text-[11px] text-[#64748B] font-bold block">
                     Supervised Human Support
                   </span>
                 </div>
               </div>
               <button
                 onClick={() => setShowHelpModal(false)}
-                className="p-2 text-slate-400 hover:text-slate-800 rounded-xl"
+                className="p-2 text-[#64748B] hover:text-[#1F2937] rounded-xl"
               >
                 ✕
               </button>
@@ -1123,32 +1122,32 @@ export default function LessonVideoPage() {
 
             {helpSubmitted ? (
               <div className="p-5 bg-emerald-50 border border-emerald-300 rounded-2xl text-center space-y-3">
-                <Check className="w-8 h-8 text-emerald-700 mx-auto" />
-                <h4 className="font-black text-emerald-950 text-base">Request Sent</h4>
-                <p className="text-xs text-emerald-800 font-medium">
+                <Check className="w-8 h-8 text-[#15803D] mx-auto" />
+                <h4 className="font-black text-[#15803D] text-base">Request Sent</h4>
+                <p className="text-xs text-[#15803D] font-medium">
                   Your facilitator has received your request. A supervised session link will be sent to your parent or teacher.
                 </p>
                 <button
                   onClick={() => setShowHelpModal(false)}
-                  className="px-6 py-2.5 rounded-xl bg-teal-700 text-white font-bold text-xs"
+                  className="px-6 py-2.5 rounded-xl bg-[#1B4EA7] text-white font-bold text-xs"
                 >
                   Return to lesson
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
-                <p className="text-xs text-slate-600 font-medium">
+                <p className="text-xs text-[#64748B] font-medium">
                   You are not alone. Ask your parent or teacher to help you connect safely with a Deaf educator.
                 </p>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-800 block">
+                  <label className="text-xs font-bold text-[#1F2937] block">
                     What would you like help with?
                   </label>
                   <select
                     value={helpReason}
                     onChange={(e) => setHelpReason(e.target.value)}
-                    className="w-full p-3 rounded-xl border border-slate-300 text-xs font-semibold"
+                    className="w-full p-3 rounded-xl border border-[#E5EAF3] text-xs font-semibold text-[#1F2937]"
                   >
                     <option value="sign">I do not understand the sign.</option>
                     <option value="word">I do not understand the word.</option>
@@ -1158,17 +1157,17 @@ export default function LessonVideoPage() {
                   </select>
                 </div>
 
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-black text-amber-950">
-                    <ShieldCheck className="w-4 h-4 text-amber-800" />
+                <div className="p-3 bg-[#FEF7E8] border border-[#F4B942]/40 rounded-xl space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-black text-[#8F6010]">
+                    <ShieldCheck className="w-4 h-4 text-[#8F6010]" />
                     <span>Parent or Teacher Approval Required</span>
                   </div>
-                  <label className="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
+                  <label className="flex items-center gap-2 text-xs font-medium text-[#1F2937] cursor-pointer">
                     <input
                       type="checkbox"
                       checked={approvalGranted}
                       onChange={(e) => setApprovalGranted(e.target.checked)}
-                      className="w-4 h-4 rounded text-teal-700 focus:ring-teal-700"
+                      className="w-4 h-4 rounded text-[#1B4EA7] focus:ring-[#1B4EA7]"
                     />
                     <span>My parent or teacher is here and approves this support request.</span>
                   </label>
@@ -1177,14 +1176,14 @@ export default function LessonVideoPage() {
                 <div className="flex justify-end gap-2 pt-2">
                   <button
                     onClick={() => setShowHelpModal(false)}
-                    className="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs"
+                    className="px-4 py-2.5 rounded-xl bg-[#F5F7FC] text-[#64748B] font-bold text-xs border border-[#E5EAF3]"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSubmitHelp}
                     disabled={!approvalGranted}
-                    className="px-6 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 disabled:opacity-40 text-white font-black text-xs transition"
+                    className="px-6 py-2.5 rounded-xl bg-[#1B4EA7] hover:bg-[#00177D] disabled:opacity-40 text-white font-black text-xs transition"
                   >
                     Submit Request
                   </button>

@@ -137,15 +137,15 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
       {showFloatingButton && (
         <button
           onClick={handleOpen}
-          className="fixed bottom-6 right-6 z-40 bg-teal-700 hover:bg-teal-800 text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 font-extrabold text-sm tracking-wide border-2 border-teal-500/50 transform hover:scale-105 transition-all interactive-target"
-          aria-label="Clarify This Word (AI Safety Boundary)"
+          className="fixed bottom-6 right-6 z-40 bg-[#3847AF] hover:bg-[#00177D] text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 font-extrabold text-sm tracking-wide border-2 border-indigo-400/50 transform hover:scale-105 transition-all interactive-target"
+          aria-label="Clarify This Word with Ayo AI Tutor"
         >
-          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+          {/* <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
             <Sparkles className="w-4 h-4 text-amber-300" />
-          </div>
+          </div> */}
           <div className="text-left">
-            <span className="block leading-tight">AI Clarification</span>
-            <span className="text-[10px] text-teal-200 font-bold block leading-none">Safe Sign Retrieval</span>
+            <span className="block leading-tight">AI Tutor</span>
+            {/* <span className="text-[10px] text-indigo-200 font-bold block leading-none">Safe Sign Retrieval</span> */}
           </div>
         </button>
       )}
@@ -158,24 +158,24 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
           aria-labelledby="clarify-modal-title"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/75 backdrop-blur-sm animate-fade-in"
         >
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full max-h-[90vh] overflow-y-auto border-2 border-teal-600/30 shadow-2xl relative space-y-5">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full max-h-[90vh] overflow-y-auto border-2 border-[#3847AF]/30 shadow-2xl relative space-y-5">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-teal-700 text-white flex items-center justify-center font-black shadow-md shadow-teal-200">
+                <div className="w-12 h-12 rounded-2xl bg-[#3847AF] text-white flex items-center justify-center font-black shadow-md shadow-indigo-200">
                   <Sparkles className="w-6 h-6 text-amber-300" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 id="clarify-modal-title" className="text-xl font-black text-slate-900">
-                      Clarify This Word
+                      Clarify with Ayo
                     </h3>
-                    <span className="px-2 py-0.5 rounded-md bg-teal-100 text-teal-900 text-[10px] font-black uppercase">
+                    <span className="px-2 py-0.5 rounded-md bg-[#EEF2FF] text-[#3847AF] text-[10px] font-black uppercase">
                       Safe AI
                     </span>
                   </div>
                   <p className="text-xs font-bold text-slate-600">
-                    Simple explanations using approved learning content.
+                    Simple explanations using approved Nigerian Sign Language content.
                   </p>
                 </div>
               </div>
@@ -201,7 +201,7 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
                   onChange={(e) => setTerm(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSearch(term)}
                   placeholder="e.g., Webcam, Keyboard, Photosynthesis..."
-                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-2xl py-3 pl-4 pr-24 text-sm font-bold text-slate-900 focus:border-teal-600 focus:bg-white transition"
+                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-2xl py-3 pl-4 pr-24 text-sm font-bold text-slate-900 focus:border-[#3847AF] focus:bg-white transition"
                 />
                 <div className="absolute right-2 flex items-center gap-1">
                   {term && (
@@ -219,7 +219,7 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
                     type="button"
                     onClick={() => handleSearch(term)}
                     disabled={loading}
-                    className="w-9 h-9 rounded-xl bg-teal-700 hover:bg-teal-800 text-white flex items-center justify-center transition disabled:opacity-50"
+                    className="w-9 h-9 rounded-xl bg-[#3847AF] hover:bg-[#00177D] text-white flex items-center justify-center transition disabled:opacity-50"
                     aria-label="Submit word"
                     title="Submit word"
                   >
@@ -236,7 +236,7 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
                     key={s}
                     type="button"
                     onClick={() => handleSearch(s)}
-                    className="text-xs font-bold text-teal-800 bg-teal-50 hover:bg-teal-100 px-2.5 py-1 rounded-lg border border-teal-200 transition"
+                    className="text-xs font-bold text-[#3847AF] bg-[#EEF2FF] hover:bg-indigo-100 px-2.5 py-1 rounded-lg border border-[#C7D2FE] transition"
                   >
                     {s}
                   </button>
@@ -285,7 +285,7 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
                     Concept Word:
                   </div>
                   <h4 className="text-2xl font-black text-slate-900 tracking-tight">{result.term}</h4>
-                  <div className="text-xs font-black uppercase tracking-wider text-teal-800 pt-1">
+                  <div className="text-xs font-black uppercase tracking-wider text-[#3847AF] pt-1">
                     Simple Meaning:
                   </div>
                   <p className="text-sm font-semibold text-slate-800 leading-relaxed">
@@ -303,9 +303,9 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
                 {result.isApprovedWord && result.signVideoUrl && (() => {
                   const ytId = extractYouTubeId(result.signVideoUrl);
                   return (
-                    <div className="bg-slate-900 rounded-2xl p-3 border-2 border-teal-600 text-white space-y-2">
+                    <div className="bg-slate-900 rounded-2xl p-3 border-2 border-[#3847AF] text-white space-y-2">
                       <div className="flex items-center justify-between text-xs font-bold px-1">
-                        <span className="text-teal-300">Reviewed Sign Video ({result.term})</span>
+                        <span className="text-indigo-200">Reviewed Sign Video ({result.term})</span>
                         {!ytId && (
                           <button
                             type="button"
@@ -357,7 +357,7 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
                       {result.fingerspell.split(' ').map((letter, idx) => (
                         <span
                           key={idx}
-                          className="w-9 h-10 rounded-xl bg-white border-2 border-teal-600/40 font-black text-slate-900 flex items-center justify-center text-sm shadow-sm"
+                          className="w-9 h-10 rounded-xl bg-white border-2 border-[#3847AF]/40 font-black text-slate-900 flex items-center justify-center text-sm shadow-sm"
                         >
                           {letter}
                         </span>
@@ -368,7 +368,7 @@ export const SignyAITutorModal: React.FC<SignyAITutorModalProps> = ({
 
                 {/* Human Facilitator Assurance */}
                 <div className="flex items-center gap-2 p-3 bg-slate-100 rounded-xl text-slate-600 text-[11px] font-medium">
-                  <ShieldCheck className="w-4 h-4 text-teal-700 shrink-0" />
+                  <ShieldCheck className="w-4 h-4 text-[#3847AF] shrink-0" />
                   <span>
                     DeafLMS AI never invents signs. All approved signs are verified by Deaf educators.
                   </span>

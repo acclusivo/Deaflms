@@ -104,7 +104,7 @@ export function AdminSidebar() {
       {/* ========================================================================= */}
       {/* MOBILE HORIZONTAL NAVIGATION SUB-BAR (visible on screens < md)             */}
       {/* ========================================================================= */}
-      <div className="md:hidden sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-3 py-2 shadow-xs">
+      <div className="md:hidden sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-[#E5EAF3] px-3 py-2 shadow-xs">
         <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
           {navItems.map((item) => {
             const active = isItemActive(item);
@@ -114,19 +114,19 @@ export function AdminSidebar() {
                 key={item.href}
                 href={item.href}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 transition interactive-target ${active
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200/60'
+                  ? 'bg-[#00177D] text-white shadow-xs'
+                  : 'bg-[#F5F7FC] text-[#1F2937] hover:bg-[#E5EAF3] border border-[#E5EAF3]'
                   }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${active ? 'text-amber-400' : 'text-slate-600'}`} />
+                <Icon className={`w-3.5 h-3.5 ${active ? 'text-[#F4B942]' : 'text-[#64748B]'}`} />
                 <span>{item.label}</span>
                 {item.badge && (
-                  <span className="ml-1 px-1.5 py-0.2 rounded-md bg-amber-500 text-slate-950 text-[10px] font-black">
+                  <span className="ml-1 px-1.5 py-0.2 rounded-md bg-[#FEF7E8] text-[#8F6010] border border-[#F4B942]/40 text-[10px] font-black">
                     {item.badge.split(' ')[0]}
                   </span>
                 )}
                 {item.tag && (
-                  <span className="ml-0.5 px-1 py-0.2 rounded bg-teal-100 text-teal-800 text-[9px] font-black uppercase">
+                  <span className="ml-0.5 px-1 py-0.2 rounded bg-[#E6F4F6] text-[#065A63] border border-[#CCEEF1] text-[9px] font-black uppercase">
                     {item.tag}
                   </span>
                 )}
@@ -139,20 +139,11 @@ export function AdminSidebar() {
       {/* ========================================================================= */}
       {/* DESKTOP VERTICAL SIDEBAR (sticky on md+ screens)                          */}
       {/* ========================================================================= */}
-      <aside className="hidden md:flex flex-col justify-between w-64 lg:w-72 shrink-0 bg-white border-r border-slate-200 sticky top-16 h-[calc(100vh-4rem)] p-4 overflow-y-auto">
+      <aside className="hidden md:flex flex-col justify-between w-64 lg:w-72 shrink-0 bg-white border-r border-[#E5EAF3] sticky top-16 h-[calc(100vh-4rem)] p-4 overflow-y-auto">
         <div className="space-y-6">
           {/* Sidebar Institutional Title */}
           <div className="px-2 pt-1">
-            {/* <div className="flex items-center justify-between">
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                Institutional Menu
-              </span>
-              <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Live NSL
-              </span>
-            </div> */}
-            <h2 className="text-sm font-black text-slate-900 mt-1">
+            <h2 className="text-sm font-black text-[#00177D] mt-1">
               Admin Workspace
             </h2>
           </div>
@@ -168,36 +159,36 @@ export function AdminSidebar() {
                   key={item.href}
                   href={item.href}
                   className={`group flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold transition interactive-target ${active
-                    ? 'bg-amber-500/10 text-amber-950 font-black border-2 border-amber-400/80 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 border-2 border-transparent'
+                    ? 'bg-[#F0F4FA] text-[#00177D] font-black border border-[#1B4EA7] shadow-xs'
+                    : 'text-[#64748B] hover:text-[#1F2937] hover:bg-[#F5F7FC] border border-transparent'
                     }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div
                       className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition ${active
-                        ? 'bg-amber-500 text-slate-950 shadow-xs'
-                        : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200 group-hover:text-slate-900'
+                        ? 'bg-[#1B4EA7] text-white shadow-xs'
+                        : 'bg-[#F5F7FC] text-[#64748B] group-hover:bg-[#E5EAF3] group-hover:text-[#1F2937]'
                         }`}
                     >
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="truncate">
-                      <div className="truncate text-slate-900 font-extrabold flex items-center gap-1.5">
+                      <div className="truncate text-[#1F2937] font-extrabold flex items-center gap-1.5">
                         <span>{item.label}</span>
                         {item.tag && (
-                          <span className="px-1.5 py-0.5 text-[9px] font-black uppercase rounded bg-teal-100 text-teal-800 border border-teal-200">
+                          <span className="px-1.5 py-0.5 text-[9px] font-black uppercase rounded bg-[#E6F4F6] text-[#065A63] border border-[#CCEEF1]">
                             {item.tag}
                           </span>
                         )}
                       </div>
-                      <div className="text-[10px] text-slate-400 font-medium truncate">
+                      <div className="text-[10px] text-[#64748B] font-medium truncate">
                         {item.description}
                       </div>
                     </div>
                   </div>
 
                   {item.badge && (
-                    <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-amber-500 text-slate-950 shadow-2xs shrink-0 animate-pulse">
+                    <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-[#FEF7E8] text-[#8F6010] border border-[#F4B942]/40 shadow-2xs shrink-0 animate-pulse">
                       {item.badge}
                     </span>
                   )}
@@ -208,38 +199,22 @@ export function AdminSidebar() {
         </div>
 
         {/* Sidebar Footer: System Status & User Profile Actions */}
-        <div className="pt-4 border-t border-slate-100 space-y-3">
-          {/* Quick System Badge */}
-          {/* <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
-                Zero-Trust Isolation
-              </span>
-              <span className="text-[10px] font-black text-teal-800 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200">
-                Active
-              </span>
-            </div>
-            <p className="text-[10px] text-slate-500 leading-tight">
-              Cross-role edge boundary guarded. Access restricted to accredited administrators.
-            </p>
-          </div> */}
-
+        <div className="pt-4 border-t border-[#E5EAF3] space-y-3">
           {/* Current Administrator Card */}
-          <div className="flex items-center justify-between p-2 rounded-2xl bg-amber-50/60 border border-amber-200/60">
+          <div className="flex items-center justify-between p-2 rounded-2xl bg-[#F5F7FC] border border-[#E5EAF3]">
             <Link
               href="/profile"
               className="flex items-center gap-2.5 min-w-0 group interactive-target"
               title="Admin Profile Settings"
             >
-              <div className="w-8 h-8 rounded-xl bg-amber-800 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition">
+              <div className="w-8 h-8 rounded-xl bg-[#00177D] text-white font-black text-xs flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition">
                 {(user?.displayName || 'A').charAt(0).toUpperCase()}
               </div>
               <div className="truncate">
-                <div className="text-xs font-black text-slate-900 truncate group-hover:text-amber-900 transition">
+                <div className="text-xs font-black text-[#1F2937] truncate group-hover:text-[#00177D] transition">
                   {user?.displayName || 'Dr. Patricia Okon'}
                 </div>
-                <div className="text-[10px] text-slate-500 font-medium truncate">
+                <div className="text-[10px] text-[#64748B] font-medium truncate">
                   Platform Admin
                 </div>
               </div>
@@ -247,7 +222,7 @@ export function AdminSidebar() {
 
             <button
               onClick={handleLogout}
-              className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition border border-transparent hover:border-rose-200 shrink-0"
+              className="p-1.5 rounded-xl text-[#64748B] hover:text-[#B91C1C] hover:bg-red-50 transition border border-transparent hover:border-red-200 shrink-0"
               title="Sign Out"
               aria-label="Sign Out"
             >

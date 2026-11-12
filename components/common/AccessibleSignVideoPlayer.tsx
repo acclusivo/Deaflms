@@ -201,7 +201,7 @@ export const AccessibleSignVideoPlayer: React.FC<AccessibleSignVideoPlayerProps>
       )}
 
       {/* Video / Visual Signing Space Area */}
-      <div className="relative aspect-video bg-slate-950 flex items-center justify-center overflow-hidden">
+      <div className="relative aspect-video bg-[#111827] flex items-center justify-center overflow-hidden">
         {/* Case 1: Video error or network unavailable fallback — Never trap the learner */}
         {videoError ? (
           <div className="w-full h-full p-4 sm:p-6 flex flex-col justify-between bg-gradient-to-b from-slate-900 to-slate-950 text-white animate-fade-in relative">
@@ -306,7 +306,7 @@ export const AccessibleSignVideoPlayer: React.FC<AccessibleSignVideoPlayerProps>
                     e.stopPropagation();
                     togglePlay();
                   }}
-                  className="w-20 h-20 rounded-3xl bg-teal-600 hover:bg-teal-500 text-white flex items-center justify-center shadow-2xl transition transform hover:scale-105 interactive-target ring-4 ring-white/30"
+                  className="w-20 h-20 rounded-3xl bg-[#1B4EA7] hover:bg-[#00177D] text-white flex items-center justify-center shadow-2xl transition transform hover:scale-105 interactive-target ring-4 ring-white/30"
                   aria-label="Play Signed Video"
                 >
                   <Play className="w-10 h-10 fill-current translate-x-1" />
@@ -320,21 +320,21 @@ export const AccessibleSignVideoPlayer: React.FC<AccessibleSignVideoPlayerProps>
         )}
       </div>
 
-      {/* Progress Bar */}
+      {/* Progress Bar (Learning Teal) */}
       <div className="w-full bg-slate-800 h-1.5 overflow-hidden">
         <div
-          className="bg-teal-400 h-full transition-all duration-300"
+          className="bg-[#087F8C] h-full transition-all duration-300"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
 
       {/* Accessible Control Bar: Text with Icons Always */}
-      <div className="p-3 bg-slate-900/95 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="p-3 bg-[#111827] border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
         {/* Left: Play/Pause, Replay */}
         <div className="flex items-center gap-2">
           <button
             onClick={togglePlay}
-            className="h-10 px-4 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-extrabold flex items-center gap-2 transition interactive-target shadow-md shadow-teal-950"
+            className="h-10 px-4 rounded-xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-extrabold flex items-center gap-2 transition interactive-target shadow-md shadow-blue-950"
             aria-label={isPlaying ? 'Pause video' : 'Play video'}
           >
             {isPlaying ? (
@@ -372,7 +372,7 @@ export const AccessibleSignVideoPlayer: React.FC<AccessibleSignVideoPlayerProps>
                 key={s}
                 onClick={() => handleSpeedChange(s)}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-black transition interactive-target ${speed === s
-                  ? 'bg-teal-600 text-white shadow-xs'
+                  ? 'bg-[#1B4EA7] text-white shadow-xs'
                   : 'text-slate-300 hover:text-white'
                   }`}
                 aria-label={`Playback speed ${s}x`}

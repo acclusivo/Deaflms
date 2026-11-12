@@ -62,9 +62,9 @@ export const PictureToSignGame: React.FC<PictureToSignGameProps> = ({ pairs, onC
   return (
     <div className="w-full max-w-3xl mx-auto space-y-6 text-slate-900">
       {/* Visual Instruction Banner */}
-      <div className="bg-teal-50 border-2 border-teal-200 p-4 rounded-2xl flex items-center justify-between">
+      <div className="bg-[#F0F4FA] border-2 border-[#ABB8D7] p-4 rounded-2xl flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-teal-700 text-white flex items-center justify-center font-black">
+          <div className="w-10 h-10 rounded-xl bg-[#1B4EA7] text-white flex items-center justify-center font-black">
             {currentQuestionIdx + 1}
           </div>
           <div>
@@ -74,18 +74,18 @@ export const PictureToSignGame: React.FC<PictureToSignGameProps> = ({ pairs, onC
             </p>
           </div>
         </div>
-        <div className="text-xs font-black uppercase tracking-wider text-teal-800 bg-white px-3 py-1.5 rounded-xl border border-teal-200 shadow-xs flex items-center gap-1.5">
-          <Sparkles className="w-4 h-4 text-amber-500" />
+        <div className="text-xs font-black uppercase tracking-wider text-[#1B4EA7] bg-white px-3 py-1.5 rounded-xl border border-[#ABB8D7] shadow-xs flex items-center gap-1.5">
+          <Sparkles className="w-4 h-4 text-[#F4B942]" />
           Question {currentQuestionIdx + 1} of {pairs.length}
         </div>
       </div>
 
       {/* Target Picture Display */}
-      <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-sm flex flex-col items-center gap-3 text-center">
+      <div className="bg-white rounded-3xl p-6 border-2 border-[#E5EAF3] shadow-sm flex flex-col items-center gap-3 text-center">
         <span className="text-[11px] font-black uppercase tracking-wider text-slate-500">
           Target Real Object Picture:
         </span>
-        <div className="w-44 h-44 rounded-2xl overflow-hidden bg-slate-100 border-2 border-slate-200 shadow-inner">
+        <div className="w-44 h-44 rounded-2xl overflow-hidden bg-slate-100 border-2 border-[#E5EAF3] shadow-inner">
           <img
             src={currentPair.leftMediaUrl}
             alt={currentPair.leftLabel}
@@ -115,21 +115,21 @@ export const PictureToSignGame: React.FC<PictureToSignGameProps> = ({ pairs, onC
                 className={`rounded-3xl border-4 p-3 transition-all duration-200 flex flex-col items-center gap-2 interactive-target ${
                   isSelected
                     ? isCorrect
-                      ? 'border-emerald-600 bg-emerald-50 ring-4 ring-emerald-100 scale-102'
-                      : 'border-rose-500 bg-rose-50'
-                    : 'border-slate-200 bg-white hover:border-teal-500 hover:bg-slate-50'
+                      ? 'border-[#15803D] bg-emerald-50 ring-4 ring-emerald-100 scale-102'
+                      : 'border-[#B91C1C] bg-red-50 ring-4 ring-red-100'
+                    : 'border-[#E5EAF3] bg-white hover:border-[#1B4EA7] hover:bg-slate-50'
                 }`}
                 aria-label={`Sign language demonstration option ${idx + 1}`}
               >
                 {/* Sign Video/Still Display */}
-                <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black relative border border-slate-800">
+                <div className="w-full aspect-video rounded-2xl overflow-hidden bg-[#111827] relative border border-slate-800">
                   <img
                     src={opt.rightMediaUrl}
                     alt={`Sign Demonstration Option ${idx + 1}`}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <span className="w-10 h-10 rounded-xl bg-teal-700/80 text-white flex items-center justify-center shadow-md">
+                    <span className="w-10 h-10 rounded-xl bg-[#1B4EA7]/80 text-white flex items-center justify-center shadow-md">
                       <Play className="w-5 h-5 fill-current translate-x-0.5" />
                     </span>
                   </div>
@@ -144,11 +144,11 @@ export const PictureToSignGame: React.FC<PictureToSignGameProps> = ({ pairs, onC
                   {isSelected && (
                     <span className="font-black">
                       {isCorrect ? (
-                        <span className="text-emerald-700 flex items-center gap-1">
+                        <span className="text-[#15803D] flex items-center gap-1">
                           <Check className="w-4 h-4" /> Correct
                         </span>
                       ) : (
-                        <span className="text-rose-600 flex items-center gap-1">
+                        <span className="text-[#B91C1C] flex items-center gap-1">
                           <AlertCircle className="w-4 h-4" /> Incorrect
                         </span>
                       )}
@@ -166,14 +166,14 @@ export const PictureToSignGame: React.FC<PictureToSignGameProps> = ({ pairs, onC
         <div
           className={`p-4 rounded-2xl border-2 flex items-center gap-3 text-xs font-bold animate-fade-in ${
             isAnsweredCorrectly
-              ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
-              : 'bg-amber-50 border-amber-300 text-amber-950'
+              ? 'bg-emerald-50 border-[#15803D] text-emerald-950'
+              : 'bg-red-50 border-[#B91C1C] text-red-950'
           }`}
         >
           {isAnsweredCorrectly ? (
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-[#15803D] shrink-0" />
           ) : (
-            <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+            <AlertCircle className="w-5 h-5 text-[#B91C1C] shrink-0" />
           )}
           <span>
             {isAnsweredCorrectly

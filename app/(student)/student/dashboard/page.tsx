@@ -129,32 +129,32 @@ export default function StudentDashboardPage() {
         {/* PARENT OVERSIGHT BANNER (If user is parent)                          */}
         {/* ==================================================================== */}
         {isParent && (
-          <div className="bg-gradient-to-r from-indigo-900 to-slate-900 rounded-3xl p-5 sm:p-6 text-white border border-indigo-700 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in">
+          <div className="bg-gradient-to-r from-[#00177D] via-[#1B4EA7] to-[#3847AF] rounded-3xl p-5 sm:p-6 text-white border border-[#3847AF] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in">
             <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-2xl bg-indigo-700/80 text-white flex items-center justify-center shrink-0">
+              {/* <div className="w-11 h-11 rounded-2xl bg-white/15 text-white flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-6 h-6 text-indigo-200" />
-              </div>
+              </div> */}
               <div className="space-y-0.5">
-                <span className="text-[10px] font-black uppercase tracking-wider text-indigo-300">
+                <span className="text-[10px] font-black uppercase tracking-wider text-indigo-200">
                   Parent &amp; Family Supervision Mode
                 </span>
                 <h2 className="text-base sm:text-lg font-black text-white">
                   Monitoring Learning Journey for {user?.displayName || 'Family Learner'}
                 </h2>
-                <p className="text-xs text-indigo-200">
+                {/* <p className="text-xs text-indigo-100">
                   Curriculum and visual interface are calibrated for: <strong>Ages {calibratedSegment}</strong>
                   {user?.customAge ? ` (Exact age: ${user.customAge})` : ''} • {stageLabels[calibratedStage]?.label}.
-                </p>
+                </p> */}
               </div>
             </div>
 
             <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
               <Link
                 href="/profile"
-                className="px-4 py-2 rounded-xl bg-white text-indigo-950 font-bold text-xs hover:bg-indigo-50 transition shadow-xs flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-white text-[#00177D] font-bold text-xs hover:bg-[#F5F7FC] transition shadow-xs flex items-center gap-1.5"
               >
-                <Sliders className="w-3.5 h-3.5 text-indigo-700" />
-                <span>Adjust Child Baseline</span>
+                {/* <Sliders className="w-3.5 h-3.5 text-[#1B4EA7]" /> */}
+                <span>Edit Child Profile</span>
               </Link>
             </div>
           </div>
@@ -163,39 +163,33 @@ export default function StudentDashboardPage() {
         {/* ==================================================================== */}
         {/* ADAPTIVE LEARNING BASELINE STATUS BANNER                             */}
         {/* ==================================================================== */}
-        <div className="bg-white rounded-3xl p-5 sm:p-6 border-2 border-slate-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-5 animate-fade-in">
+        <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#E5EAF3] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-5 animate-fade-in">
           <div className="space-y-2 max-w-2xl">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900 text-[10px] font-black uppercase tracking-wider border border-teal-200">
+            {/* <div className="flex items-center gap-2 flex-wrap">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#E6F4F6] text-[#065A63] text-[10px] font-black uppercase tracking-wider border border-[#CCEEF1]">
                 Learning Baseline
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-800 text-[10px] font-bold border border-slate-200">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#F5F7FC] text-[#1F2937] text-[10px] font-bold border border-[#E5EAF3]">
                 {modeLabels[calibratedMode]?.badge}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[10px] font-bold border border-emerald-200">
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-[#15803D] text-[10px] font-bold border border-emerald-200">
                 NSL Active
               </span>
-            </div>
+            </div> */}
 
             <div className="space-y-0.5">
-              <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-[#00177D] tracking-tight">
                 Welcome back, {user?.displayName || 'Learner'}
               </h1>
-              {/* <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
-                Platform adapted for: <strong>Ages {calibratedSegment}</strong>
-                {user?.customAge ? ` (Exact age: ${user.customAge})` : ''} •{' '}
-                <span className="text-indigo-800 font-bold">{stageLabels[calibratedStage]?.label}</span> •{' '}
-                <span className="text-teal-800 font-bold">{modeLabels[calibratedMode]?.label}</span>.
-              </p> */}
             </div>
           </div>
 
           <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
             <Link
               href="/profile"
-              className="px-4 py-2.5 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800 font-black text-xs transition flex items-center gap-1.5 shadow-xs interactive-target"
+              className="px-4 py-2.5 rounded-2xl border border-[#E5EAF3] bg-[#F5F7FC] hover:bg-[#E5EAF3] text-[#1F2937] font-black text-xs transition flex items-center gap-1.5 shadow-xs interactive-target"
             >
-              <Sliders className="w-3.5 h-3.5 text-teal-700" />
+              <Sliders className="w-3.5 h-3.5 text-[#1B4EA7]" />
               <span>Edit Profile</span>
             </Link>
           </div>
@@ -205,33 +199,33 @@ export default function StudentDashboardPage() {
         {/* ADAPTIVE HERO 1: STORYBOOK MODE (Ages 6–8 / Primary)                 */}
         {/* ==================================================================== */}
         {(calibratedMode === 'storybook' || calibratedSegment === '6-8') && (
-          <div className="bg-gradient-to-r from-teal-800 via-teal-700 to-emerald-800 rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 animate-fade-in">
+          <div className="bg-gradient-to-r from-[#00177D] to-[#1B4EA7] rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 animate-fade-in">
             <div className="space-y-2 max-w-xl">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-teal-100 text-[10px] font-black uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-black uppercase tracking-wider">
                   Visual Storybook Mode • Ages 6–8
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-300 text-slate-950 text-[10px] font-black uppercase">
+                {/* <span className="px-2 py-0.5 rounded-full bg-[#F4B942] text-[#1F2937] text-[10px] font-black uppercase">
                   100% Free Basic 1
-                </span>
+                </span> */}
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 Foundational Signs &amp; Visual Storybooks
               </h2>
-              <p className="text-teal-100 text-xs sm:text-sm font-medium leading-relaxed">
+              {/* <p className="text-sky-100 text-xs sm:text-sm font-medium leading-relaxed">
                 Learn daily vocabulary, fingerspelling alphabet cards, and read illustrated dual-pane storybooks with side-by-side sign video instruction.
-              </p>
+              </p> */}
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0">
+            {/* <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0">
               <Link
                 href="/student/storybook/storybook-clever-fox"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-teal-50 text-teal-900 font-black text-xs shadow-md transition flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-[#F5F7FC] text-[#00177D] font-black text-xs shadow-md transition flex items-center justify-center gap-2"
               >
                 <Play className="w-4 h-4 fill-current" />
                 <span>Open The Clever Fox Storybook</span>
               </Link>
-            </div>
+            </div> */}
           </div>
         )}
 
@@ -239,35 +233,27 @@ export default function StudentDashboardPage() {
         {/* ADAPTIVE HERO 2: EXPLORER MODE (Ages 9–12 / JSS)                    */}
         {/* ==================================================================== */}
         {(calibratedMode === 'explorer' || calibratedSegment === '9-12') && (
-          <div className="bg-gradient-to-r from-emerald-800 via-teal-800 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 animate-fade-in">
+          <div className="bg-gradient-to-r from-[#00177D] via-[#1B4EA7] to-[#087F8C] rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 animate-fade-in">
             <div className="space-y-2 max-w-xl">
-              {/* <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-emerald-100 text-[10px] font-black uppercase tracking-wider">
-                  Interactive Explorer Mode • Ages 9–12
-                </span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-300 text-slate-950 text-[10px] font-black uppercase">
-                  100% Free Basic 1
-                </span>
-              </div> */}
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 Computer Hardware &amp; Touch-Typing
               </h2>
-              <p className="text-emerald-100 text-xs sm:text-sm font-medium leading-relaxed">
+              {/* <p className="text-sky-100 text-xs sm:text-sm font-medium leading-relaxed">
                 Learn computer hardware components (webcam, mouse, monitor, keyboard) and practice fingerspelling QWERTY typing with tactile visual keys.
-              </p>
+              </p> */}
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0">
               <Link
                 href="/student/lessons/lesson-hardware-1"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-950 font-black text-xs shadow-md transition flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-[#F5F7FC] text-[#00177D] font-black text-xs shadow-md transition flex items-center justify-center gap-2"
               >
                 <Laptop className="w-4 h-4" />
-                <span>Start Hardware Lesson 1</span>
+                <span>Start Hardware</span>
               </Link>
               <Link
                 href="/keyboard-trainer"
-                className="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-emerald-900/60 hover:bg-emerald-900 text-white font-black text-xs border border-emerald-500/40 transition flex items-center justify-center gap-1.5"
+                className="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-black text-xs border border-white/25 transition flex items-center justify-center gap-1.5"
               >
                 <Keyboard className="w-3.5 h-3.5" />
                 <span>Keyboard Trainer</span>
@@ -280,20 +266,20 @@ export default function StudentDashboardPage() {
         {/* ADAPTIVE HERO 3: YOUTH TECH MODE (Ages 13–17 / SS)                   */}
         {/* ==================================================================== */}
         {(calibratedMode === 'youth_tech' || calibratedSegment === '13-17') && (
-          <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-950 rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-indigo-900 animate-fade-in">
+          <div className="bg-gradient-to-r from-[#00177D] via-[#1B4EA7] to-[#3847AF] rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-[#3847AF]/40 animate-fade-in">
             <div className="space-y-2 max-w-xl">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-black uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full bg-white/15 text-indigo-100 border border-white/20 text-[10px] font-black uppercase tracking-wider">
                   Youth Tech &amp; Logic Mode • Ages 13–17
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-indigo-300 text-slate-950 text-[10px] font-black uppercase">
+                <span className="px-2 py-0.5 rounded-full bg-[#F4B942] text-[#1F2937] text-[10px] font-black uppercase">
                   Youth Track
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 Visual Web Concepts &amp; STEM Science
               </h2>
-              <p className="text-slate-300 text-xs sm:text-sm font-medium leading-relaxed">
+              <p className="text-indigo-100 text-xs sm:text-sm font-medium leading-relaxed">
                 Explore space and science sign vocabulary, introductory web markup concepts, and conversational visual communication.
               </p>
             </div>
@@ -301,7 +287,7 @@ export default function StudentDashboardPage() {
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0">
               <Link
                 href="/student/courses/course-hearing-nsl-1"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs shadow-md transition flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-[#F5F7FC] text-[#00177D] font-black text-xs shadow-md transition flex items-center justify-center gap-2"
               >
                 <Video className="w-4 h-4" />
                 <span>Explore Visual Modules</span>
@@ -314,20 +300,12 @@ export default function StudentDashboardPage() {
         {/* ADAPTIVE HERO 4: WORKBENCH MODE (Ages 18+ / Tertiary & Pro)         */}
         {/* ==================================================================== */}
         {(calibratedMode === 'workbench' || calibratedSegment === '18+') && (
-          <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-teal-950 rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-800 animate-fade-in">
+          <div className="bg-gradient-to-r from-[#00177D] via-[#1B4EA7] to-[#087F8C] rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-[#1B4EA7] animate-fade-in">
             <div className="space-y-2 max-w-xl">
-              {/* <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[10px] font-black uppercase tracking-wider">
-                  Career Code Workbench • Ages 18+
-                </span>
-                <span className="px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase">
-                  ₦5,000 / $8
-                </span>
-              </div> */}
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 Frontend Web Development in Nigerian Sign Language
               </h2>
-              <p className="text-slate-300 text-xs sm:text-sm font-medium leading-relaxed">
+              <p className="text-sky-100 text-xs sm:text-sm font-medium leading-relaxed">
                 Build real-world accessible web apps with HTML5, modern CSS layouts, and JavaScript DOM manipulation with native sign technical instruction.
               </p>
             </div>
@@ -335,7 +313,7 @@ export default function StudentDashboardPage() {
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0">
               <Link
                 href="/student/lessons/lesson-frontend-1"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-xs shadow-md transition flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#F4B942] hover:bg-[#e0a838] text-[#1F2937] font-black text-xs shadow-md transition flex items-center justify-center gap-2"
               >
                 <Play className="w-4 h-4 fill-current" />
                 <span>Start Lesson</span>
@@ -343,9 +321,9 @@ export default function StudentDashboardPage() {
 
               <Link
                 href="/student/courses/course-frontend-web-1"
-                className="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-black text-xs border border-slate-700 transition flex items-center justify-center gap-1.5"
+                className="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-black text-xs border border-white/20 transition flex items-center justify-center gap-1.5"
               >
-                <Terminal className="w-3.5 h-3.5 text-teal-400" />
+                <Terminal className="w-3.5 h-3.5 text-[#ABB8D7]" />
                 <span>View Full Syllabus</span>
               </Link>
             </div>
@@ -356,79 +334,41 @@ export default function StudentDashboardPage() {
         {/* INTERACTIVE ACTION TILES                                             */}
         {/* ==================================================================== */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-200 shadow-xs space-y-3 flex flex-col justify-between">
+          <div className="bg-white p-5 rounded-2xl border border-[#E5EAF3] shadow-xs space-y-3 flex flex-col justify-between">
             <div className="space-y-1.5">
-              <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center font-black">
-                <Laptop className="w-5 h-5 text-teal-700" />
+              <div className="w-10 h-10 rounded-xl bg-[#E6F4F6] text-[#087F8C] flex items-center justify-center font-black">
+                <Laptop className="w-5 h-5 text-[#087F8C]" />
               </div>
-              <h3 className="font-black text-slate-900 text-sm">Hardware &amp; Digital Lab</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-black text-[#1F2937] text-sm">Hardware &amp; Digital Lab</h3>
+              <p className="text-xs text-[#64748B] leading-relaxed">
                 Touch-interactive hardware components and fingerspell typing trainer.
               </p>
             </div>
             <Link
               href="/student/digital-literacy"
-              className="py-2 px-3 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-900 font-bold text-xs transition border border-teal-200 text-center flex items-center justify-center gap-1"
+              className="py-2 px-3 rounded-xl bg-[#E6F4F6] hover:bg-[#CCEEF1] text-[#065A63] font-bold text-xs transition border border-[#CCEEF1] text-center flex items-center justify-center gap-1"
             >
               <span>Practice Lab</span>
             </Link>
           </div>
 
-          {/* <div className="bg-white p-5 rounded-2xl border-2 border-slate-200 shadow-xs space-y-3 flex flex-col justify-between">
+          <div className="bg-white p-5 rounded-2xl border border-[#E5EAF3] shadow-xs space-y-3 flex flex-col justify-between">
             <div className="space-y-1.5">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-800 flex items-center justify-center font-black">
-                <BookOpen className="w-5 h-5 text-indigo-700" />
+              <div className="w-10 h-10 rounded-xl bg-[#F0F4FA] text-[#1B4EA7] flex items-center justify-center font-black">
+                <Terminal className="w-5 h-5 text-[#1B4EA7]" />
               </div>
-              <h3 className="font-black text-slate-900 text-sm">Dual-Pane Storybooks</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Side-by-side visual storybook with synchronized native sign videos.
-              </p>
-            </div>
-            <Link
-              href="/student/storybook/storybook-clever-fox"
-              className="py-2 px-3 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-bold text-xs transition border border-indigo-200 text-center flex items-center justify-center gap-1"
-            >
-              <span>Read Storybook →</span>
-            </Link>
-          </div> */}
-
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-200 shadow-xs space-y-3 flex flex-col justify-between">
-            <div className="space-y-1.5">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 text-teal-300 flex items-center justify-center font-black">
-                <Terminal className="w-5 h-5 text-teal-400" />
-              </div>
-              <h3 className="font-black text-slate-900 text-sm">Interactive Code Sandbox</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-black text-[#1F2937] text-sm">Interactive Code Sandbox</h3>
+              <p className="text-xs text-[#64748B] leading-relaxed">
                 Live in-browser HTML &amp; CSS code editor with instant rendering.
               </p>
             </div>
             <Link
               href="/student/tracks/deaf-adult#code-lab"
-              className="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-teal-300 font-bold text-xs transition text-center flex items-center justify-center gap-1"
+              className="py-2 px-3 rounded-xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-bold text-xs transition text-center flex items-center justify-center gap-1"
             >
               <span>Open Code Lab</span>
             </Link>
           </div>
-
-          {/* <div className="bg-white p-5 rounded-2xl border-2 border-slate-200 shadow-xs space-y-3 flex flex-col justify-between">
-            <div className="space-y-1.5">
-              <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 flex items-center justify-center font-black">
-                <Sparkles className="w-5 h-5 text-teal-700" />
-              </div>
-              <h3 className="font-black text-slate-900 text-sm">Signy AI Visual Tutor</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Look up accredited sign demonstrations or request educator clarification.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => openClarifyModal('webcam')}
-              className="py-2 px-3 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-900 font-bold text-xs transition border border-teal-200 text-center flex items-center justify-center gap-1"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-teal-700" />
-              <span>Clarify a word →</span>
-            </button>
-          </div> */}
         </div>
 
         {/* ==================================================================== */}
@@ -437,10 +377,10 @@ export default function StudentDashboardPage() {
         <section className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+              <h2 className="text-xl sm:text-2xl font-black text-[#00177D]">
                 {showAllCourses ? 'Complete DeafLMS Curriculum Catalog' : `Curriculum for Ages ${calibratedSegment} (${stageLabels[calibratedStage]?.label})`}
               </h2>
-              <p className="text-xs text-slate-500 font-medium">
+              <p className="text-xs text-[#64748B] font-medium">
                 {showAllCourses
                   ? 'All courses across primary, secondary, and career web engineering.'
                   : 'Tailored courses calibrated to your current baseline profile.'}
@@ -450,9 +390,9 @@ export default function StudentDashboardPage() {
             <button
               type="button"
               onClick={() => setShowAllCourses(!showAllCourses)}
-              className="px-3.5 py-1.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 transition self-start sm:self-auto flex items-center gap-1.5"
+              className="px-3.5 py-1.5 rounded-xl border border-[#E5EAF3] bg-white text-xs font-bold text-[#1F2937] hover:bg-[#F5F7FC] transition self-start sm:self-auto flex items-center gap-1.5"
             >
-              <Filter className="w-3.5 h-3.5" />
+              <Filter className="w-3.5 h-3.5 text-[#1B4EA7]" />
               <span>{showAllCourses ? `Filter by My Calibrated Baseline (${calibratedSegment})` : 'Browse Complete Catalog (All Ages)'}</span>
             </button>
           </div>
@@ -464,7 +404,7 @@ export default function StudentDashboardPage() {
               return (
                 <div
                   key={course.id}
-                  className={`bg-white rounded-3xl border-2 overflow-hidden shadow-xs hover:shadow-md transition flex flex-col justify-between ${isWebCourse ? 'border-teal-700 ring-2 ring-teal-100' : 'border-slate-200'
+                  className={`bg-white rounded-3xl border overflow-hidden shadow-xs hover:shadow-md transition flex flex-col justify-between ${isWebCourse ? 'border-[#1B4EA7] ring-1 ring-[#1B4EA7]/20' : 'border-[#E5EAF3]'
                     }`}
                 >
                   <div>
@@ -476,25 +416,25 @@ export default function StudentDashboardPage() {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                        <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-white/95 text-slate-900 shadow-xs border border-slate-200">
+                        <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-white/95 text-[#1F2937] shadow-xs border border-[#E5EAF3]">
                           {course.gradeLevel}
                         </span>
                       </div>
                       <div className="absolute bottom-3 right-3">
-                        <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-950/80 text-white backdrop-blur-xs">
+                        <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#111827]/80 text-white backdrop-blur-xs">
                           {course.isFreeTier ? '100% Free' : `₦${course.priceNgn?.toLocaleString()}`}
                         </span>
                       </div>
                     </div>
 
                     <div className="p-5 space-y-2.5">
-                      <h3 className="font-black text-slate-900 text-base leading-snug">
+                      <h3 className="font-black text-[#1F2937] text-base leading-snug">
                         {course.title}
                       </h3>
-                      <p className="text-xs text-slate-600 font-medium leading-relaxed line-clamp-2">
+                      <p className="text-xs text-[#64748B] font-medium leading-relaxed line-clamp-2">
                         {course.description}
                       </p>
-                      <div className="text-[11px] text-slate-400 font-bold flex items-center gap-3 pt-1">
+                      <div className="text-[11px] text-[#64748B] font-bold flex items-center gap-3 pt-1">
                         <span>{course.lessonsCount} Video Lessons</span>
                         <span>•</span>
                         <span>{course.durationMinutes} mins</span>
@@ -511,7 +451,7 @@ export default function StudentDashboardPage() {
                             ? '/student/lessons/lesson-hardware-1'
                             : `/student/lessons/lesson-frontend-1`
                       }
-                      className="w-full py-2.5 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-black text-xs shadow-xs transition flex items-center justify-center gap-1.5"
+                      className="w-full py-2.5 px-4 rounded-xl bg-[#1B4EA7] hover:bg-[#00177D] text-white font-black text-xs shadow-xs transition flex items-center justify-center gap-1.5"
                     >
                       <span>Start Learning</span>
                       <ArrowRight className="w-3.5 h-3.5" />

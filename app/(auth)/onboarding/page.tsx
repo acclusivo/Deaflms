@@ -4,7 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import confetti from 'canvas-confetti';
 import {
-  HandMetal,
+
   GraduationCap,
   Users,
   BookOpen,
@@ -493,9 +493,8 @@ function OnboardingContent() {
           <button
             onClick={handlePrev}
             disabled={step === 1}
-            className={`p-2 rounded-xl transition ${
-              step > 1 ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 cursor-not-allowed'
-            }`}
+            className={`p-2 rounded-xl transition ${step > 1 ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 cursor-not-allowed'
+              }`}
             aria-label="Previous step"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -505,10 +504,10 @@ function OnboardingContent() {
           <div className="flex-1 max-w-md">
             <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
               <span>Step {step} of {totalSteps}: {
-                step === 1 ? 'Age Calibration' :
-                step === 2 ? 'Education & Class' :
-                step === 3 ? 'Adaptive Interface' :
-                'Habit & Dialect'
+                step === 1 ? 'Age' :
+                  step === 2 ? 'Education & Class' :
+                    step === 3 ? 'Adaptive Interface' :
+                      'Habit & Dialect'
               }</span>
               <span className="text-teal-700 font-extrabold">{progressPercent}% Ready</span>
             </div>
@@ -520,10 +519,10 @@ function OnboardingContent() {
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+          {/* <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
             <VolumeX className="w-4 h-4 text-rose-500" />
             <span className="hidden sm:inline">Zero Audio Required</span>
-          </div>
+          </div> */}
         </div>
       </header>
 
@@ -538,23 +537,23 @@ function OnboardingContent() {
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-black uppercase tracking-wider">
                 <Compass className="w-3.5 h-3.5 text-teal-700" />
-                <span>Baseline Step 1 • Age Calibration</span>
+                <span>Baseline Step 1 • Age </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 Select Your Age Segment
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium">
+              {/* <p className="text-xs sm:text-sm text-slate-500 font-medium">
                 Choose an age segment or enter an exact age. We calibrate vocabulary complexity, font scaling, and instructional progression.
-              </p>
+              </p> */}
             </div>
 
             {/* Custom Exact Age Numeric Input */}
             <div className="p-4 rounded-3xl bg-white border-2 border-slate-200 shadow-xs max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
               <div className="text-left">
                 <span className="text-xs font-black text-slate-800 block">Customize Exact Age</span>
-                <span className="text-[11px] text-slate-500 font-medium block">
+                {/* <span className="text-[11px] text-slate-500 font-medium block">
                   Auto-calibrates age segment and K-12 class
-                </span>
+                </span> */}
               </div>
               <div className="flex items-center gap-2">
                 <input
@@ -582,14 +581,13 @@ function OnboardingContent() {
                   <button
                     key={opt.id}
                     onClick={() => handleSegmentClick(opt.id)}
-                    className={`p-6 rounded-3xl border-2 text-left transition-all transform interactive-target flex flex-col justify-between space-y-4 relative ${
-                      isSelected
-                        ? opt.accentBorder + ' shadow-xl scale-[1.01]'
-                        : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 shadow-xs'
-                    }`}
+                    className={`p-6 rounded-3xl border-2 text-left transition-all transform interactive-target flex flex-col justify-between space-y-4 relative ${isSelected
+                      ? opt.accentBorder + ' shadow-xl scale-[1.01]'
+                      : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 shadow-xs'
+                      }`}
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-center shrink-0">
                           {opt.icon}
                         </div>
@@ -598,9 +596,9 @@ function OnboardingContent() {
                             <h2 className="font-black text-slate-900 text-base sm:text-lg">
                               {opt.title}
                             </h2>
-                            <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${opt.badgeClass}`}>
+                            {/* <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${opt.badgeClass}`}>
                               {opt.badge}
-                            </span>
+                            </span> */}
                           </div>
                           <span className="text-xs font-bold text-slate-500 block">
                             {opt.subtitle} • Recommended: {opt.recommendedStage}
@@ -617,9 +615,9 @@ function OnboardingContent() {
                       )}
                     </div>
 
-                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                    {/* <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
                       {opt.detail}
-                    </p>
+                    </p> */}
                   </button>
                 );
               })}
@@ -656,11 +654,10 @@ function OnboardingContent() {
                       setSelectedEducationStage(stage.id);
                       setSelectedInterfaceMode(stage.defaultMode);
                     }}
-                    className={`p-5 rounded-3xl border-2 text-left transition-all interactive-target flex flex-col justify-between space-y-3 relative ${
-                      isSelected
-                        ? 'bg-white border-indigo-600 shadow-xl shadow-indigo-50 scale-[1.01] ring-4 ring-indigo-100'
-                        : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 shadow-xs'
-                    }`}
+                    className={`p-5 rounded-3xl border-2 text-left transition-all interactive-target flex flex-col justify-between space-y-3 relative ${isSelected
+                      ? 'bg-white border-indigo-600 shadow-xl shadow-indigo-50 scale-[1.01] ring-4 ring-indigo-100'
+                      : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 shadow-xs'
+                      }`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
@@ -707,16 +704,16 @@ function OnboardingContent() {
         {step === 3 && (
           <div className="space-y-6 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-black uppercase tracking-wider">
+              {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-black uppercase tracking-wider">
                 <Sliders className="w-3.5 h-3.5 text-teal-700" />
                 <span>Baseline Step 3 • Adaptive Platform Interface</span>
-              </div>
+              </div> */}
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                One Platform, Calibrated for You
+                One Platform
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium">
+              {/* <p className="text-xs sm:text-sm text-slate-500 font-medium">
                 DeafLMS dynamically transforms its layout, picture density, and tools to match your calibrated interface preference. You can change this anytime in your Profile.
-              </p>
+              </p> */}
             </div>
 
             {/* 4 Adaptive Interface Modes */}
@@ -727,11 +724,10 @@ function OnboardingContent() {
                   <button
                     key={mode.id}
                     onClick={() => setSelectedInterfaceMode(mode.id)}
-                    className={`p-6 rounded-3xl border-2 text-left transition-all interactive-target flex flex-col justify-between space-y-4 relative ${
-                      isSelected
-                        ? `bg-white ${mode.border} shadow-xl scale-[1.01]`
-                        : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 shadow-xs'
-                    }`}
+                    className={`p-6 rounded-3xl border-2 text-left transition-all interactive-target flex flex-col justify-between space-y-4 relative ${isSelected
+                      ? `bg-white ${mode.border} shadow-xl scale-[1.01]`
+                      : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 shadow-xs'
+                      }`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
@@ -739,9 +735,9 @@ function OnboardingContent() {
                           {mode.icon}
                         </div>
                         <div>
-                          <span className="text-[10px] font-black uppercase tracking-wider text-teal-700 block">
+                          {/* <span className="text-[10px] font-black uppercase tracking-wider text-teal-700 block">
                             {mode.badge}
-                          </span>
+                          </span> */}
                           <h3 className="font-black text-slate-900 text-base leading-tight">
                             {mode.name}
                           </h3>
@@ -757,9 +753,9 @@ function OnboardingContent() {
                       )}
                     </div>
 
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                    {/* <p className="text-xs text-slate-600 font-medium leading-relaxed">
                       {mode.summary}
-                    </p>
+                    </p> */}
 
                     <div className="pt-2 border-t border-slate-100 space-y-1">
                       <span className="text-[11px] font-bold text-slate-400 block">Key Interface Features:</span>
@@ -787,16 +783,16 @@ function OnboardingContent() {
         {step === 4 && (
           <div className="space-y-6 animate-fade-in max-w-2xl mx-auto">
             <div className="text-center space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Baseline Step 4 • Habit &amp; Dialect</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1  border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-wider">
+                {/* <Sparkles className="w-3.5 h-3.5 text-emerald-600" /> */}
+                <span>Step 4 • Habit &amp; Dialect</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 Confirm Sign Language &amp; Daily Pace
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium">
+              {/* <p className="text-xs sm:text-sm text-slate-500 font-medium">
                 DeafLMS is currently operating its primary production curriculum in <strong>Nigerian Sign Language (NSL)</strong>.
-              </p>
+              </p> */}
             </div>
 
             {lockedNotice && (
@@ -813,14 +809,14 @@ function OnboardingContent() {
               </label>
               <div className="p-4 rounded-3xl bg-white border-2 border-teal-700 shadow-sm flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="text-4xl">🇳🇬</span>
+                  {/* <span className="text-4xl">🇳🇬</span> */}
                   <div>
                     <span className="text-sm font-black text-slate-900 block">
                       Nigerian Sign Language (NSL)
                     </span>
-                    <span className="text-xs text-slate-500 font-medium block">
+                    {/* <span className="text-xs text-slate-500 font-medium block">
                       Certified native Deaf instructors from Abuja &amp; Lagos clusters
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-lg border border-emerald-200">
@@ -841,11 +837,10 @@ function OnboardingContent() {
                     <button
                       key={goal.minutes}
                       onClick={() => setDailyGoalMinutes(goal.minutes)}
-                      className={`p-4 rounded-2xl border-2 text-left transition-all interactive-target flex flex-col justify-between space-y-2 ${
-                        isSelected
-                          ? 'bg-white border-teal-700 shadow-md ring-4 ring-teal-100'
-                          : 'bg-white border-slate-200 hover:border-slate-300'
-                      }`}
+                      className={`p-4 rounded-2xl border-2 text-left transition-all interactive-target flex flex-col justify-between space-y-2 ${isSelected
+                        ? 'bg-white border-teal-700 shadow-md ring-4 ring-teal-100'
+                        : 'bg-white border-slate-200 hover:border-slate-300'
+                        }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center">
@@ -855,9 +850,9 @@ function OnboardingContent() {
                       </div>
                       <div>
                         <h4 className="text-xs font-black text-slate-900">{goal.label}</h4>
-                        <p className="text-[10px] text-slate-500 font-medium leading-snug mt-0.5">
+                        {/* <p className="text-[10px] text-slate-500 font-medium leading-snug mt-0.5">
                           {goal.desc}
-                        </p>
+                        </p> */}
                       </div>
                     </button>
                   );
@@ -869,11 +864,11 @@ function OnboardingContent() {
             <div className="p-5 rounded-3xl bg-gradient-to-r from-teal-50 to-indigo-50 border-2 border-teal-200 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black uppercase tracking-wider text-teal-900">
-                  Your Calibrated Baseline Summary
+                  Your Summary
                 </span>
-                <span className="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">
+                {/* <span className="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">
                   ⭐ +20 Bonus Stars
-                </span>
+                </span> */}
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                 <div className="bg-white/80 p-2.5 rounded-xl border border-teal-100">
@@ -925,12 +920,12 @@ function OnboardingContent() {
                 'Launching Calibrated Dashboard...'
               ) : step === totalSteps ? (
                 <>
-                  <Sparkles className="w-4 h-4 text-amber-300" />
-                  <span>Launch My Learning Platform →</span>
+                  {/* <Sparkles className="w-4 h-4 text-amber-300" /> */}
+                  <span>Start Learning</span>
                 </>
               ) : (
                 <>
-                  <span>Continue to Step {step + 1}</span>
+                  <span>Step {step + 1}</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
@@ -946,7 +941,7 @@ export default function OnboardingPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <p className="text-slate-700 font-bold text-sm">Loading onboarding baseline calibration...</p>
+        <p className="text-slate-700 font-bold text-sm">Loading onboarding</p>
       </div>
     }>
       <OnboardingContent />

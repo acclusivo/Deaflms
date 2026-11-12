@@ -4,15 +4,36 @@
 
 @layer base {
   :root {
-    --background: #f8fafc;
-    --foreground: #0f172a;
-    --primary: #0f766e;
-    --primary-foreground: #ffffff;
-    --card: #ffffff;
-    --card-foreground: #0f172a;
-    --border: #e2e8f0;
+    /* Acclusivo Corporate Palette & DeafLMS Product Tokens */
+    --color-brand-deep: #00177D;         /* Deep Brand Blue: Core identity & strong headings */
+    --color-primary: #1B4EA7;            /* Corporate & Education Blue: Primary actions, nav, links */
+    --color-primary-hover: #00177D;      /* CTA Hover emphasis */
+    --color-primary-foreground: #FFFFFF; /* High contrast text on primary */
+    --color-indigo: #3847AF;             /* Innovation Indigo: Ayo AI Tutor & tech features */
+    --color-muted-blue: #5871B0;         /* Supporting brand blue */
+    --color-periwinkle: #ABB8D7;         /* Soft supporting surfaces */
+
+    /* Product Specific Functional Accents */
+    --color-learning: #087F8C;           /* Learning Teal: Progress & interactive states */
+    --color-learning-hover: #065A63;     /* Darker teal for interaction */
+    --color-learning-light: #E6F4F6;     /* Light teal surface for learning tags */
+    --color-achievement: #F4B942;        /* Achievement Gold: Rewards, badges, stars */
+    --color-achievement-light: #FEF7E8;  /* Light gold surface */
+
+    /* Neutral & Surface Foundations */
+    --background: #F5F7FC;               /* Mist Background / Soft Mist */
+    --foreground: #1F2937;               /* Deep Slate: Primary text (WCAG AAA) */
+    --card: #FFFFFF;                     /* Clean White: Cards and content surfaces */
+    --card-foreground: #1F2937;
+    --color-muted: #64748B;              /* Slate Grey: Secondary text (WCAG AA) */
+    --border: #E5EAF3;                   /* Light Border: Dividers & component borders */
     --radius: 1rem;
-    --accent-gold: #d97706;
+
+    /* Functional Validation & Video Tokens */
+    --color-success: #15803D;            /* Verified correct */
+    --color-warning: #B45309;            /* Safeguard/pending notices */
+    --color-error: #B91C1C;              /* Incorrect/validation errors */
+    --color-video-bg: #111827;           /* Neutral dark video signing space */
   }
 
   body {
@@ -24,29 +45,29 @@
   }
 }
 
-/* High Contrast Visual Focus Rings (WCAG 2.2 AA) */
+/* High Contrast Visual Focus Rings (WCAG 2.2 AA compliant 5.48:1 contrast) */
 :focus-visible {
-  outline: 2px solid #0f766e;
+  outline: 2px solid #1B4EA7;
   outline-offset: 2px;
 }
 
-/* Crisp feedback borders without distracting glows */
+/* Crisp feedback borders without distracting glows (WCAG AA) */
 .correct-border {
-  border-color: #059669;
-  background-color: #ecfdf5;
+  border-color: #15803D;
+  background-color: #F0FDF4;
 }
 
 .incorrect-border {
-  border-color: #dc2626;
-  background-color: #fef2f2;
+  border-color: #B91C1C;
+  background-color: #FEF2F2;
 }
 
 .active-sign-border {
-  border-color: #0f766e;
-  box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
+  border-color: #087F8C;
+  box-shadow: 0 0 0 2px rgba(8, 127, 140, 0.25);
 }
 
-/* Touch targets for young learners (WCAG 2.2: >= 44px) */
+/* Touch targets for all learners (WCAG 2.2: >= 44px) */
 .interactive-target {
   min-height: 44px;
   min-width: 44px;

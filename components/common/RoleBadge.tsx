@@ -11,22 +11,22 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role, size = 'md' }) => {
   const configs = {
     student: {
       label: 'Learner Portal',
-      bg: 'bg-teal-50 text-teal-900 border-teal-200',
-      icon: <GraduationCap className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-teal-700'} />,
+      bg: 'bg-[#E6F4F6] text-[#065A63] border-[#CCEEF1]',
+      icon: <GraduationCap className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-[#087F8C]'} />,
     },
     parent: {
       label: 'Parent Portal',
-      bg: 'bg-indigo-50 text-indigo-900 border-indigo-200',
-      icon: <ShieldCheck className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-indigo-700'} />,
+      bg: 'bg-[#EEF2FF] text-[#3847AF] border-[#C7D2FE]',
+      icon: <ShieldCheck className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-[#3847AF]'} />,
     },
     teacher: {
       label: 'Facilitator Studio',
-      bg: 'bg-slate-100 text-slate-800 border-slate-300',
-      icon: <BookOpen className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-slate-700'} />,
+      bg: 'bg-[#F0F4FA] text-[#1B4EA7] border-[#ABB8D7]',
+      icon: <BookOpen className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-[#1B4EA7]'} />,
     },
     admin: {
       label: 'Admin Console',
-      bg: 'bg-amber-50 text-amber-900 border-amber-300',
+      bg: 'bg-amber-50 text-amber-950 border-amber-300',
       icon: <ShieldCheck className={size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4 text-amber-800'} />,
     },
   };
